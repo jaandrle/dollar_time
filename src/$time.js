@@ -5,7 +5,7 @@
  * @class $time.{namespace}
  * @static
  */
-const time= (function init(){
+const $time= (function init(){
     gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
 
     gulp_place("from_functions/*.sub.js", "glob");/* global fromNow, fromString, fromDate, fromDateArguments */

@@ -5,7 +5,7 @@
  * @class $time.{namespace}
  * @static
  */
-const time= (function init(){
+const $time= (function init(){
     const /* internal store */
     /**
      * Internal object holding predefined formating arguments for `Date.prototype.toLocaleString`. For example `format_objects.HHmm==={ hour: "2-digit", minute: "2-digit" }`.
@@ -910,7 +910,7 @@ const time= (function init(){
     function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
         return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, { weekday: type });
     }
-    function getWeek(date_instance){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
+    function getWeekNumber(date_instance){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
         const tdt= new Date(date_instance.valueOf());
         tdt.setDate(tdt.getDate() + 3 - (date_instance.getDay() + 6) % 7);
         var firstThursday = tdt.valueOf();
@@ -1012,8 +1012,9 @@ const time= (function init(){
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
+        getWeekNumber: date_array=> getWeekNumber(toDate(date_array)),
     
-        Date: { getWeekDay, getWeek, addDays, addMonths },
+        Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         setTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,

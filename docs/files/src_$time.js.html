@@ -80,14 +80,14 @@
  * @class $time.{namespace}
  * @static
  */
-const time= (function init(){
+var time= (function init(){
     gulp_place(&quot;$time_init.sub.js&quot;);/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
 
     gulp_place(&quot;from_functions/*.sub.js&quot;, &quot;glob&quot;);/* global fromNow, fromString, fromDate, fromDateArguments */
     gulp_place(&quot;to_functions/*.sub.js&quot;, &quot;glob&quot;);/* global toDate, toString, toDateTimeString, toDateString, toLocaleTimeString, toLocaleDateString, toRelative */
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place(&quot;timezones/*.sub.js&quot;, &quot;glob&quot;);/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
-    gulp_place(&quot;modify/*.sub.js&quot;, &quot;glob&quot;);/* global getWeekDay, addDays, addMonths, getWeek, setTimeZone, modify */
+    gulp_place(&quot;modify/*.sub.js&quot;, &quot;glob&quot;);/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
     gulp_place(&quot;utility/*.sub.js&quot;, &quot;glob&quot;);/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth */
     
     return {
@@ -104,8 +104,9 @@ const time= (function init(){
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
+        getWeekNumber: date_array=&gt; getWeekNumber(toDate(date_array)),
     
-        Date: { getWeekDay, getWeek, addDays, addMonths },
+        Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         setTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
