@@ -29,7 +29,6 @@ const $time= (function init(){
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
-        getWeekNumber: date_array=> getWeekNumber(toDate(date_array)),
     
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         setTimeZone, modify,

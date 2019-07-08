@@ -1,8 +1,8 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* from_functions *//* global fromNow */
 /* to_functions *//* global toDate */
-function toRelative(date_array){
-    return getRelative(getDiffMs()(date_array));
+function toRelative(reference_date_array){
+    return date_array=> getRelative(getDiffMs(reference_date_array)(date_array));
 }
 
 function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){

@@ -629,10 +629,18 @@ const $time= (function init(){
     }
     function evaluateFormatObject(date, locale, timeZone, declension){
         const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
-        return function([type, value, ordinal]){
-            let out= type==="text" ? value : type==="month"&&value==="long"&&declension ? date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "") : date.toLocaleString(locale,localeObj({ [type]: value }));
+        return function([type, value, modify]){
+            let out= type==="text" ?
+                value : type==="week" ?
+                getWeekNumber(date) : type==="weekday"&&value==="numeric" ?
+                getWeekDay()(date) : type==="month"&&value==="long"&&declension ?
+                date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "") :
+                date.toLocaleString(locale,localeObj({ [type]: value }));
+            
             if(value==="2-digit"&&out.length===1) out= "0"+out; //fix
-            return ordinal!=="ordinal_number"||locale.indexOf("en")===-1 ? out : getOrdinalSuffix(out);
+            if(modify==="two_letters") out= out.substr(0,2);
+            else if(modify==="ordinal_number"&&locale.indexOf("en")!==-1) out= getOrdinalSuffix(out);
+            return out;
         };
     }
     /**
@@ -641,7 +649,7 @@ const $time= (function init(){
      * @for $time.{namespace}
      * @private
      * @param {String} format_string
-     *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S"
+     *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S", "W", "Wo"
      * @returns {...Array}
      *  - `[ [ operation, argument, params ] ]`
      *  - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
@@ -650,14 +658,15 @@ const $time= (function init(){
         let out= [];
         while(format_string.length){
             switch(format_string[0]){
-                case "M": handleM();                             break;
-                case "d": handled();                             break;
-                case "Y": handleY();                             break;
-                case "D": handleD();                             break;
-                case "H": handle("hour", "H");         break;
-                case "m": handle("minute", "m");     break;
-                case "S": handle("second", "S");     break;
-                case "[": handleText();                        break;
+                case "M": handleM();                    break;
+                case "d": handled();                    break;
+                case "W": handleWD("week", "W");        break;
+                case "Y": handleY();                    break;
+                case "D": handleWD("day", "D");         break;
+                case "H": handle("hour", "H");          break;
+                case "m": handle("minute", "m");        break;
+                case "S": handle("second", "S");        break;
+                case "[": handleText();                 break;
                 default:
                     let letter= format_string[0];if(out[out.length-1][0]==="text") out[out.length-1][1]+= letter;
                     else out.push(["text", letter]);
@@ -681,15 +690,19 @@ const $time= (function init(){
             out.push(["month", type]);
         }
         function handled(){
-            let type= "narrow";
+            let type= "numeric";
             if(!format_string.search(/dddd/)){
                 type= "long";
                 format_string= format_string.substring(4);
             } else if(!format_string.search(/ddd/)){
                 type= "short";
                 format_string= format_string.substring(3);
+            } else if(!format_string.search(/dd/)){
+                type= "short";
+                format_string= format_string.substring(2);
+                return out.push(["weekday", type, "two_letters"]);
             } else {
-                format_string= format_string.substring(format_string.search(/dd/)?1:2);
+                format_string= format_string.substring(1);
             }
             out.push(["weekday", type]);
         }
@@ -703,18 +716,18 @@ const $time= (function init(){
             }
             out.push(["year", type]);
         }
-        function handleD(){
+        function handleWD(out_key, letter){
             let type= "numeric";
-            if(!format_string.search(/Do/)){
+            if(!format_string.search(new RegExp(letter+"o"))){
                 format_string= format_string.substring(2);
-                return out.push(["day", type, "ordinal_number"]);
-            } else if(!format_string.search(/DD/)){
+                return out.push([out_key, type, "ordinal_number"]);
+            } else if(!format_string.search(new RegExp(letter+letter))){
                 type= "2-digit";
                 format_string= format_string.substring(2);
             } else {
                 format_string= format_string.substring(1);
             }
-            out.push(["day", type]);
+            out.push([out_key, type]);
         }
         function handle(out_key, letter){
             let type= "numeric";
@@ -789,8 +802,8 @@ const $time= (function init(){
     function toLocaleTimeString(format_object= "HHmmSS", { locale= internal_locale, timeZone= internal_zone }= {}){
         return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object]));
     }
-    function toRelative(date_array){
-        return getRelative(getDiffMs()(date_array));
+    function toRelative(reference_date_array){
+        return date_array=> getRelative(getDiffMs(reference_date_array)(date_array));
     }
     
     function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){
@@ -1012,7 +1025,6 @@ const $time= (function init(){
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
-        getWeekNumber: date_array=> getWeekNumber(toDate(date_array)),
     
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         setTimeZone, modify,
