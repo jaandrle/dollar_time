@@ -1,0 +1,123 @@
+{
+    "project": {},
+    "files": {
+        "src\\utility\\double.sub.js": {
+            "name": "src\\utility\\double.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\utility\\getMonthName.sub.js": {
+            "name": "src\\utility\\getMonthName.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\utility\\getOrdinalSuffix.sub.js": {
+            "name": "src\\utility\\getOrdinalSuffix.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src\\$time.js": {
+            "name": "src\\$time.js",
+            "modules": {},
+            "classes": {
+                "$time.{namespace}": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "$time.{namespace}": {
+            "name": "$time.{namespace}",
+            "shortname": "$time.{namespace}",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src\\$time.js",
+            "line": 3,
+            "description": "This NAMESPACE provides features for time.",
+            "static": 1
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "src\\utility\\double.sub.js",
+            "line": 2,
+            "description": "Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)",
+            "itemtype": "method",
+            "name": "double",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "",
+                    "type": "Number|String"
+                }
+            ],
+            "return": {
+                "description": "* 00, 01, 02, ..., 09, 10, ..., 100, ...",
+                "type": "String"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\utility\\getMonthName.sub.js",
+            "line": 2,
+            "itemtype": "method",
+            "name": "getMonthName",
+            "params": [
+                {
+                    "name": "n",
+                    "description": "* Month number (typically [1-12])\n * Works cyclically `13===1, ...`",
+                    "type": "Number"
+                },
+                {
+                    "name": "l",
+                    "description": "\n * Length of output Month name",
+                    "type": "Number|Boolean",
+                    "optional": true,
+                    "optdefault": "undefined"
+                }
+            ],
+            "return": {
+                "description": "* English month name",
+                "type": "String"
+            },
+            "example": [
+                "\n    console.log($time.getMonthName(5));//\"May\"\n    console.log($time.getMonthName(24, 4));//\"Dece\""
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\utility\\getOrdinalSuffix.sub.js",
+            "line": 3,
+            "itemtype": "method",
+            "name": "getOrdinalSuffix",
+            "params": [
+                {
+                    "name": "n",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "* `n`+English suffix",
+                "type": "String"
+            },
+            "example": [
+                "\n    console.log($time.getOrdinalSuffix(1));//\"1st\""
+            ],
+            "class": "$time.{namespace}"
+        }
+    ],
+    "warnings": []
+}
