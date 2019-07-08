@@ -80,7 +80,7 @@
  * @class $time.{namespace}
  * @static
  */
-var time= (function init(){
+const $time= (function init(){
     gulp_place(&quot;$time_init.sub.js&quot;);/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
 
     gulp_place(&quot;from_functions/*.sub.js&quot;, &quot;glob&quot;);/* global fromNow, fromString, fromDate, fromDateArguments */
@@ -104,7 +104,6 @@ var time= (function init(){
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
-        getWeekNumber: date_array=&gt; getWeekNumber(toDate(date_array)),
     
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         setTimeZone, modify,

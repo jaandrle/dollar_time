@@ -262,7 +262,7 @@
         },
         {
             "file": "src\\to_functions\\helpers.sub.js",
-            "line": 6,
+            "line": 7,
             "description": "Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.",
             "itemtype": "method",
             "name": "toStringFromObject",
@@ -308,7 +308,7 @@
         },
         {
             "file": "src\\to_functions\\helpers.sub.js",
-            "line": 40,
+            "line": 49,
             "description": "Generates multidimensional array for formatting (eg. \"YYYY\"=> `[ [ \"year\", \"numeric\" ] ]`).",
             "itemtype": "method",
             "name": "getFormatObject",
@@ -317,7 +317,7 @@
             "params": [
                 {
                     "name": "format_string",
-                    "description": "- supports \"YYYY\", \"YY\", \"MM\", \"MMM\", \"MMMM\", \"dddd\" (weekday - Monday), \"ddd\" (shorter weekday), \"DD\", \"D\", \"Do\", \"HH\", \"H\", \"mm\", \"m\", \"SS\", \"S\"",
+                    "description": "- supports \"YYYY\", \"YY\", \"MM\", \"MMM\", \"MMMM\", \"dddd\" (weekday - Monday), \"ddd\" (shorter weekday - Mon), \"dd\" (Mo), \"d\" (0===Sun <> 6===Sat), \"DD\", \"D\", \"Do\", \"HH\", \"H\", \"mm\", \"m\", \"SS\", \"S\", \"W\", \"Wo\"",
                     "type": "String"
                 }
             ],
@@ -655,11 +655,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\helpers.sub.js:6"
+            "line": " src\\to_functions\\helpers.sub.js:7"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\helpers.sub.js:40"
+            "line": " src\\to_functions\\helpers.sub.js:49"
         },
         {
             "message": "replacing incorrect tag: returns with return",

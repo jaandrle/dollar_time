@@ -77,6 +77,7 @@
 /* init *//* global internal_locale, internal_zone */
 /* timezones/generateTimeZoneFormatObject *//* global generateTimeZoneFormatObject */
 /* to_functions *//* global toDate */
+/* modify/Date *//* global getWeekNumber, getWeekDay */
 /* utility *//* global getOrdinalSuffix */
 /**
  * Function generates text based on &#x60;format&#x60;, &#x60;locale&#x60; and &#x60;timeZone&#x60; from &#x60;DateArray&#x60;.
@@ -106,10 +107,18 @@ function toStringFromObject(format, { locale= internal_locale, declension= true,
 }
 function evaluateFormatObject(date, locale, timeZone, declension){
     const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
-    return function([type, value, ordinal]){
-        let out= type===&quot;text&quot; ? value : type===&quot;month&quot;&amp;&amp;value===&quot;long&quot;&amp;&amp;declension ? date.toLocaleString(locale,localeObj({ [type]: value, day: &quot;numeric&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;) : date.toLocaleString(locale,localeObj({ [type]: value }));
+    return function([type, value, modify]){
+        let out= type===&quot;text&quot; ?
+            value : type===&quot;week&quot; ?
+            getWeekNumber(date) : type===&quot;weekday&quot;&amp;&amp;value===&quot;numeric&quot; ?
+            getWeekDay()(date) : type===&quot;month&quot;&amp;&amp;value===&quot;long&quot;&amp;&amp;declension ?
+            date.toLocaleString(locale,localeObj({ [type]: value, day: &quot;numeric&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;) :
+            date.toLocaleString(locale,localeObj({ [type]: value }));
+        
         if(value===&quot;2-digit&quot;&amp;&amp;out.length===1) out= &quot;0&quot;+out; //fix
-        return ordinal!==&quot;ordinal_number&quot;||locale.indexOf(&quot;en&quot;)===-1 ? out : getOrdinalSuffix(out);
+        if(modify===&quot;two_letters&quot;) out= out.substr(0,2);
+        else if(modify===&quot;ordinal_number&quot;&amp;&amp;locale.indexOf(&quot;en&quot;)!==-1) out= getOrdinalSuffix(out);
+        return out;
     };
 }
 /**
@@ -118,7 +127,7 @@ function evaluateFormatObject(date, locale, timeZone, declension){
  * @for $time.{namespace}
  * @private
  * @param {String} format_string
- *  - supports &quot;YYYY&quot;, &quot;YY&quot;, &quot;MM&quot;, &quot;MMM&quot;, &quot;MMMM&quot;, &quot;dddd&quot; (weekday - Monday), &quot;ddd&quot; (shorter weekday), &quot;DD&quot;, &quot;D&quot;, &quot;Do&quot;, &quot;HH&quot;, &quot;H&quot;, &quot;mm&quot;, &quot;m&quot;, &quot;SS&quot;, &quot;S&quot;
+ *  - supports &quot;YYYY&quot;, &quot;YY&quot;, &quot;MM&quot;, &quot;MMM&quot;, &quot;MMMM&quot;, &quot;dddd&quot; (weekday - Monday), &quot;ddd&quot; (shorter weekday - Mon), &quot;dd&quot; (Mo), &quot;d&quot; (0===Sun &lt;&gt; 6===Sat), &quot;DD&quot;, &quot;D&quot;, &quot;Do&quot;, &quot;HH&quot;, &quot;H&quot;, &quot;mm&quot;, &quot;m&quot;, &quot;SS&quot;, &quot;S&quot;, &quot;W&quot;, &quot;Wo&quot;
  * @returns {...Array}
  *  - &#x60;[ [ operation, argument, params ] ]&#x60;
  *  - &#x60;Opertions&#x60; are in fact arguments for [&#x60;Date.prototype.toLocaleString&#x60;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and &#x60;arguments&#x60; are their values.
@@ -127,14 +136,15 @@ function getFormatObject(format_string= &quot;&quot;){
     let out= [];
     while(format_string.length){
         switch(format_string[0]){
-            case &quot;M&quot;: handleM();                             break;
-            case &quot;d&quot;: handled();                             break;
-            case &quot;Y&quot;: handleY();                             break;
-            case &quot;D&quot;: handleD();                             break;
-            case &quot;H&quot;: handle(&quot;hour&quot;, &quot;H&quot;);         break;
-            case &quot;m&quot;: handle(&quot;minute&quot;, &quot;m&quot;);     break;
-            case &quot;S&quot;: handle(&quot;second&quot;, &quot;S&quot;);     break;
-            case &quot;[&quot;: handleText();                        break;
+            case &quot;M&quot;: handleM();                    break;
+            case &quot;d&quot;: handled();                    break;
+            case &quot;W&quot;: handleWD(&quot;week&quot;, &quot;W&quot;);        break;
+            case &quot;Y&quot;: handleY();                    break;
+            case &quot;D&quot;: handleWD(&quot;day&quot;, &quot;D&quot;);         break;
+            case &quot;H&quot;: handle(&quot;hour&quot;, &quot;H&quot;);          break;
+            case &quot;m&quot;: handle(&quot;minute&quot;, &quot;m&quot;);        break;
+            case &quot;S&quot;: handle(&quot;second&quot;, &quot;S&quot;);        break;
+            case &quot;[&quot;: handleText();                 break;
             default:
                 let letter= format_string[0];if(out[out.length-1][0]===&quot;text&quot;) out[out.length-1][1]+= letter;
                 else out.push([&quot;text&quot;, letter]);
@@ -158,15 +168,19 @@ function getFormatObject(format_string= &quot;&quot;){
         out.push([&quot;month&quot;, type]);
     }
     function handled(){
-        let type= &quot;narrow&quot;;
+        let type= &quot;numeric&quot;;
         if(!format_string.search(/dddd/)){
             type= &quot;long&quot;;
             format_string= format_string.substring(4);
         } else if(!format_string.search(/ddd/)){
             type= &quot;short&quot;;
             format_string= format_string.substring(3);
+        } else if(!format_string.search(/dd/)){
+            type= &quot;short&quot;;
+            format_string= format_string.substring(2);
+            return out.push([&quot;weekday&quot;, type, &quot;two_letters&quot;]);
         } else {
-            format_string= format_string.substring(format_string.search(/dd/)?1:2);
+            format_string= format_string.substring(1);
         }
         out.push([&quot;weekday&quot;, type]);
     }
@@ -180,18 +194,18 @@ function getFormatObject(format_string= &quot;&quot;){
         }
         out.push([&quot;year&quot;, type]);
     }
-    function handleD(){
+    function handleWD(out_key, letter){
         let type= &quot;numeric&quot;;
-        if(!format_string.search(/Do/)){
+        if(!format_string.search(new RegExp(letter+&quot;o&quot;))){
             format_string= format_string.substring(2);
-            return out.push([&quot;day&quot;, type, &quot;ordinal_number&quot;]);
-        } else if(!format_string.search(/DD/)){
+            return out.push([out_key, type, &quot;ordinal_number&quot;]);
+        } else if(!format_string.search(new RegExp(letter+letter))){
             type= &quot;2-digit&quot;;
             format_string= format_string.substring(2);
         } else {
             format_string= format_string.substring(1);
         }
-        out.push([&quot;day&quot;, type]);
+        out.push([out_key, type]);
     }
     function handle(out_key, letter){
         let type= &quot;numeric&quot;;
