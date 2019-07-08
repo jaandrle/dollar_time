@@ -6,7 +6,13 @@
  * @static
  */
 const time= (function init(){
-    const /* internal constants */
+    const /* internal store */
+    /**
+     * Internal object holding predefined formating arguments for `Date.prototype.toLocaleString`. For example `format_objects.HHmm==={ hour: "2-digit", minute: "2-digit" }`.
+     * @property {Object} format_objects
+     * @private
+     * @for $time.{namespace}
+     */
         format_objects= (({ HHmm, YYYYMMDD, SS })=>({
             HHmm, YYYYMMDD,
             HHmmSS: Object.assign(SS, HHmm),
@@ -16,6 +22,12 @@ const time= (function init(){
             YYYYMMDD: { year: "numeric", day: "2-digit", month: "2-digit" },
             SS: { second: "2-digit" }
         }),
+    /**
+     * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
+     * @property {Object} format_arrays
+     * @private
+     * @for $time.{namespace}
+     */
         format_arrays= (({ dash, colon, space, two_dig })=>({
             YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig], colon, ["minute", two_dig], colon, ["second", two_dig] ],
             YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
@@ -25,13 +37,48 @@ const time= (function init(){
             space: [ "text", " " ],
             two_dig: "2-digit"
         }),
+    /**
+     * Internal helper array for `getOrdinalSuffix`.
+     * @property {Array} ordinal_numbers
+     * @private
+     * @for $time.{namespace}
+     */
         ordinal_numbers= [ "th", "st", "nd", "rd" ];
     const /* validation functions */
+    /**
+     * Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
+     * @method isDateString
+     * @for $time.{namespace}
+     * @private
+     * @param {String|...String} date_string
+     * @returns {Boolean}
+     * @example
+     *      isDateString("2019-05-06");//= true
+     *      isDateString("06/05/2019");//= false !!!!
+     */
         isDateString= date_string=> date_string.indexOf("-")!==-1,
+    /**
+     * Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
+     * @method isTimeString
+     * @for $time.{namespace}
+     * @private
+     * @param {String|...String} date_string
+     * @returns {Boolean}
+     * @example
+     *      isDateString("T12:00:00");//= true
+     *      isDateString("12:00:00");//= false !!!
+     *      isDateString("Twrong");//= true !!!!
+     */
         isTimeString= date_string=> date_string.indexOf("T")!==-1;
     let /* internal variables*/
         internal_locale= "en-GB",
         internal_zone= "";
+    /**
+     * This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.
+     * @property {Array} ary_ianna_time_zones
+     * @private
+     * @for $time.{namespace}
+     */
     const ary_ianna_time_zones= Object.freeze([
         'Europe/Andorra',
         'Asia/Dubai',
@@ -380,6 +427,12 @@ const time= (function init(){
         'Pacific/Apia',
         'Africa/Johannesburg'
     ]);
+    /**
+     * This object stores indeces for all timezones. (eg. `ary_ianna_time_offsets["CET"]===113` and `ary_ianna_time_zones[113]==='Europe/Prague'` )
+     * @property {Object} ary_ianna_time_offsets
+     * @private
+     * @for $time.{namespace}
+     */
     const ary_ianna_time_offsets= Object.freeze({
         '-01:00': 108,
         '-02:00': 144,
@@ -421,15 +474,56 @@ const time= (function init(){
     });
 
     
+    /**
+     * Function generates `DateArray` from instance of `Date`.
+     * @method fromDate
+     * @for $time.{namespace}
+     * @public
+     * @param {Date} date_instance 
+     *  - instance of `Date` class
+     * @returns {DateArray}
+     *  - See [toDateArray](#methods_toDateArray).
+     */
     function fromDate(date_instance){
         return toDateArray(date_instance.toISOString());
     }
+    /**
+     * Function generates `DateArray` from arguments to initialize `Date`.
+     * @method fromDateArguments
+     * @for $time.{namespace}
+     * @public
+     * @param {...Mixed} args 
+     *  - parameters for initialize `Date` class
+     * @returns {DateArray}
+     *  - See [toDateArray](#methods_toDateArray).
+     */
     function fromDateArguments(...args){
         return toDateArray((args.filter(d=> typeof d!=="undefined").length ? new Date(...args) : new Date()).toISOString());
     }
+    /**
+     * Function generates `DateArray` from current date and time.
+     * @method fromNow
+     * @for $time.{namespace}
+     * @public
+     * @returns {DateArray}
+     *  - See [toDateArray](#methods_toDateArray).
+     */
     function fromNow(){
         return toDateArray((new Date()).toISOString());
     }
+    /**
+     * Function generates `DateArray` from passed string.
+     * @method fromString
+     * @for $time.{namespace}
+     * @public
+     * @param {String} timestamp_string 
+     *  - Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
+     *  - Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
+     * @param {String} [timezone= internal_zone]
+     *  - Override timezone in `timestamp_string`
+     * @returns {DateArray}
+     *  - See [toDateArray](#methods_toDateArray).
+     */
     function fromString(timestamp_string, timezone= internal_zone){
         if(!timestamp_string) return fromNow();
         let date_array= toDateArray(timestamp_string);
@@ -444,6 +538,21 @@ const time= (function init(){
         } else if(timezone){ date_array[2]= timezone; }
         return date_array;
     }
+    /**
+     * Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.
+     * @method toDateArray
+     * @for $time.{namespace}
+     * @private
+     * @param {String} timestamp_string
+     *  - Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
+     *  - Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
+     * @returns {DateArray}
+     *  - `[ date, time, time_zone ]`
+     *  - where:
+     *      - `date` is always "YYYY-MM-DD" or ""
+     *      - `time` is always "HH:mm:SS" or "HH:mm:00" or ""
+     *      - `time_zone` is always "[+-]\d\d:\d\d" or "CET" or ""
+     */
     function toDateArray(timestamp_string){
         let letter, counter= 0, acc= "", substr_index, date= "", time= "", zone= "";
         while(timestamp_string.length){
@@ -492,6 +601,28 @@ const time= (function init(){
         return [ date, time, zone ];
     }
     
+    /**
+     * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
+     * @method toStringFromObject
+     * @for $time.{namespace}
+     * @private
+     * @param {Array} format
+     *  - Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month)
+     *  - see [`getFormatObject`](#methods_getFormatObject) an [`format_arrays`](#props_format_arrays).
+     * @param {DateArray} params_obj
+     *  - It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
+     * @param {String} params_obj.locale
+     *  - In which language/national format generate final string
+     * @param {String} params_obj.timeZone
+     *  - Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
+     * @param {String} params_obj.declension
+     *  - **default: true**
+     *  - Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
+     * @returns {Function}
+     *  - `DateArray`=> **&lt;String&gt;**
+     * @example
+     *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     */
     function toStringFromObject(format, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
         if(!format) return date_array=> date_array.join("");
         return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
@@ -504,6 +635,17 @@ const time= (function init(){
             return ordinal!=="ordinal_number"||locale.indexOf("en")===-1 ? out : getOrdinalSuffix(out);
         };
     }
+    /**
+     * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
+     * @method getFormatObject
+     * @for $time.{namespace}
+     * @private
+     * @param {String} format_string
+     *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S"
+     * @returns {...Array}
+     *  - `[ [ operation, argument, params ] ]`
+     *  - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
+     */
     function getFormatObject(format_string= ""){
         let out= [];
         while(format_string.length){
@@ -595,6 +737,15 @@ const time= (function init(){
         }
         return out;
     }
+    /**
+     * Function initializes `Date` from `DateArray`.
+     * @method toDate
+     * @for $time.{namespace}
+     * @public
+     * @param {DateArray} date_array
+     *  - See [toDateArray](#methods_toDateArray).
+     * @returns {Date}
+     */
     function toDate([ date, time, zone ]= []){
         if(!date) date= fromNow()[0];
         if(!time) time= "T00:00:00";
@@ -602,9 +753,33 @@ const time= (function init(){
         if(zone==="CET") zone= getCETOffset([ date, time ]);
         return new Date(date+time+zone);
     }
+    /**
+     * Function generates text (including 2-digits month and day and full year) based on `locale` and `timeZone` from `DateArray`.
+     * @method toDateString
+     * @for $time.{namespace}
+     * @public
+     * @param {DateArray} params_obj
+     *  - See [toStringFromObject](#methods_toStringFromObject).
+     * @returns {Function}
+     *  - `DateArray`=> **<String>**
+     * @example
+     *      $time.toDateString({ locale: "en-GB" })($time.fromNow());//= "05/06/2019"
+     */
     function toDateString(params_obj){
         return toStringFromObject(format_arrays.YYYYMMDD, params_obj);
     }
+    /**
+     * Function generates text (including 2-digits month and day and full year and time) based on `locale` and `timeZone` from `DateArray`.
+     * @method toDateTimeString
+     * @for $time.{namespace}
+     * @public
+     * @param {DateArray} params_obj
+     *  - See [toStringFromObject](#methods_toStringFromObject).
+     * @returns {Function}
+     *  - `DateArray`=> **<String>**
+     * @example
+     *      $time.toDateTimeString({ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     */
     function toDateTimeString(params_obj){
         return toStringFromObject(format_arrays.YYYYMMDDHHmmSS, params_obj);
     }
@@ -615,18 +790,18 @@ const time= (function init(){
         return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object]));
     }
     function toRelative(date_array){
-        return getRelative(getDiff()(date_array));
+        return getRelative(getDiffMs()(date_array));
     }
     
-    function getDiffFull(reference_time, output_measure_string= "seconds", full_precision= false){
+    function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){
         const c_measure= { seconds: 1000, minutes: 60000 /* 60*sec */, hours: 3600000 /* 60*mins */, days: 86400000 /* 24*days */, weeks: 604800000 /* 7*days */, months: 2419200000 /* 4*weeks */, years: 29030400000 /* 12*months */ };
         const reference_time_ms= reference_time ? toDate(reference_time).getTime() : false;
         return function diff(target_time){
-            const diff_val= getDiff(reference_time_ms, -c_measure[output_measure_string])(target_time);
+            const diff_val= getDiffMs(reference_time_ms, -c_measure[output_measure_string])(target_time);
             return full_precision ? diff_val : Math.floor(diff_val);
         };
     }
-    function getDiff(reference_time, output_measure= 1){
+    function getDiffMs(reference_time, output_measure= 1){
         const reference_time_ms= reference_time ? toDate(reference_time).getTime() : false;
         return function diff(target_time){ return (toDate(target_time).getTime()-(reference_time_ms ? reference_time_ms : toDate(fromNow()).getTime()))/output_measure; };
     }
@@ -654,10 +829,32 @@ const time= (function init(){
         if(ms_diff===1) return out_text.replace("%s", "a year");
         return out_text.replace("%s", ms_diff+" years");
     }
+    /**
+     * Function generates text based on `format_string`, `locale` and `timeZone` from `DateArray`.
+     * @method toString
+     * @for $time.{namespace}
+     * @public
+     * @param {String} format_string
+     *  - Placeholder for replace/generate final string (eg. "MM"===two digits month)
+     *  - see [`getFormatObject`](#methods_getFormatObject)
+     * @param {DateArray} params_obj
+     *  - It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
+     * @param {String} params_obj.locale
+     *  - In which language/national format generate final string
+     * @param {String} params_obj.timeZone
+     *  - Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
+     * @param {String} params_obj.declension
+     *  - **default: true**
+     *  - Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
+     * @returns {Function}
+     *  - `DateArray`=> **&lt;String&gt;**
+     * @example
+     *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     */
     function toString(format_string, params_obj){
         return toStringFromObject(format_string ? getFormatObject(format_string) : false, params_obj);
     }
-    /* to_functions/toRelative *//* global getDiffFull, getRelative *///gulp.remove.line
+    /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     
     function getCETOffset([ date, time ]= []){
         if(!date||!time){
@@ -713,6 +910,16 @@ const time= (function init(){
     function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
         return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, { weekday: type });
     }
+    function getWeek(date_instance){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
+        const tdt= new Date(date_instance.valueOf());
+        tdt.setDate(tdt.getDate() + 3 - (date_instance.getDay() + 6) % 7);
+        var firstThursday = tdt.valueOf();
+        tdt.setMonth(0, 1);
+        if(tdt.getDay() !== 4){
+            tdt.setMonth(0, 1 + ((4 - tdt.getDay()) + 7) % 7);
+        }
+        return 1 + Math.ceil((firstThursday - tdt) / 604800000);
+    }
     function modify(mod_obj){
         const operations= Object.keys(mod_obj);
         return function(date_array){
@@ -734,6 +941,8 @@ const time= (function init(){
     /**
     * Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
     * @method double
+    * @for $time.{namespace}
+    * @public
     * @param {Number|String} time
     * @return {String}
     *  * 00, 01, 02, ..., 09, 10, ..., 100, ...
@@ -742,8 +951,13 @@ const time= (function init(){
         n= String(n);
         return n.length===1 ? "0"+n : n;
     }
+    function getDaysInMonth(month_number, year= (new Date()).getFullYear()){/* months indexing from 0 */
+        return new Date(year, +month_number, 0 /* last in prev month */).getDate();
+    }
     /**
     * @method getMonthName
+    * @for $time.{namespace}
+    * @public
     * @param {Number} n
     *  * Month number (typically [1-12])
     *  * Works cyclically `13===1, ...`
@@ -767,13 +981,16 @@ const time= (function init(){
         return v;
     }
     /**
-    * @method getOrdinalSuffix
-    * @param {Number} n
-    * @return {String}
-    *  * `n`+English suffix
-    * @example
-    *     console.log($time.getOrdinalSuffix(1));//"1st"
-    */
+     * See [`ordinal_numbers`](#props_ordinal_numbers).
+     * @method getOrdinalSuffix
+     * @for $time.{namespace}
+     * @public
+     * @param {Number} n
+     * @return {String}
+     *  * `n`+English suffix
+     * @example
+     *     console.log($time.getOrdinalSuffix(1));//"1st"
+     */
     function getOrdinalSuffix(n_orig) {
         const n= typeof n_orig==="number" ? n_orig : parseInt(n_orig);
         if(isNaN(n)) return n_orig;
@@ -782,19 +999,25 @@ const time= (function init(){
     }
     
     return {
+        /**
+         * Alias for `undefined` which can be used to trigger default value of argument. (eg. `test($time._)==="A"; function test(a= "A"){ return a; }`)
+         * @property {undefined} _
+         * @public
+         */
         _: undefined,
     
         fromNow, fromString, fromDate, fromDateArguments,
     
         toDate, toString, toDateTimeString, toDateString, toLocaleTimeString, toLocaleDateString, toRelative,
     
-        getDiff: getDiffFull, getRelative,
+        getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
     
-        Date: { getWeekDay, addDays, addMonths },
+        Date: { getWeekDay, getWeek, addDays, addMonths },
         setTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
+        getDaysInMonth,
         /* backward compatibility */ getTimeStamp: t=> toDateTimeString()(fromDateArguments(t)), getDateStamp: t=> toDateString()(fromDateArguments(t)),
     
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,

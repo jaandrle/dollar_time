@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation: $time@0.1.0</title>
+    <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <script src="../assets/from_yahhoapis/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: src\$time_init.sub.js</h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.1.0</em>
+        </div>
+    </div>
+    <div class="yui3-g">
+
+        <div id="sidebar" class="yui3-u">
+            <div id="modules" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Modules</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="classes" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Classes</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                            <li><a href="../classes/$time.{namespace}.html">$time.{namespace}</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="elements" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Elements</h2>
+                </div>
+                <div class="bd">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            
+            
+            
+            <div id="fileTree" class="sidebox">
+                <div class="hd">
+                    <h2 class="no-toc">Files</h2>
+                </div>
+                <div class="bd">
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toDateString.sub.js/<ul></ul></li><li>src\to_functions\toDateTimeString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="main" class="yui3-u">
+            <div class="content"><h4>src\$time_init.sub.js</h4>
+
+<pre class="code prettyprint linenums">
+/* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
+const /* internal store */
+/**
+ * Internal object holding predefined formating arguments for &#x60;Date.prototype.toLocaleString&#x60;. For example &#x60;format_objects.HHmm==={ hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; }&#x60;.
+ * @property {Object} format_objects
+ * @private
+ * @for $time.{namespace}
+ */
+    format_objects= (({ HHmm, YYYYMMDD, SS })=&gt;({
+        HHmm, YYYYMMDD,
+        HHmmSS: Object.assign(SS, HHmm),
+        YYYYMMDDHHmmSS: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+    }))({
+        HHmm: { hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; },
+        YYYYMMDD: { year: &quot;numeric&quot;, day: &quot;2-digit&quot;, month: &quot;2-digit&quot; },
+        SS: { second: &quot;2-digit&quot; }
+    }),
+/**
+ * Internal object holding predefined formating arguments for &#x60;getFormatObject&#x60;. For example &#x60;format_arrays.YYYYMMDD=== [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]&#x60;.
+ * @property {Object} format_arrays
+ * @private
+ * @for $time.{namespace}
+ */
+    format_arrays= (({ dash, colon, space, two_dig })=&gt;({
+        YYYYMMDDHHmmSS: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
+        YYYYMMDD: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]
+    }))({
+        dash: [ &quot;text&quot;, &quot;-&quot; ],
+        colon: [ &quot;text&quot;, &quot;:&quot; ],
+        space: [ &quot;text&quot;, &quot; &quot; ],
+        two_dig: &quot;2-digit&quot;
+    }),
+/**
+ * Internal helper array for &#x60;getOrdinalSuffix&#x60;.
+ * @property {Array} ordinal_numbers
+ * @private
+ * @for $time.{namespace}
+ */
+    ordinal_numbers= [ &quot;th&quot;, &quot;st&quot;, &quot;nd&quot;, &quot;rd&quot; ];
+const /* validation functions */
+/**
+ * Very simple test for &#x27;YYYY-MM-DD&#x27; pattern. Returns &#x60;true&#x60; if &#x60;date_string&#x60; includes **&#x60;-&#x60;**.
+ * @method isDateString
+ * @for $time.{namespace}
+ * @private
+ * @param {String|...String} date_string
+ * @returns {Boolean}
+ * @example
+ *      isDateString(&quot;2019-05-06&quot;);//= true
+ *      isDateString(&quot;06/05/2019&quot;);//= false !!!!
+ */
+    isDateString= date_string=&gt; date_string.indexOf(&quot;-&quot;)!==-1,
+/**
+ * Very simple test for &#x27;T...&#x27; pattern. Returns &#x60;true&#x60; if &#x60;date_string&#x60; includes **&#x60;T&#x60;**.
+ * @method isTimeString
+ * @for $time.{namespace}
+ * @private
+ * @param {String|...String} date_string
+ * @returns {Boolean}
+ * @example
+ *      isDateString(&quot;T12:00:00&quot;);//= true
+ *      isDateString(&quot;12:00:00&quot;);//= false !!!
+ *      isDateString(&quot;Twrong&quot;);//= true !!!!
+ */
+    isTimeString= date_string=&gt; date_string.indexOf(&quot;T&quot;)!==-1;
+let /* internal variables*/
+    internal_locale= &quot;en-GB&quot;,
+    internal_zone= &quot;&quot;;
+/**
+ * This array stores all time zones names (eg. &#x27;Europe/Andorra&#x27;) supported by &#x60;{ timeZone: ... }&#x60; in second argument of &#x60;Date.prototype.toLocaleString&#x60;.
+ * @property {Array} ary_ianna_time_zones
+ * @private
+ * @for $time.{namespace}
+ */
+const ary_ianna_time_zones= Object.freeze([
+    &#x27;Europe/Andorra&#x27;,
+    &#x27;Asia/Dubai&#x27;,
+    &#x27;Asia/Kabul&#x27;,
+    &#x27;Europe/Tirane&#x27;,
+    &#x27;Asia/Yerevan&#x27;,
+    &#x27;Antarctica/Casey&#x27;,
+    &#x27;Antarctica/Davis&#x27;, //&#x27;Antarctica/DumontDUrville&#x27;, // https://bugs.chromium.org/p/chromium/issues/detail?id=928068
+    &#x27;Antarctica/Mawson&#x27;,
+    &#x27;Antarctica/Palmer&#x27;,
+    &#x27;Antarctica/Rothera&#x27;,
+    &#x27;Antarctica/Syowa&#x27;,
+    &#x27;Antarctica/Troll&#x27;,
+    &#x27;Antarctica/Vostok&#x27;,
+    &#x27;America/Argentina/Buenos_Aires&#x27;,
+    &#x27;America/Argentina/Cordoba&#x27;,
+    &#x27;America/Argentina/Salta&#x27;,
+    &#x27;America/Argentina/Jujuy&#x27;,
+    &#x27;America/Argentina/Tucuman&#x27;,
+    &#x27;America/Argentina/Catamarca&#x27;,
+    &#x27;America/Argentina/La_Rioja&#x27;,
+    &#x27;America/Argentina/San_Juan&#x27;,
+    &#x27;America/Argentina/Mendoza&#x27;,
+    &#x27;America/Argentina/San_Luis&#x27;,
+    &#x27;America/Argentina/Rio_Gallegos&#x27;,
+    &#x27;America/Argentina/Ushuaia&#x27;,
+    &#x27;Pacific/Pago_Pago&#x27;,
+    &#x27;Europe/Vienna&#x27;,
+    &#x27;Australia/Lord_Howe&#x27;,
+    &#x27;Antarctica/Macquarie&#x27;,
+    &#x27;Australia/Hobart&#x27;,
+    &#x27;Australia/Currie&#x27;,
+    &#x27;Australia/Melbourne&#x27;,
+    &#x27;Australia/Sydney&#x27;,
+    &#x27;Australia/Broken_Hill&#x27;,
+    &#x27;Australia/Brisbane&#x27;,
+    &#x27;Australia/Lindeman&#x27;,
+    &#x27;Australia/Adelaide&#x27;,
+    &#x27;Australia/Darwin&#x27;,
+    &#x27;Australia/Perth&#x27;,
+    &#x27;Australia/Eucla&#x27;,
+    &#x27;Asia/Baku&#x27;,
+    &#x27;America/Barbados&#x27;,
+    &#x27;Asia/Dhaka&#x27;,
+    &#x27;Europe/Brussels&#x27;,
+    &#x27;Europe/Sofia&#x27;,
+    &#x27;Atlantic/Bermuda&#x27;,
+    &#x27;Asia/Brunei&#x27;,
+    &#x27;America/La_Paz&#x27;,
+    &#x27;America/Noronha&#x27;,
+    &#x27;America/Belem&#x27;,
+    &#x27;America/Fortaleza&#x27;,
+    &#x27;America/Recife&#x27;,
+    &#x27;America/Araguaina&#x27;,
+    &#x27;America/Maceio&#x27;,
+    &#x27;America/Bahia&#x27;,
+    &#x27;America/Sao_Paulo&#x27;,
+    &#x27;America/Campo_Grande&#x27;,
+    &#x27;America/Cuiaba&#x27;,
+    &#x27;America/Santarem&#x27;,
+    &#x27;America/Porto_Velho&#x27;,
+    &#x27;America/Boa_Vista&#x27;,
+    &#x27;America/Manaus&#x27;,
+    &#x27;America/Eirunepe&#x27;,
+    &#x27;America/Rio_Branco&#x27;,
+    &#x27;America/Nassau&#x27;,
+    &#x27;Asia/Thimphu&#x27;,
+    &#x27;Europe/Minsk&#x27;,
+    &#x27;America/Belize&#x27;,
+    &#x27;America/St_Johns&#x27;,
+    &#x27;America/Halifax&#x27;,
+    &#x27;America/Glace_Bay&#x27;,
+    &#x27;America/Moncton&#x27;,
+    &#x27;America/Goose_Bay&#x27;,
+    &#x27;America/Blanc-Sablon&#x27;,
+    &#x27;America/Toronto&#x27;,
+    &#x27;America/Nipigon&#x27;,
+    &#x27;America/Thunder_Bay&#x27;,
+    &#x27;America/Iqaluit&#x27;,
+    &#x27;America/Pangnirtung&#x27;,
+    &#x27;America/Atikokan&#x27;,
+    &#x27;America/Winnipeg&#x27;,
+    &#x27;America/Rainy_River&#x27;,
+    &#x27;America/Resolute&#x27;,
+    &#x27;America/Rankin_Inlet&#x27;,
+    &#x27;America/Regina&#x27;,
+    &#x27;America/Swift_Current&#x27;,
+    &#x27;America/Edmonton&#x27;,
+    &#x27;America/Cambridge_Bay&#x27;,
+    &#x27;America/Yellowknife&#x27;,
+    &#x27;America/Inuvik&#x27;,
+    &#x27;America/Creston&#x27;,
+    &#x27;America/Dawson_Creek&#x27;,
+    &#x27;America/Fort_Nelson&#x27;,
+    &#x27;America/Vancouver&#x27;,
+    &#x27;America/Whitehorse&#x27;,
+    &#x27;America/Dawson&#x27;,
+    &#x27;Indian/Cocos&#x27;,
+    &#x27;Europe/Zurich&#x27;,
+    &#x27;Africa/Abidjan&#x27;,
+    &#x27;Pacific/Rarotonga&#x27;,
+    &#x27;America/Santiago&#x27;,
+    &#x27;America/Punta_Arenas&#x27;,
+    &#x27;Pacific/Easter&#x27;,
+    &#x27;Asia/Shanghai&#x27;,
+    &#x27;Asia/Urumqi&#x27;,
+    &#x27;America/Bogota&#x27;,
+    &#x27;America/Costa_Rica&#x27;,
+    &#x27;America/Havana&#x27;,
+    &#x27;Atlantic/Cape_Verde&#x27;,
+    &#x27;America/Curacao&#x27;,
+    &#x27;Indian/Christmas&#x27;,
+    &#x27;Asia/Nicosia&#x27;,
+    &#x27;Asia/Famagusta&#x27;,
+    &#x27;Europe/Prague&#x27;,
+    &#x27;Europe/Berlin&#x27;,
+    &#x27;Europe/Copenhagen&#x27;,
+    &#x27;America/Santo_Domingo&#x27;,
+    &#x27;Africa/Algiers&#x27;,
+    &#x27;America/Guayaquil&#x27;,
+    &#x27;Pacific/Galapagos&#x27;,
+    &#x27;Europe/Tallinn&#x27;,
+    &#x27;Africa/Cairo&#x27;,
+    &#x27;Africa/El_Aaiun&#x27;,
+    &#x27;Europe/Madrid&#x27;,
+    &#x27;Africa/Ceuta&#x27;,
+    &#x27;Atlantic/Canary&#x27;,
+    &#x27;Europe/Helsinki&#x27;,
+    &#x27;Pacific/Fiji&#x27;,
+    &#x27;Atlantic/Stanley&#x27;,
+    &#x27;Pacific/Chuuk&#x27;,
+    &#x27;Pacific/Pohnpei&#x27;,
+    &#x27;Pacific/Kosrae&#x27;,
+    &#x27;Atlantic/Faroe&#x27;,
+    &#x27;Europe/Paris&#x27;,
+    &#x27;Europe/London&#x27;,
+    &#x27;Asia/Tbilisi&#x27;,
+    &#x27;America/Cayenne&#x27;,
+    &#x27;Africa/Accra&#x27;,
+    &#x27;Europe/Gibraltar&#x27;,
+    &#x27;America/Godthab&#x27;,
+    &#x27;America/Danmarkshavn&#x27;,
+    &#x27;America/Scoresbysund&#x27;,
+    &#x27;America/Thule&#x27;,
+    &#x27;Europe/Athens&#x27;,
+    &#x27;Atlantic/South_Georgia&#x27;,
+    &#x27;America/Guatemala&#x27;,
+    &#x27;Pacific/Guam&#x27;,
+    &#x27;Africa/Bissau&#x27;,
+    &#x27;America/Guyana&#x27;,
+    &#x27;Asia/Hong_Kong&#x27;,
+    &#x27;America/Tegucigalpa&#x27;,
+    &#x27;America/Port-au-Prince&#x27;,
+    &#x27;Europe/Budapest&#x27;,
+    &#x27;Asia/Jakarta&#x27;,
+    &#x27;Asia/Pontianak&#x27;,
+    &#x27;Asia/Makassar&#x27;,
+    &#x27;Asia/Jayapura&#x27;,
+    &#x27;Europe/Dublin&#x27;,
+    &#x27;Asia/Jerusalem&#x27;,
+    &#x27;Asia/Kolkata&#x27;,
+    &#x27;Indian/Chagos&#x27;,
+    &#x27;Asia/Baghdad&#x27;,
+    &#x27;Asia/Tehran&#x27;,
+    &#x27;Atlantic/Reykjavik&#x27;,
+    &#x27;Europe/Rome&#x27;,
+    &#x27;America/Jamaica&#x27;,
+    &#x27;Asia/Amman&#x27;,
+    &#x27;Asia/Tokyo&#x27;,
+    &#x27;Africa/Nairobi&#x27;,
+    &#x27;Asia/Bishkek&#x27;,
+    &#x27;Pacific/Tarawa&#x27;,
+    &#x27;Pacific/Enderbury&#x27;,
+    &#x27;Pacific/Kiritimati&#x27;,
+    &#x27;Asia/Pyongyang&#x27;,
+    &#x27;Asia/Seoul&#x27;,
+    &#x27;Asia/Almaty&#x27;,
+    &#x27;Asia/Qyzylorda&#x27;, //&#x27;Asia/Qostanay&#x27;, // https://bugs.chromium.org/p/chromium/issues/detail?id=928068
+    &#x27;Asia/Aqtobe&#x27;,
+    &#x27;Asia/Aqtau&#x27;,
+    &#x27;Asia/Atyrau&#x27;,
+    &#x27;Asia/Oral&#x27;,
+    &#x27;Asia/Beirut&#x27;,
+    &#x27;Asia/Colombo&#x27;,
+    &#x27;Africa/Monrovia&#x27;,
+    &#x27;Europe/Vilnius&#x27;,
+    &#x27;Europe/Luxembourg&#x27;,
+    &#x27;Europe/Riga&#x27;,
+    &#x27;Africa/Tripoli&#x27;,
+    &#x27;Africa/Casablanca&#x27;,
+    &#x27;Europe/Monaco&#x27;,
+    &#x27;Europe/Chisinau&#x27;,
+    &#x27;Pacific/Majuro&#x27;,
+    &#x27;Pacific/Kwajalein&#x27;,
+    &#x27;Asia/Yangon&#x27;,
+    &#x27;Asia/Ulaanbaatar&#x27;,
+    &#x27;Asia/Hovd&#x27;,
+    &#x27;Asia/Choibalsan&#x27;,
+    &#x27;Asia/Macau&#x27;,
+    &#x27;America/Martinique&#x27;,
+    &#x27;Europe/Malta&#x27;,
+    &#x27;Indian/Mauritius&#x27;,
+    &#x27;Indian/Maldives&#x27;,
+    &#x27;America/Mexico_City&#x27;,
+    &#x27;America/Cancun&#x27;,
+    &#x27;America/Merida&#x27;,
+    &#x27;America/Monterrey&#x27;,
+    &#x27;America/Matamoros&#x27;,
+    &#x27;America/Mazatlan&#x27;,
+    &#x27;America/Chihuahua&#x27;,
+    &#x27;America/Ojinaga&#x27;,
+    &#x27;America/Hermosillo&#x27;,
+    &#x27;America/Tijuana&#x27;,
+    &#x27;America/Bahia_Banderas&#x27;,
+    &#x27;Asia/Kuala_Lumpur&#x27;,
+    &#x27;Asia/Kuching&#x27;,
+    &#x27;Africa/Maputo&#x27;,
+    &#x27;Africa/Windhoek&#x27;,
+    &#x27;Pacific/Noumea&#x27;,
+    &#x27;Pacific/Norfolk&#x27;,
+    &#x27;Africa/Lagos&#x27;,
+    &#x27;America/Managua&#x27;,
+    &#x27;Europe/Amsterdam&#x27;,
+    &#x27;Europe/Oslo&#x27;,
+    &#x27;Asia/Kathmandu&#x27;,
+    &#x27;Pacific/Nauru&#x27;,
+    &#x27;Pacific/Niue&#x27;,
+    &#x27;Pacific/Auckland&#x27;,
+    &#x27;Pacific/Chatham&#x27;,
+    &#x27;America/Panama&#x27;,
+    &#x27;America/Lima&#x27;,
+    &#x27;Pacific/Tahiti&#x27;,
+    &#x27;Pacific/Marquesas&#x27;,
+    &#x27;Pacific/Gambier&#x27;,
+    &#x27;Pacific/Port_Moresby&#x27;,
+    &#x27;Pacific/Bougainville&#x27;,
+    &#x27;Asia/Manila&#x27;,
+    &#x27;Asia/Karachi&#x27;,
+    &#x27;Europe/Warsaw&#x27;,
+    &#x27;America/Miquelon&#x27;,
+    &#x27;Pacific/Pitcairn&#x27;,
+    &#x27;America/Puerto_Rico&#x27;,
+    &#x27;Asia/Gaza&#x27;,
+    &#x27;Asia/Hebron&#x27;,
+    &#x27;Europe/Lisbon&#x27;,
+    &#x27;Atlantic/Madeira&#x27;,
+    &#x27;Atlantic/Azores&#x27;,
+    &#x27;Pacific/Palau&#x27;,
+    &#x27;America/Asuncion&#x27;,
+    &#x27;Asia/Qatar&#x27;,
+    &#x27;Indian/Reunion&#x27;,
+    &#x27;Europe/Bucharest&#x27;,
+    &#x27;Europe/Belgrade&#x27;,
+    &#x27;Europe/Kaliningrad&#x27;,
+    &#x27;Europe/Moscow&#x27;,
+    &#x27;Europe/Simferopol&#x27;,
+    &#x27;Europe/Kirov&#x27;,
+    &#x27;Europe/Astrakhan&#x27;,
+    &#x27;Europe/Volgograd&#x27;,
+    &#x27;Europe/Saratov&#x27;,
+    &#x27;Europe/Ulyanovsk&#x27;,
+    &#x27;Europe/Samara&#x27;,
+    &#x27;Asia/Yekaterinburg&#x27;,
+    &#x27;Asia/Omsk&#x27;,
+    &#x27;Asia/Novosibirsk&#x27;,
+    &#x27;Asia/Barnaul&#x27;,
+    &#x27;Asia/Tomsk&#x27;,
+    &#x27;Asia/Novokuznetsk&#x27;,
+    &#x27;Asia/Krasnoyarsk&#x27;,
+    &#x27;Asia/Irkutsk&#x27;,
+    &#x27;Asia/Chita&#x27;,
+    &#x27;Asia/Yakutsk&#x27;,
+    &#x27;Asia/Khandyga&#x27;,
+    &#x27;Asia/Vladivostok&#x27;,
+    &#x27;Asia/Ust-Nera&#x27;,
+    &#x27;Asia/Magadan&#x27;,
+    &#x27;Asia/Sakhalin&#x27;,
+    &#x27;Asia/Srednekolymsk&#x27;,
+    &#x27;Asia/Kamchatka&#x27;,
+    &#x27;Asia/Anadyr&#x27;,
+    &#x27;Asia/Riyadh&#x27;,
+    &#x27;Pacific/Guadalcanal&#x27;,
+    &#x27;Indian/Mahe&#x27;,
+    &#x27;Africa/Khartoum&#x27;,
+    &#x27;Europe/Stockholm&#x27;,
+    &#x27;Asia/Singapore&#x27;,
+    &#x27;America/Paramaribo&#x27;,
+    &#x27;Africa/Juba&#x27;,
+    &#x27;Africa/Sao_Tome&#x27;,
+    &#x27;America/El_Salvador&#x27;,
+    &#x27;Asia/Damascus&#x27;,
+    &#x27;America/Grand_Turk&#x27;,
+    &#x27;Africa/Ndjamena&#x27;,
+    &#x27;Indian/Kerguelen&#x27;,
+    &#x27;Asia/Bangkok&#x27;,
+    &#x27;Asia/Dushanbe&#x27;,
+    &#x27;Pacific/Fakaofo&#x27;,
+    &#x27;Asia/Dili&#x27;,
+    &#x27;Asia/Ashgabat&#x27;,
+    &#x27;Africa/Tunis&#x27;,
+    &#x27;Pacific/Tongatapu&#x27;,
+    &#x27;Europe/Istanbul&#x27;,
+    &#x27;America/Port_of_Spain&#x27;,
+    &#x27;Pacific/Funafuti&#x27;,
+    &#x27;Asia/Taipei&#x27;,
+    &#x27;Europe/Kiev&#x27;,
+    &#x27;Europe/Uzhgorod&#x27;,
+    &#x27;Europe/Zaporozhye&#x27;,
+    &#x27;Pacific/Wake&#x27;,
+    &#x27;America/New_York&#x27;,
+    &#x27;America/Detroit&#x27;,
+    &#x27;America/Kentucky/Louisville&#x27;,
+    &#x27;America/Kentucky/Monticello&#x27;,
+    &#x27;America/Indiana/Indianapolis&#x27;,
+    &#x27;America/Indiana/Vincennes&#x27;,
+    &#x27;America/Indiana/Winamac&#x27;,
+    &#x27;America/Indiana/Marengo&#x27;,
+    &#x27;America/Indiana/Petersburg&#x27;,
+    &#x27;America/Indiana/Vevay&#x27;,
+    &#x27;America/Chicago&#x27;,
+    &#x27;America/Indiana/Tell_City&#x27;,
+    &#x27;America/Indiana/Knox&#x27;,
+    &#x27;America/Menominee&#x27;,
+    &#x27;America/North_Dakota/Center&#x27;,
+    &#x27;America/North_Dakota/New_Salem&#x27;,
+    &#x27;America/North_Dakota/Beulah&#x27;,
+    &#x27;America/Denver&#x27;,
+    &#x27;America/Boise&#x27;,
+    &#x27;America/Phoenix&#x27;,
+    &#x27;America/Los_Angeles&#x27;,
+    &#x27;America/Anchorage&#x27;,
+    &#x27;America/Juneau&#x27;,
+    &#x27;America/Sitka&#x27;,
+    &#x27;America/Metlakatla&#x27;,
+    &#x27;America/Yakutat&#x27;,
+    &#x27;America/Nome&#x27;,
+    &#x27;America/Adak&#x27;,
+    &#x27;Pacific/Honolulu&#x27;,
+    &#x27;America/Montevideo&#x27;,
+    &#x27;Asia/Samarkand&#x27;,
+    &#x27;Asia/Tashkent&#x27;,
+    &#x27;America/Caracas&#x27;,
+    &#x27;Asia/Ho_Chi_Minh&#x27;,
+    &#x27;Pacific/Efate&#x27;,
+    &#x27;Pacific/Wallis&#x27;,
+    &#x27;Pacific/Apia&#x27;,
+    &#x27;Africa/Johannesburg&#x27;
+]);
+/**
+ * This object stores indeces for all timezones. (eg. &#x60;ary_ianna_time_offsets[&quot;CET&quot;]===113&#x60; and &#x60;ary_ianna_time_zones[113]===&#x27;Europe/Prague&#x27;&#x60; )
+ * @property {Object} ary_ianna_time_offsets
+ * @private
+ * @for $time.{namespace}
+ */
+const ary_ianna_time_offsets= Object.freeze({
+    &#x27;-01:00&#x27;: 108,
+    &#x27;-02:00&#x27;: 144,
+    &#x27;-03:00&#x27;: 337,
+    &#x27;-04:00&#x27;: 340,
+    &#x27;-05:00&#x27;: 229,
+    &#x27;-06:00&#x27;: 288,
+    &#x27;-07:00&#x27;: 327,
+    &#x27;-08:00&#x27;: 239,
+    &#x27;-09:00&#x27;: 232,
+    &#x27;-09:30&#x27;: 231,
+    &#x27;-10:00&#x27;: 336,
+    &#x27;-11:00&#x27;: 225,
+    &#x27;+01:00&#x27;: 291,
+    &#x27;+02:00&#x27;: 345,
+    &#x27;+03:00&#x27;: 300,
+    &#x27;+04:00&#x27;: 281,
+    &#x27;+04:30&#x27;: 2,
+    &#x27;+05:00&#x27;: 339,
+    &#x27;+05:30&#x27;: 182,
+    &#x27;+05:45&#x27;: 223,
+    &#x27;+06:00&#x27;: 262,
+    &#x27;+06:30&#x27;: 193,
+    &#x27;+07:00&#x27;: 341,
+    &#x27;+08:00&#x27;: 303,
+    &#x27;+08:30&#x27;: 173,
+    &#x27;+08:45&#x27;: 39,
+    &#x27;+09:00&#x27;: 296,
+    &#x27;+09:30&#x27;: 37,
+    &#x27;+10:00&#x27;: 273,
+    &#x27;+11:00&#x27;: 342,
+    &#x27;+12:00&#x27;: 343,
+    &#x27;+13:00&#x27;: 295,
+    &#x27;+14:00&#x27;: 172,
+    BST: 134,
+    CET: 113,
+    EET: 250,
+    WET: 243
+});
+</pre>
+
+</div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+
+</body>
+</html>

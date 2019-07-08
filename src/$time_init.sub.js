@@ -1,5 +1,11 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
-const /* internal constants */
+const /* internal store */
+/**
+ * Internal object holding predefined formating arguments for `Date.prototype.toLocaleString`. For example `format_objects.HHmm==={ hour: "2-digit", minute: "2-digit" }`.
+ * @property {Object} format_objects
+ * @private
+ * @for $time.{namespace}
+ */
     format_objects= (({ HHmm, YYYYMMDD, SS })=>({
         HHmm, YYYYMMDD,
         HHmmSS: Object.assign(SS, HHmm),
@@ -9,6 +15,12 @@ const /* internal constants */
         YYYYMMDD: { year: "numeric", day: "2-digit", month: "2-digit" },
         SS: { second: "2-digit" }
     }),
+/**
+ * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
+ * @property {Object} format_arrays
+ * @private
+ * @for $time.{namespace}
+ */
     format_arrays= (({ dash, colon, space, two_dig })=>({
         YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig], colon, ["minute", two_dig], colon, ["second", two_dig] ],
         YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
@@ -18,13 +30,48 @@ const /* internal constants */
         space: [ "text", " " ],
         two_dig: "2-digit"
     }),
+/**
+ * Internal helper array for `getOrdinalSuffix`.
+ * @property {Array} ordinal_numbers
+ * @private
+ * @for $time.{namespace}
+ */
     ordinal_numbers= [ "th", "st", "nd", "rd" ];
 const /* validation functions */
+/**
+ * Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
+ * @method isDateString
+ * @for $time.{namespace}
+ * @private
+ * @param {String|...String} date_string
+ * @returns {Boolean}
+ * @example
+ *      isDateString("2019-05-06");//= true
+ *      isDateString("06/05/2019");//= false !!!!
+ */
     isDateString= date_string=> date_string.indexOf("-")!==-1,
+/**
+ * Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
+ * @method isTimeString
+ * @for $time.{namespace}
+ * @private
+ * @param {String|...String} date_string
+ * @returns {Boolean}
+ * @example
+ *      isDateString("T12:00:00");//= true
+ *      isDateString("12:00:00");//= false !!!
+ *      isDateString("Twrong");//= true !!!!
+ */
     isTimeString= date_string=> date_string.indexOf("T")!==-1;
 let /* internal variables*/
     internal_locale= "en-GB",
     internal_zone= "";
+/**
+ * This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.
+ * @property {Array} ary_ianna_time_zones
+ * @private
+ * @for $time.{namespace}
+ */
 const ary_ianna_time_zones= Object.freeze([
     'Europe/Andorra',
     'Asia/Dubai',
@@ -373,6 +420,12 @@ const ary_ianna_time_zones= Object.freeze([
     'Pacific/Apia',
     'Africa/Johannesburg'
 ]);
+/**
+ * This object stores indeces for all timezones. (eg. `ary_ianna_time_offsets["CET"]===113` and `ary_ianna_time_zones[113]==='Europe/Prague'` )
+ * @property {Object} ary_ianna_time_offsets
+ * @private
+ * @for $time.{namespace}
+ */
 const ary_ianna_time_offsets= Object.freeze({
     '-01:00': 108,
     '-02:00': 144,

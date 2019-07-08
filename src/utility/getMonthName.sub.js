@@ -1,6 +1,8 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /**
 * @method getMonthName
+* @for $time.{namespace}
+* @public
 * @param {Number} n
 *  * Month number (typically [1-12])
 *  * Works cyclically `13===1, ...`

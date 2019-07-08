@@ -2,18 +2,18 @@
 /* from_functions *//* global fromNow */
 /* to_functions *//* global toDate */
 function toRelative(date_array){
-    return getRelative(getDiff()(date_array));
+    return getRelative(getDiffMs()(date_array));
 }
 
-function getDiffFull(reference_time, output_measure_string= "seconds", full_precision= false){
+function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){
     const c_measure= { seconds: 1000, minutes: 60000 /* 60*sec */, hours: 3600000 /* 60*mins */, days: 86400000 /* 24*days */, weeks: 604800000 /* 7*days */, months: 2419200000 /* 4*weeks */, years: 29030400000 /* 12*months */ };
     const reference_time_ms= reference_time ? toDate(reference_time).getTime() : false;
     return function diff(target_time){
-        const diff_val= getDiff(reference_time_ms, -c_measure[output_measure_string])(target_time);
+        const diff_val= getDiffMs(reference_time_ms, -c_measure[output_measure_string])(target_time);
         return full_precision ? diff_val : Math.floor(diff_val);
     };
 }
-function getDiff(reference_time, output_measure= 1){
+function getDiffMs(reference_time, output_measure= 1){
     const reference_time_ms= reference_time ? toDate(reference_time).getTime() : false;
     return function diff(target_time){ return (toDate(target_time).getTime()-(reference_time_ms ? reference_time_ms : toDate(fromNow()).getTime()))/output_measure; };
 }

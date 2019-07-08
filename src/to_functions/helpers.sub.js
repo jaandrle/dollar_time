@@ -3,6 +3,28 @@
 /* timezones/generateTimeZoneFormatObject *//* global generateTimeZoneFormatObject */
 /* to_functions *//* global toDate */
 /* utility *//* global getOrdinalSuffix */
+/**
+ * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
+ * @method toStringFromObject
+ * @for $time.{namespace}
+ * @private
+ * @param {Array} format
+ *  - Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month)
+ *  - see [`getFormatObject`](#methods_getFormatObject) an [`format_arrays`](#props_format_arrays).
+ * @param {DateArray} params_obj
+ *  - It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
+ * @param {String} params_obj.locale
+ *  - In which language/national format generate final string
+ * @param {String} params_obj.timeZone
+ *  - Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
+ * @param {String} params_obj.declension
+ *  - **default: true**
+ *  - Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
+ * @returns {Function}
+ *  - `DateArray`=> **&lt;String&gt;**
+ * @example
+ *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+ */
 function toStringFromObject(format, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
     if(!format) return date_array=> date_array.join("");
     return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
@@ -15,6 +37,17 @@ function evaluateFormatObject(date, locale, timeZone, declension){
         return ordinal!=="ordinal_number"||locale.indexOf("en")===-1 ? out : getOrdinalSuffix(out);
     };
 }
+/**
+ * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
+ * @method getFormatObject
+ * @for $time.{namespace}
+ * @private
+ * @param {String} format_string
+ *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S"
+ * @returns {...Array}
+ *  - `[ [ operation, argument, params ] ]`
+ *  - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
+ */
 function getFormatObject(format_string= ""){
     let out= [];
     while(format_string.length){

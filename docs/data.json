@@ -1,25 +1,121 @@
 {
     "project": {},
     "files": {
+        "src\\from_functions\\fromDate.sub.js": {
+            "name": "src\\from_functions\\fromDate.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\from_functions\\fromDateArguments.sub.js": {
+            "name": "src\\from_functions\\fromDateArguments.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\from_functions\\fromNow.sub.js": {
+            "name": "src\\from_functions\\fromNow.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\from_functions\\fromString.sub.js": {
+            "name": "src\\from_functions\\fromString.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\from_functions\\toDateArray.sub.js": {
+            "name": "src\\from_functions\\toDateArray.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\to_functions\\helpers.sub.js": {
+            "name": "src\\to_functions\\helpers.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\to_functions\\toDate.sub.js": {
+            "name": "src\\to_functions\\toDate.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\to_functions\\toDateString.sub.js": {
+            "name": "src\\to_functions\\toDateString.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\to_functions\\toDateTimeString.sub.js": {
+            "name": "src\\to_functions\\toDateTimeString.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
+        "src\\to_functions\\toString.sub.js": {
+            "name": "src\\to_functions\\toString.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
         "src\\utility\\double.sub.js": {
             "name": "src\\utility\\double.sub.js",
             "modules": {},
             "classes": {},
-            "fors": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
             "namespaces": {}
         },
         "src\\utility\\getMonthName.sub.js": {
             "name": "src\\utility\\getMonthName.sub.js",
             "modules": {},
             "classes": {},
-            "fors": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
             "namespaces": {}
         },
         "src\\utility\\getOrdinalSuffix.sub.js": {
             "name": "src\\utility\\getOrdinalSuffix.sub.js",
             "modules": {},
             "classes": {},
-            "fors": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
             "namespaces": {}
         },
         "src\\$time.js": {
@@ -29,6 +125,15 @@
                 "$time.{namespace}": 1
             },
             "fors": {},
+            "namespaces": {}
+        },
+        "src\\$time_init.sub.js": {
+            "name": "src\\$time_init.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
             "namespaces": {}
         }
     },
@@ -51,11 +156,300 @@
     "elements": {},
     "classitems": [
         {
+            "file": "src\\from_functions\\fromDate.sub.js",
+            "line": 3,
+            "description": "Function generates `DateArray` from instance of `Date`.",
+            "itemtype": "method",
+            "name": "fromDate",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "date_instance",
+                    "description": "\n - instance of `Date` class",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "- See [toDateArray](#methods_toDateArray).",
+                "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\from_functions\\fromDateArguments.sub.js",
+            "line": 3,
+            "description": "Function generates `DateArray` from arguments to initialize `Date`.",
+            "itemtype": "method",
+            "name": "fromDateArguments",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "args",
+                    "description": "\n - parameters for initialize `Date` class",
+                    "type": "...Mixed"
+                }
+            ],
+            "return": {
+                "description": "- See [toDateArray](#methods_toDateArray).",
+                "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\from_functions\\fromNow.sub.js",
+            "line": 3,
+            "description": "Function generates `DateArray` from current date and time.",
+            "itemtype": "method",
+            "name": "fromNow",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- See [toDateArray](#methods_toDateArray).",
+                "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\from_functions\\fromString.sub.js",
+            "line": 4,
+            "description": "Function generates `DateArray` from passed string.",
+            "itemtype": "method",
+            "name": "fromString",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "timestamp_string",
+                    "description": "\n - Supported forms are combinations of date (\"YYYY-MM-DD\", \"DD/MM/YYYY\"), time (\"HH:mm:ss\", \"HH:mm\") and timezone (\"CET\", \"+01:00\", \"-02:00\", ...)\n - Typically: \"2019-06-02 12:35:45 +01:00\", \"2019-06-02T12:35:45+01:00\", \"12:35:45+01:00 2019-06-02\", ...",
+                    "type": "String"
+                },
+                {
+                    "name": "timezone",
+                    "description": "\n - Override timezone in `timestamp_string`",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": " internal_zone"
+                }
+            ],
+            "return": {
+                "description": "- See [toDateArray](#methods_toDateArray).",
+                "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\from_functions\\toDateArray.sub.js",
+            "line": 3,
+            "description": "Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.",
+            "itemtype": "method",
+            "name": "toDateArray",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "timestamp_string",
+                    "description": "- Supported forms are combinations of date (\"YYYY-MM-DD\", \"DD/MM/YYYY\"), time (\"HH:mm:ss\", \"HH:mm\") and timezone (\"CET\", \"+01:00\", \"-02:00\", ...)\n - Typically: \"2019-06-02 12:35:45 +01:00\", \"2019-06-02T12:35:45+01:00\", \"12:35:45+01:00 2019-06-02\", ...",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "- `[ date, time, time_zone ]`\n - where:\n     - `date` is always \"YYYY-MM-DD\" or \"\"\n     - `time` is always \"HH:mm:SS\" or \"HH:mm:00\" or \"\"\n     - `time_zone` is always \"[+-]\\d\\d:\\d\\d\" or \"CET\" or \"\"",
+                "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\to_functions\\helpers.sub.js",
+            "line": 6,
+            "description": "Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.",
+            "itemtype": "method",
+            "name": "toStringFromObject",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "format",
+                    "description": "- Placeholder for replace/generate final string (eg. [[ \"month\", \"2-digits\" ]]===two digits month)\n - see [`getFormatObject`](#methods_getFormatObject) an [`format_arrays`](#props_format_arrays).",
+                    "type": "Array"
+                },
+                {
+                    "name": "params_obj",
+                    "description": "- It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)",
+                    "type": "DateArray",
+                    "props": [
+                        {
+                            "name": "locale",
+                            "description": "- In which language/national format generate final string",
+                            "type": "String"
+                        },
+                        {
+                            "name": "timeZone",
+                            "description": "- Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).",
+                            "type": "String"
+                        },
+                        {
+                            "name": "declension",
+                            "description": "- **default: true**\n - Needed for some languages — for example in Czech: \"10. července\" (`declension=true`), or \"10. červenec\" (`declension=false`)",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "- `DateArray`=> **&lt;String&gt;**",
+                "type": "Function"
+            },
+            "example": [
+                "\n     $time.toStringFromObject(\"DD/MM/YYYY HH:mm:SS\",{ locale: \"en-GB\" })($time.fromNow());//= \"05/06/2019 09:32:20\""
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\to_functions\\helpers.sub.js",
+            "line": 40,
+            "description": "Generates multidimensional array for formatting (eg. \"YYYY\"=> `[ [ \"year\", \"numeric\" ] ]`).",
+            "itemtype": "method",
+            "name": "getFormatObject",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "format_string",
+                    "description": "- supports \"YYYY\", \"YY\", \"MM\", \"MMM\", \"MMMM\", \"dddd\" (weekday - Monday), \"ddd\" (shorter weekday), \"DD\", \"D\", \"Do\", \"HH\", \"H\", \"mm\", \"m\", \"SS\", \"S\"",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "- `[ [ operation, argument, params ] ]`\n - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.",
+                "type": "...Array"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\to_functions\\toDate.sub.js",
+            "line": 4,
+            "description": "Function initializes `Date` from `DateArray`.",
+            "itemtype": "method",
+            "name": "toDate",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "date_array",
+                    "description": "- See [toDateArray](#methods_toDateArray).",
+                    "type": "DateArray"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Date"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\to_functions\\toDateString.sub.js",
+            "line": 4,
+            "description": "Function generates text (including 2-digits month and day and full year) based on `locale` and `timeZone` from `DateArray`.",
+            "itemtype": "method",
+            "name": "toDateString",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "params_obj",
+                    "description": "- See [toStringFromObject](#methods_toStringFromObject).",
+                    "type": "DateArray"
+                }
+            ],
+            "return": {
+                "description": "- `DateArray`=> **<String>**",
+                "type": "Function"
+            },
+            "example": [
+                "\n     $time.toDateString({ locale: \"en-GB\" })($time.fromNow());//= \"05/06/2019\""
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\to_functions\\toDateTimeString.sub.js",
+            "line": 4,
+            "description": "Function generates text (including 2-digits month and day and full year and time) based on `locale` and `timeZone` from `DateArray`.",
+            "itemtype": "method",
+            "name": "toDateTimeString",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "params_obj",
+                    "description": "- See [toStringFromObject](#methods_toStringFromObject).",
+                    "type": "DateArray"
+                }
+            ],
+            "return": {
+                "description": "- `DateArray`=> **<String>**",
+                "type": "Function"
+            },
+            "example": [
+                "\n     $time.toDateTimeString({ locale: \"en-GB\" })($time.fromNow());//= \"05/06/2019 09:32:20\""
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\to_functions\\toString.sub.js",
+            "line": 3,
+            "description": "Function generates text based on `format_string`, `locale` and `timeZone` from `DateArray`.",
+            "itemtype": "method",
+            "name": "toString",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "format_string",
+                    "description": "- Placeholder for replace/generate final string (eg. \"MM\"===two digits month)\n - see [`getFormatObject`](#methods_getFormatObject)",
+                    "type": "String"
+                },
+                {
+                    "name": "params_obj",
+                    "description": "- It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)",
+                    "type": "DateArray",
+                    "props": [
+                        {
+                            "name": "locale",
+                            "description": "- In which language/national format generate final string",
+                            "type": "String"
+                        },
+                        {
+                            "name": "timeZone",
+                            "description": "- Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).",
+                            "type": "String"
+                        },
+                        {
+                            "name": "declension",
+                            "description": "- **default: true**\n - Needed for some languages — for example in Czech: \"10. července\" (`declension=true`), or \"10. červenec\" (`declension=false`)",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "- `DateArray`=> **&lt;String&gt;**",
+                "type": "Function"
+            },
+            "example": [
+                "\n     $time.toStringFromObject(\"DD/MM/YYYY HH:mm:SS\",{ locale: \"en-GB\" })($time.fromNow());//= \"05/06/2019 09:32:20\""
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
             "file": "src\\utility\\double.sub.js",
             "line": 2,
             "description": "Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)",
             "itemtype": "method",
             "name": "double",
+            "access": "public",
+            "tagname": "",
             "params": [
                 {
                     "name": "time",
@@ -74,6 +468,8 @@
             "line": 2,
             "itemtype": "method",
             "name": "getMonthName",
+            "access": "public",
+            "tagname": "",
             "params": [
                 {
                     "name": "n",
@@ -100,8 +496,11 @@
         {
             "file": "src\\utility\\getOrdinalSuffix.sub.js",
             "line": 3,
+            "description": "See [`ordinal_numbers`](#props_ordinal_numbers).",
             "itemtype": "method",
             "name": "getOrdinalSuffix",
+            "access": "public",
+            "tagname": "",
             "params": [
                 {
                     "name": "n",
@@ -117,7 +516,174 @@
                 "\n    console.log($time.getOrdinalSuffix(1));//\"1st\""
             ],
             "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time.js",
+            "line": 19,
+            "description": "Alias for `undefined` which can be used to trigger default value of argument. (eg. `test($time._)===\"A\"; function test(a= \"A\"){ return a; }`)",
+            "itemtype": "property",
+            "name": "_",
+            "type": "Undefined",
+            "access": "public",
+            "tagname": "",
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 3,
+            "description": "Internal object holding predefined formating arguments for `Date.prototype.toLocaleString`. For example `format_objects.HHmm==={ hour: \"2-digit\", minute: \"2-digit\" }`.",
+            "itemtype": "property",
+            "name": "format_objects",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 18,
+            "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.",
+            "itemtype": "property",
+            "name": "format_arrays",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 33,
+            "description": "Internal helper array for `getOrdinalSuffix`.",
+            "itemtype": "property",
+            "name": "ordinal_numbers",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 41,
+            "description": "Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.",
+            "itemtype": "method",
+            "name": "isDateString",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "date_string",
+                    "description": "",
+                    "type": "String|...String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "example": [
+                "\n     isDateString(\"2019-05-06\");//= true\n     isDateString(\"06/05/2019\");//= false !!!!"
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 53,
+            "description": "Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.",
+            "itemtype": "method",
+            "name": "isTimeString",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "date_string",
+                    "description": "",
+                    "type": "String|...String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "example": [
+                "\n     isDateString(\"T12:00:00\");//= true\n     isDateString(\"12:00:00\");//= false !!!\n     isDateString(\"Twrong\");//= true !!!!"
+            ],
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 69,
+            "description": "This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.",
+            "itemtype": "property",
+            "name": "ary_ianna_time_zones",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\$time_init.sub.js",
+            "line": 423,
+            "description": "This object stores indeces for all timezones. (eg. `ary_ianna_time_offsets[\"CET\"]===113` and `ary_ianna_time_zones[113]==='Europe/Prague'` )",
+            "itemtype": "property",
+            "name": "ary_ianna_time_offsets",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "$time.{namespace}"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\from_functions\\fromDate.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\from_functions\\fromDateArguments.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\from_functions\\fromNow.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\from_functions\\fromString.sub.js:4"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\from_functions\\toDateArray.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\to_functions\\helpers.sub.js:6"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\to_functions\\helpers.sub.js:40"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\to_functions\\toDate.sub.js:4"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\to_functions\\toDateString.sub.js:4"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\to_functions\\toDateTimeString.sub.js:4"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\to_functions\\toString.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\$time_init.sub.js:41"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\$time_init.sub.js:53"
+        }
+    ]
 }
