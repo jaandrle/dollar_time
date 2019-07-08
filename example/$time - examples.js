@@ -52,62 +52,64 @@ log(`moment("2019-07-01").format("dd")`);
 res= $function.sequention( $time.fromString, $time.toString("dd") )("2019-01-07");
 test(res, "Mo");
 
+$function.mapCurry= (mapFun, curryFun)=> first=> second=> curryFun(mapFun(first))(mapFun(second));
+$time._toRelativeFromStrings= $function.mapCurry( $time.fromString, $time.toRelative );
 
 log(`moment("2019-07-10 12:35:14").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 12:35:14");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 12:35:14");
 test(res, "a few seconds ago");
 
 
 log(`moment("2019-07-10 12:35:10").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 12:35:10");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 12:35:10");
 test(res, "a few seconds ago");
 
 
 log(`moment("2019-07-10 12:34:30").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 12:34:30");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 12:34:30");
 test(res, "45 seconds ago");
 
 
 log(`moment("2019-07-10 12:34:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 12:34:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 12:34:15");
 test(res, "a minute ago");
 
 
 log(`moment("2019-07-10 12:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 12:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 12:32:15");
 test(res, "3 minutes ago");
 
 
 log(`moment("2019-07-10 11:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 11:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 11:32:15");
 test(res, "an hour ago");
 
 
 log(`moment("2019-07-10 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-10 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-10 09:32:15");
 test(res, "3 hours ago");
 
 log(`moment("2019-07-09 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-09 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-09 09:32:15");
 test(res, "a day ago");
 
 log(`moment("2019-07-01 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-07-01 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-07-01 09:32:15");
 test(res, "9 days ago");
 
 log(`moment("2019-06-01 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2019-06-01 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2019-06-01 09:32:15");
 test(res, "a month ago");
 
 
 log(`moment("2018-10-01 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2018-10-01 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2018-10-01 09:32:15");
 test(res, "9 months ago");
 
 log(`moment("2018-07-01 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2018-07-01 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2018-07-01 09:32:15");
 test(res, "a year ago");
 
 log(`moment("2017-10-01 09:32:15").from("2019-07-10 12:35:15")`);
-res= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) )("2017-10-01 09:32:15");
+res= $time._toRelativeFromStrings("2019-07-10 12:35:15")("2017-10-01 09:32:15");
 test(res, "2 years ago");
