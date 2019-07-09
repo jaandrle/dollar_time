@@ -83,8 +83,7 @@ const /* internal store */
  */
     format_objects= (({ HHmm, YYYYMMDD, SS })=&gt;({
         HHmm, YYYYMMDD,
-        HHmmSS: Object.assign(SS, HHmm),
-        YYYYMMDDHHmmSS: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+        HHmmSS: Object.assign(SS, HHmm) //,YYYYMMDDHHmmss: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
     }))({
         HHmm: { hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; },
         YYYYMMDD: { year: &quot;numeric&quot;, day: &quot;2-digit&quot;, month: &quot;2-digit&quot; },
@@ -97,7 +96,7 @@ const /* internal store */
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=&gt;({
-        YYYYMMDDHHmmSS: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig, &quot;h23&quot;], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
+        YYYYMMDDHHmmss: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig, &quot;h23&quot;], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
         YYYYMMDD: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]
     }))({
         dash: [ &quot;text&quot;, &quot;-&quot; ],

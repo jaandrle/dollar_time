@@ -14,5 +14,5 @@
  *      $time.toDateTimeString({ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
  */
 function toDateTimeString(params_obj){
-    return toStringFromObject(format_arrays.YYYYMMDDHHmmSS, params_obj);
+    return toStringFromObject(format_arrays.YYYYMMDDHHmmss, params_obj);
 }

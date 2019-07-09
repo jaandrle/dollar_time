@@ -541,7 +541,7 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 18,
+            "line": 17,
             "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.",
             "itemtype": "property",
             "name": "format_arrays",
@@ -552,7 +552,7 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 33,
+            "line": 32,
             "description": "Internal helper array for `getOrdinalSuffix`.",
             "itemtype": "property",
             "name": "ordinal_numbers",
@@ -563,7 +563,7 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 41,
+            "line": 40,
             "description": "Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.",
             "itemtype": "method",
             "name": "isDateString",
@@ -587,7 +587,7 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 53,
+            "line": 52,
             "description": "Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.",
             "itemtype": "method",
             "name": "isTimeString",
@@ -611,7 +611,7 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 69,
+            "line": 68,
             "description": "This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.",
             "itemtype": "property",
             "name": "ary_ianna_time_zones",
@@ -622,7 +622,7 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 423,
+            "line": 422,
             "description": "This object stores indeces for all timezones. (eg. `ary_ianna_time_offsets[\"CET\"]===113` and `ary_ianna_time_zones[113]==='Europe/Prague'` )",
             "itemtype": "property",
             "name": "ary_ianna_time_offsets",
@@ -679,11 +679,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\$time_init.sub.js:41"
+            "line": " src\\$time_init.sub.js:40"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\$time_init.sub.js:53"
+            "line": " src\\$time_init.sub.js:52"
         }
     ]
 }

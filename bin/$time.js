@@ -15,8 +15,7 @@ const $time= (function init(){
      */
         format_objects= (({ HHmm, YYYYMMDD, SS })=>({
             HHmm, YYYYMMDD,
-            HHmmSS: Object.assign(SS, HHmm),
-            YYYYMMDDHHmmSS: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+            HHmmSS: Object.assign(SS, HHmm) //,YYYYMMDDHHmmss: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
         }))({
             HHmm: { hour: "2-digit", minute: "2-digit" },
             YYYYMMDD: { year: "numeric", day: "2-digit", month: "2-digit" },
@@ -29,7 +28,7 @@ const $time= (function init(){
      * @for $time.{namespace}
      */
         format_arrays= (({ dash, colon, space, two_dig })=>({
-            YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+            YYYYMMDDHHmmss: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
             YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
         }))({
             dash: [ "text", "-" ],
@@ -821,7 +820,7 @@ const $time= (function init(){
      *      $time.toDateTimeString({ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
      */
     function toDateTimeString(params_obj){
-        return toStringFromObject(format_arrays.YYYYMMDDHHmmSS, params_obj);
+        return toStringFromObject(format_arrays.YYYYMMDDHHmmss, params_obj);
     }
     function toLocaleDateString(format_object= "YYYYMMDD", { locale= internal_locale, timeZone= internal_zone }= {}){
         return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object]));

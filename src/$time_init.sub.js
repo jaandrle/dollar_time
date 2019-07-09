@@ -8,8 +8,7 @@ const /* internal store */
  */
     format_objects= (({ HHmm, YYYYMMDD, SS })=>({
         HHmm, YYYYMMDD,
-        HHmmSS: Object.assign(SS, HHmm),
-        YYYYMMDDHHmmSS: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+        HHmmSS: Object.assign(SS, HHmm) //,YYYYMMDDHHmmss: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
     }))({
         HHmm: { hour: "2-digit", minute: "2-digit" },
         YYYYMMDD: { year: "numeric", day: "2-digit", month: "2-digit" },
@@ -22,7 +21,7 @@ const /* internal store */
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=>({
-        YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+        YYYYMMDDHHmmss: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
         YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
     }))({
         dash: [ "text", "-" ],
