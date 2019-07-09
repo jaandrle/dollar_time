@@ -35,7 +35,6 @@ const $time= (function init(){
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
         getDaysInMonth,
-        /* backward compatibility */ getTimeStamp: t=> toDateTimeString()(fromDateArguments(t)), getDateStamp: t=> toDateString()(fromDateArguments(t)),
     
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale
