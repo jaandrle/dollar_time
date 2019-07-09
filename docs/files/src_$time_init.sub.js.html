@@ -97,7 +97,7 @@ const /* internal store */
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=&gt;({
-        YYYYMMDDHHmmSS: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
+        YYYYMMDDHHmmSS: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig, &quot;h23&quot;], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
         YYYYMMDD: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]
     }))({
         dash: [ &quot;text&quot;, &quot;-&quot; ],

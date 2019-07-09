@@ -22,7 +22,7 @@ const /* internal store */
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=>({
-        YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+        YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
         YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
     }))({
         dash: [ "text", "-" ],

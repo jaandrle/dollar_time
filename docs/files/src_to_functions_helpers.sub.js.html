@@ -108,18 +108,23 @@ function toStringFromObject(format, { locale= internal_locale, declension= true,
 function evaluateFormatObject(date, locale, timeZone, declension){
     const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
     return function([type, value, modify]){
-        let out= type===&quot;text&quot; ?
-            value : type===&quot;week&quot; ?
-            getWeekNumber(date) : type===&quot;weekday&quot;&amp;&amp;value===&quot;numeric&quot; ?
-            getWeekDay()(date) : type===&quot;month&quot;&amp;&amp;value===&quot;long&quot;&amp;&amp;declension ?
-            date.toLocaleString(locale,localeObj({ [type]: value, day: &quot;numeric&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;) :
-            date.toLocaleString(locale,localeObj({ [type]: value }));
-        
+        let out= evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj);
         if(value===&quot;2-digit&quot;&amp;&amp;out.length===1) out= &quot;0&quot;+out; //fix
         if(modify===&quot;two_letters&quot;) out= out.substr(0,2);
         else if(modify===&quot;ordinal_number&quot;&amp;&amp;locale.indexOf(&quot;en&quot;)!==-1) out= getOrdinalSuffix(out);
         return out;
     };
+}
+function evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj){
+    switch (true){
+        case type===&quot;text&quot;:                                     return value;
+        case type===&quot;week&quot;:                                     return getWeekNumber(date);
+        case type===&quot;weekday&quot;&amp;&amp;value===&quot;numeric&quot;:               return getWeekDay()(date);
+        case type===&quot;month&quot;&amp;&amp;value===&quot;long&quot;&amp;&amp;declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: &quot;numeric&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;);
+        case type===&quot;hour&quot;&amp;&amp;modify.toLowerCase()===&quot;a&quot;:         return date.toLocaleString(modify===&quot;A&quot; ? &quot;en-US&quot; : &quot;en-GB&quot;,localeObj({ [type]: value, hourCycle: &quot;h12&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;);
+        case type===&quot;hour&quot;:                                     return date.toLocaleString(locale,localeObj({ [type]: value, hourCycle: modify })).replace(/[ \.\/\\pam]/ig, &quot;&quot;);
+        default:                                                return date.toLocaleString(locale,localeObj({ [type]: value }));
+    }
 }
 /**
  * Generates multidimensional array for formatting (eg. &quot;YYYY&quot;=&gt; &#x60;[ [ &quot;year&quot;, &quot;numeric&quot; ] ]&#x60;).
@@ -136,17 +141,22 @@ function getFormatObject(format_string= &quot;&quot;){
     let out= [];
     while(format_string.length){
         switch(format_string[0]){
-            case &quot;M&quot;: handleM();                    break;
-            case &quot;d&quot;: handled();                    break;
-            case &quot;W&quot;: handleWD(&quot;week&quot;, &quot;W&quot;);        break;
-            case &quot;Y&quot;: handleY();                    break;
-            case &quot;D&quot;: handleWD(&quot;day&quot;, &quot;D&quot;);         break;
-            case &quot;H&quot;: handle(&quot;hour&quot;, &quot;H&quot;);          break;
-            case &quot;m&quot;: handle(&quot;minute&quot;, &quot;m&quot;);        break;
-            case &quot;S&quot;: handle(&quot;second&quot;, &quot;S&quot;);        break;
-            case &quot;[&quot;: handleText();                 break;
+            case &quot;M&quot;: handleM();                            break;
+            case &quot;d&quot;: handled();                            break;
+            case &quot;W&quot;: handleWD(&quot;week&quot;, &quot;W&quot;);                break;
+            case &quot;Y&quot;: handleY();                            break;
+            case &quot;D&quot;: handleWD(&quot;day&quot;, &quot;D&quot;);                 break;
+            case &quot;H&quot;: handleHh(&quot;hour&quot;, &quot;H&quot;, &quot;h23&quot;);         break;
+            case &quot;k&quot;: handleHh(&quot;hour&quot;, &quot;k&quot;, &quot;h24&quot;);         break;
+            case &quot;h&quot;: handleHh(&quot;hour&quot;, &quot;h&quot;, &quot;h12&quot;);         break;
+            case &quot;A&quot;: handleAa(&quot;A&quot;);                        break;
+            case &quot;a&quot;: handleAa(&quot;a&quot;);                        break;
+            case &quot;m&quot;: handle(&quot;minute&quot;, &quot;m&quot;);                break;
+            case &quot;s&quot;: handle(&quot;second&quot;, &quot;s&quot;);                break;
+            case &quot;[&quot;: handleText();                         break;
             default:
-                let letter= format_string[0];if(out[out.length-1][0]===&quot;text&quot;) out[out.length-1][1]+= letter;
+                let letter= format_string[0];
+                if(out[out.length-1][0]===&quot;text&quot;) out[out.length-1][1]+= letter;
                 else out.push([&quot;text&quot;, letter]);
                 format_string= format_string.substring(1);
         }
@@ -162,6 +172,9 @@ function getFormatObject(format_string= &quot;&quot;){
         } else if(!format_string.search(/MM/)){
             type= &quot;2-digit&quot;;
             format_string= format_string.substring(2);
+        } else if(!format_string.search(/Mo/)){
+            format_string= format_string.substring(2);
+            return out.push([&quot;month&quot;, type, &quot;ordinal_number&quot;]);
         } else {
             format_string= format_string.substring(1);
         }
@@ -206,6 +219,20 @@ function getFormatObject(format_string= &quot;&quot;){
             format_string= format_string.substring(1);
         }
         out.push([out_key, type]);
+    }
+    function handleHh(out_key, letter, hourCycle){
+        let type= &quot;numeric&quot;;
+        if(!format_string.search(new RegExp(letter+letter))){
+            type= &quot;2-digit&quot;;
+            format_string= format_string.substring(2);
+        } else {
+            format_string= format_string.substring(1);
+        }
+        out.push([out_key, type, hourCycle]);
+    }
+    function handleAa(modify){
+        format_string= format_string.substring(1);
+        out.push([&quot;hour&quot;, &quot;numeric&quot;, modify]);
     }
     function handle(out_key, letter){
         let type= &quot;numeric&quot;;

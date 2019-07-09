@@ -308,7 +308,7 @@
         },
         {
             "file": "src\\to_functions\\helpers.sub.js",
-            "line": 49,
+            "line": 54,
             "description": "Generates multidimensional array for formatting (eg. \"YYYY\"=> `[ [ \"year\", \"numeric\" ] ]`).",
             "itemtype": "method",
             "name": "getFormatObject",
@@ -659,7 +659,7 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\helpers.sub.js:49"
+            "line": " src\\to_functions\\helpers.sub.js:54"
         },
         {
             "message": "replacing incorrect tag: returns with return",

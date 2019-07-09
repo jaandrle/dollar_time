@@ -29,7 +29,7 @@ const $time= (function init(){
      * @for $time.{namespace}
      */
         format_arrays= (({ dash, colon, space, two_dig })=>({
-            YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+            YYYYMMDDHHmmSS: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
             YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
         }))({
             dash: [ "text", "-" ],
@@ -630,18 +630,23 @@ const $time= (function init(){
     function evaluateFormatObject(date, locale, timeZone, declension){
         const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
         return function([type, value, modify]){
-            let out= type==="text" ?
-                value : type==="week" ?
-                getWeekNumber(date) : type==="weekday"&&value==="numeric" ?
-                getWeekDay()(date) : type==="month"&&value==="long"&&declension ?
-                date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "") :
-                date.toLocaleString(locale,localeObj({ [type]: value }));
-            
+            let out= evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj);
             if(value==="2-digit"&&out.length===1) out= "0"+out; //fix
             if(modify==="two_letters") out= out.substr(0,2);
             else if(modify==="ordinal_number"&&locale.indexOf("en")!==-1) out= getOrdinalSuffix(out);
             return out;
         };
+    }
+    function evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj){
+        switch (true){
+            case type==="text":                                     return value;
+            case type==="week":                                     return getWeekNumber(date);
+            case type==="weekday"&&value==="numeric":               return getWeekDay()(date);
+            case type==="month"&&value==="long"&&declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "");
+            case type==="hour"&&modify.toLowerCase()==="a":         return date.toLocaleString(modify==="A" ? "en-US" : "en-GB",localeObj({ [type]: value, hourCycle: "h12" })).replace(/[\d \.\/\\]/g, "");
+            case type==="hour":                                     return date.toLocaleString(locale,localeObj({ [type]: value, hourCycle: modify })).replace(/[ \.\/\\pam]/ig, "");
+            default:                                                return date.toLocaleString(locale,localeObj({ [type]: value }));
+        }
     }
     /**
      * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
@@ -658,17 +663,22 @@ const $time= (function init(){
         let out= [];
         while(format_string.length){
             switch(format_string[0]){
-                case "M": handleM();                    break;
-                case "d": handled();                    break;
-                case "W": handleWD("week", "W");        break;
-                case "Y": handleY();                    break;
-                case "D": handleWD("day", "D");         break;
-                case "H": handle("hour", "H");          break;
-                case "m": handle("minute", "m");        break;
-                case "S": handle("second", "S");        break;
-                case "[": handleText();                 break;
+                case "M": handleM();                            break;
+                case "d": handled();                            break;
+                case "W": handleWD("week", "W");                break;
+                case "Y": handleY();                            break;
+                case "D": handleWD("day", "D");                 break;
+                case "H": handleHh("hour", "H", "h23");         break;
+                case "k": handleHh("hour", "k", "h24");         break;
+                case "h": handleHh("hour", "h", "h12");         break;
+                case "A": handleAa("A");                        break;
+                case "a": handleAa("a");                        break;
+                case "m": handle("minute", "m");                break;
+                case "s": handle("second", "s");                break;
+                case "[": handleText();                         break;
                 default:
-                    let letter= format_string[0];if(out[out.length-1][0]==="text") out[out.length-1][1]+= letter;
+                    let letter= format_string[0];
+                    if(out[out.length-1][0]==="text") out[out.length-1][1]+= letter;
                     else out.push(["text", letter]);
                     format_string= format_string.substring(1);
             }
@@ -684,6 +694,9 @@ const $time= (function init(){
             } else if(!format_string.search(/MM/)){
                 type= "2-digit";
                 format_string= format_string.substring(2);
+            } else if(!format_string.search(/Mo/)){
+                format_string= format_string.substring(2);
+                return out.push(["month", type, "ordinal_number"]);
             } else {
                 format_string= format_string.substring(1);
             }
@@ -728,6 +741,20 @@ const $time= (function init(){
                 format_string= format_string.substring(1);
             }
             out.push([out_key, type]);
+        }
+        function handleHh(out_key, letter, hourCycle){
+            let type= "numeric";
+            if(!format_string.search(new RegExp(letter+letter))){
+                type= "2-digit";
+                format_string= format_string.substring(2);
+            } else {
+                format_string= format_string.substring(1);
+            }
+            out.push([out_key, type, hourCycle]);
+        }
+        function handleAa(modify){
+            format_string= format_string.substring(1);
+            out.push(["hour", "numeric", modify]);
         }
         function handle(out_key, letter){
             let type= "numeric";
