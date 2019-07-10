@@ -682,8 +682,11 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 <a name="props_ary_ianna_time_offsets"></a>
 <div class="props item">
     <code>ary_ianna_time_offsets</code> &lt;<strong>Object</strong>&gt;<br/><strong class="private_method">/* private property */</strong><br>
-    <span class="foundat"><a href="../files/src_$time_init.sub.js.html#l437"><code>src\$time_init.sub.js:437</code></a></span>
-    <p>This object stores indeces for all timezones. (eg. <code>ary_ianna_time_offsets[&quot;CET&quot;]===113</code> and <code>ary_ianna_time_zones[113]==='Europe/Prague'</code> )</p>
+    <span class="foundat"><a href="../files/src_$time_init.sub.js.html#l439"><code>src\$time_init.sub.js:439</code></a></span>
+    <p>This object stores offsets in <code>ary_ianna_time_zones</code> (keys) and one corresponding index.</p>
+<p>So for exmple, <code>ary_ianna_time_offsets[&quot;CET&quot;]</code> is equal to <strong>284</strong> which is index of <code>ary_ianna_time_zones[284]==='Europe/Prague'</code> (in winter &quot;+01:00&quot; and in summer &quot;+02:00&quot;).</p>
+<p>Next example is <code>ary_ianna_time_offsets[&quot;-01:00&quot;]</code> is equal to <strong>238</strong> which is index of <code>ary_ianna_time_zones[238]==='Atlantic/Cape_Verde'</code> (always &quot;-01:00&quot;).</p>
+<p><strong>IMPORTANT NOTE:</strong> BST, EET, WET hasn't been validated! … idea is to behave the same way like CET</p>
 
 </div>
 <a name="props_ary_ianna_time_zones"></a>
@@ -691,6 +694,7 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
     <code>ary_ianna_time_zones</code> &lt;<strong>Array</strong>&gt;<br/><strong class="private_method">/* private property */</strong><br>
     <span class="foundat"><a href="../files/src_$time_init.sub.js.html#l83"><code>src\$time_init.sub.js:83</code></a></span>
     <p>This array stores all time zones names (eg. 'Europe/Andorra') supported by <code>{ timeZone: ... }</code> in second argument of <code>Date.prototype.toLocaleString</code>.</p>
+<p>Original from <a href="https://stackoverflow.com/a/54500197">stackoverflow.com/a/54500197</a>.</p>
 
 </div>
 <a name="props_format_arrays"></a>

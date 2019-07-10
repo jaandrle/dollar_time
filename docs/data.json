@@ -687,7 +687,7 @@
         {
             "file": "src\\$time_init.sub.js",
             "line": 83,
-            "description": "This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.",
+            "description": "This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.\n\nOriginal from [stackoverflow.com/a/54500197](https://stackoverflow.com/a/54500197).",
             "itemtype": "property",
             "name": "ary_ianna_time_zones",
             "type": "Array",
@@ -697,8 +697,8 @@
         },
         {
             "file": "src\\$time_init.sub.js",
-            "line": 437,
-            "description": "This object stores indeces for all timezones. (eg. `ary_ianna_time_offsets[\"CET\"]===113` and `ary_ianna_time_zones[113]==='Europe/Prague'` )",
+            "line": 439,
+            "description": "This object stores offsets in `ary_ianna_time_zones` (keys) and one corresponding index.\n\nSo for exmple, `ary_ianna_time_offsets[\"CET\"]` is equal to **284** which is index of `ary_ianna_time_zones[284]==='Europe/Prague'` (in winter \"+01:00\" and in summer \"+02:00\").\n\nNext example is `ary_ianna_time_offsets[\"-01:00\"]` is equal to **238** which is index of `ary_ianna_time_zones[238]==='Atlantic/Cape_Verde'` (always \"-01:00\").\n\n**IMPORTANT NOTE:** BST, EET, WET hasn't been validated! … idea is to behave the same way like CET",
             "itemtype": "property",
             "name": "ary_ianna_time_offsets",
             "type": "Object",
