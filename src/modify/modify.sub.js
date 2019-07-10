@@ -14,6 +14,7 @@
  *      - "setMonth" is indexed from 1 (instead of 0)
  *      - for "setDate" there is alias "setDay"
  *      - for "addDate" there is alias "addDays"
+ *  - Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
  * @returns {DateArray}
  *  - See [toDateArray](#methods_toDateArray).
  */

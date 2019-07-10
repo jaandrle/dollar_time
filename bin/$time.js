@@ -1000,6 +1000,7 @@ const $time= (function init(){/* version: "0.3.0" */
      *      - "setMonth" is indexed from 1 (instead of 0)
      *      - for "setDate" there is alias "setDay"
      *      - for "addDate" there is alias "addDays"
+     *  - Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
      * @returns {DateArray}
      *  - See [toDateArray](#methods_toDateArray).
      */
@@ -1034,8 +1035,8 @@ const $time= (function init(){/* version: "0.3.0" */
      *  - returns `dateObject`
      */
     function modifyAdditions(operation, value, dateObject){
-        const cmd= operation.substr(3); /* addMonths=> ...Month => (set/get)Month */
-        dateObject["set"+cmd](dateObject["get"+cmd]+value);
+        const cmd= operation.substr(3); /* addMonth=> ...Month => (set/get)Month */
+        dateObject["set"+cmd](dateObject["get"+cmd]()+value);
         return dateObject;
     }
     function setTimeZone(zone= internal_zone){

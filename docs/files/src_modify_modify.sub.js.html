@@ -89,6 +89,7 @@
  *      - &quot;setMonth&quot; is indexed from 1 (instead of 0)
  *      - for &quot;setDate&quot; there is alias &quot;setDay&quot;
  *      - for &quot;addDate&quot; there is alias &quot;addDays&quot;
+ *  - Some operations: **&quot;\*Date&quot;** (or **&quot;setDay&quot;**, **&quot;addDays&quot;**), **&quot;\*Month&quot;**, **&quot;\*FullYear&quot;**, **&quot;\*Hours&quot;**, **&quot;\*Minutes&quot;**, **&quot;\*Seconds&quot;**
  * @returns {DateArray}
  *  - See [toDateArray](#methods_toDateArray).
  */
@@ -123,8 +124,8 @@ function modify(mod_obj){
  *  - returns &#x60;dateObject&#x60;
  */
 function modifyAdditions(operation, value, dateObject){
-    const cmd= operation.substr(3); /* addMonths=&gt; ...Month =&gt; (set/get)Month */
-    dateObject[&quot;set&quot;+cmd](dateObject[&quot;get&quot;+cmd]+value);
+    const cmd= operation.substr(3); /* addMonth=&gt; ...Month =&gt; (set/get)Month */
+    dateObject[&quot;set&quot;+cmd](dateObject[&quot;get&quot;+cmd]()+value);
     return dateObject;
 }
 </pre>

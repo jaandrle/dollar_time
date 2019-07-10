@@ -288,7 +288,7 @@
             "params": [
                 {
                     "name": "mod_obj",
-                    "description": "- object literal representing requested operations\n - use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)\n - supports also *add\\** commands with the same notation (\"setMonth\" => \"addMonth\")\n - **IMPORTANT NOTE:** There are three behaviour changes\n     - \"setMonth\" is indexed from 1 (instead of 0)\n     - for \"setDate\" there is alias \"setDay\"\n     - for \"addDate\" there is alias \"addDays\"",
+                    "description": "- object literal representing requested operations\n - use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)\n - supports also *add\\** commands with the same notation (\"setMonth\" => \"addMonth\")\n - **IMPORTANT NOTE:** There are three behaviour changes\n     - \"setMonth\" is indexed from 1 (instead of 0)\n     - for \"setDate\" there is alias \"setDay\"\n     - for \"addDate\" there is alias \"addDays\"\n - Some operations: **\"\\*Date\"** (or **\"setDay\"**, **\"addDays\"**), **\"\\*Month\"**, **\"\\*FullYear\"**, **\"\\*Hours\"**, **\"\\*Minutes\"**, **\"\\*Seconds\"**",
                     "type": "Object"
                 }
             ],
@@ -300,7 +300,7 @@
         },
         {
             "file": "src\\modify\\modify.sub.js",
-            "line": 34,
+            "line": 35,
             "description": "Helper method for invoking \"add*\" operations in [`modify`](#methods_modify).\n\nIn general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).",
             "itemtype": "method",
             "name": "modifyAdditions",
@@ -794,7 +794,7 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\modify\\modify.sub.js:34"
+            "line": " src\\modify\\modify.sub.js:35"
         },
         {
             "message": "replacing incorrect tag: returns with return",
