@@ -8,28 +8,43 @@
 const $time= (function init(){
     const /* internal store */
     /**
-     * Internal object holding predefined formating arguments for `Date.prototype.toLocaleString`. For example `format_objects.HHmm==={ hour: "2-digit", minute: "2-digit" }`.
+     * Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: "2-digit", minute: "2-digit" }`.
+     * 
+     * Keys:
+     *  - `time`: shows combination of 2-digits hour and minutes
+     *  - `time_seconds`: shows combination of `time` and seconds
+     *  - `date`: shows combination of 2-digits day, month and full year
+     *  - `date_time`: shows combination of `time` and `date`
+     *  - `date_time_seconds`: shows combination of `date_time` and `seconds`
      * @property {Object} format_objects
      * @private
      * @for $time.{namespace}
      */
-        format_objects= (({ HHmm, YYYYMMDD, SS })=>({
-            HHmm, YYYYMMDD,
-            HHmmSS: Object.assign(SS, HHmm) //,YYYYMMDDHHmmss: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+        format_objects= (({ time, date, seconds })=>({
+            time, date,
+            time_seconds: Object.assign(seconds, time),
+            date_time: Object.assign({}, time, date),
+            date_time_seconds: Object.assign({}, Object.assign(seconds, time), date)
         }))({
-            HHmm: { hour: "2-digit", minute: "2-digit" },
-            YYYYMMDD: { year: "numeric", day: "2-digit", month: "2-digit" },
-            SS: { second: "2-digit" }
+            time: { hour: "2-digit", minute: "2-digit" },
+            date: { year: "numeric", day: "2-digit", month: "2-digit" },
+            seconds: { second: "2-digit" }
         }),
     /**
      * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
+     * 
+     * Keys:
+     *  - `YMD_2d`: shows **"YYYY-MM-DD"**
+     *  - `YMDHmS_2d`: shows **"YYYY-MM-DD HH:mm:ss"**
+     *  - `Hms_2d`: shows **"HH:mm:ss"**
      * @property {Object} format_arrays
      * @private
      * @for $time.{namespace}
      */
         format_arrays= (({ dash, colon, space, two_dig })=>({
-            YYYYMMDDHHmmss: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
-            YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
+            YMDHmS_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+            YMD_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
+            Hms_2d: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
         }))({
             dash: [ "text", "-" ],
             colon: [ "text", ":" ],
@@ -793,40 +808,27 @@ const $time= (function init(){
         return new Date(date+time+zone);
     }
     /**
-     * Function generates text (including 2-digits month and day and full year) based on `locale` and `timeZone` from `DateArray`.
-     * @method toDateString
+     * It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+     * @method toLocaleString
      * @for $time.{namespace}
      * @public
-     * @param {DateArray} params_obj
-     *  - See [toStringFromObject](#methods_toStringFromObject).
+     * @param {String} format_object_name
+     *  - **Default: `"date_time"`**
+     *  - name of predefined time/date combinations see [`format_objects`](#props_format_objects).
+     * @param {Object} params
+     *  - modificators for `Date.prototype.toLocaleString`
+     * @param {String} params.locale
+     *  - **Default: `internal_locale`**
+     *  - see [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
+     * @param {String} params.timeZone
+     *  - **Default: `internal_zone`**
+     *  - sets `timeZone` key in `options` see [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
      * @returns {Function}
-     *  - `DateArray`=> **<String>**
-     * @example
-     *      $time.toDateString({ locale: "en-GB" })($time.fromNow());//= "05/06/2019"
+     *  - **`date_array`&lt;DateArray&gt;`=>` &lt;String&gt;**
+     *  - returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);
      */
-    function toDateString(params_obj){
-        return toStringFromObject(format_arrays.YYYYMMDD, params_obj);
-    }
-    /**
-     * Function generates text (including 2-digits month and day and full year and time) based on `locale` and `timeZone` from `DateArray`.
-     * @method toDateTimeString
-     * @for $time.{namespace}
-     * @public
-     * @param {DateArray} params_obj
-     *  - See [toStringFromObject](#methods_toStringFromObject).
-     * @returns {Function}
-     *  - `DateArray`=> **<String>**
-     * @example
-     *      $time.toDateTimeString({ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
-     */
-    function toDateTimeString(params_obj){
-        return toStringFromObject(format_arrays.YYYYMMDDHHmmss, params_obj);
-    }
-    function toLocaleDateString(format_object= "YYYYMMDD", { locale= internal_locale, timeZone= internal_zone }= {}){
-        return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object]));
-    }
-    function toLocaleTimeString(format_object= "HHmmSS", { locale= internal_locale, timeZone= internal_zone }= {}){
-        return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object]));
+    function toLocaleString(format_object_name= "date_time", { locale= internal_locale, timeZone= internal_zone }= {}){
+        return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object_name]));
     }
     function toRelative(reference_date_array){
         return date_array=> getRelative(getDiffMs(reference_date_array)(date_array));
@@ -892,6 +894,24 @@ const $time= (function init(){
      */
     function toString(format_string, params_obj){
         return toStringFromObject(format_string ? getFormatObject(format_string) : false, params_obj);
+    }
+    /**
+     * Similar to [`toString`](#methods_toString) generates string based on given format. But now based on existing predefined/cached formats see [`format_arrays`](#props_format_arrays).
+     * @method toStringPreDefined
+     * @for $time.{namespace}
+     * @public
+     * @param {String} format_name
+     *  - **Default: `"YMDHms_2d"`**
+     *  - See [`format_arrays`](#props_format_arrays).
+     * @param {DateArray} params_obj
+     *  - See [`toStringFromObject`](#methods_toStringFromObject).
+     * @returns {Function}
+     *  - **`date_array`&lt;DateArray&gt;=> &lt;String&gt;**
+     * @example
+     *      $time.toStringPreDefined("YMDHms_2d", { locale: "en-GB" })($time.fromNow());//= "2019-06-05 09:32:20"
+     */
+    function toStringPreDefined(format_name= "YMDHms_2d", params_obj= {}){
+        return toStringFromObject(format_arrays[format_name], params_obj);
     }
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     
@@ -1047,7 +1067,7 @@ const $time= (function init(){
     
         fromNow, fromString, fromDate, fromDateArguments,
     
-        toDate, toString, toDateTimeString, toDateString, toLocaleTimeString, toLocaleDateString, toRelative,
+        toDate, toString, toStringPreDefined, toLocaleString, toRelative,
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,

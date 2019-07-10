@@ -9,7 +9,7 @@ const $time= (function init(){
     gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
 
     gulp_place("from_functions/*.sub.js", "glob");/* global fromNow, fromString, fromDate, fromDateArguments */
-    gulp_place("to_functions/*.sub.js", "glob");/* global toDate, toString, toDateTimeString, toDateString, toLocaleTimeString, toLocaleDateString, toRelative */
+    gulp_place("to_functions/*.sub.js", "glob");/* global toDate, toString, toStringPreDefined, toLocaleString, toRelative */
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place("timezones/*.sub.js", "glob");/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
     gulp_place("modify/*.sub.js", "glob");/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
@@ -25,7 +25,7 @@ const $time= (function init(){
     
         fromNow, fromString, fromDate, fromDateArguments,
     
-        toDate, toString, toDateTimeString, toDateString, toLocaleTimeString, toLocaleDateString, toRelative,
+        toDate, toString, toStringPreDefined, toLocaleString, toRelative,
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,

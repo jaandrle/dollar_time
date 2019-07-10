@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.1.1</title>
+    <title>Documentation: $time@0.1.2</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: src\$time_init.sub.js</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.1.1</em>
+            <em>API Docs for: 0.1.2</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -63,7 +63,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toDateString.sub.js/<ul></ul></li><li>src\to_functions\toDateTimeString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -76,28 +76,43 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 const /* internal store */
 /**
- * Internal object holding predefined formating arguments for &#x60;Date.prototype.toLocaleString&#x60;. For example &#x60;format_objects.HHmm==={ hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; }&#x60;.
+ * Internal object holding predefined formating arguments for &#x60;$time.toLocaleString&#x60;. For example &#x60;format_objects.time==={ hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; }&#x60;.
+ * 
+ * Keys:
+ *  - &#x60;time&#x60;: shows combination of 2-digits hour and minutes
+ *  - &#x60;time_seconds&#x60;: shows combination of &#x60;time&#x60; and seconds
+ *  - &#x60;date&#x60;: shows combination of 2-digits day, month and full year
+ *  - &#x60;date_time&#x60;: shows combination of &#x60;time&#x60; and &#x60;date&#x60;
+ *  - &#x60;date_time_seconds&#x60;: shows combination of &#x60;date_time&#x60; and &#x60;seconds&#x60;
  * @property {Object} format_objects
  * @private
  * @for $time.{namespace}
  */
-    format_objects= (({ HHmm, YYYYMMDD, SS })=&gt;({
-        HHmm, YYYYMMDD,
-        HHmmSS: Object.assign(SS, HHmm) //,YYYYMMDDHHmmss: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+    format_objects= (({ time, date, seconds })=&gt;({
+        time, date,
+        time_seconds: Object.assign(seconds, time),
+        date_time: Object.assign({}, time, date),
+        date_time_seconds: Object.assign({}, Object.assign(seconds, time), date)
     }))({
-        HHmm: { hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; },
-        YYYYMMDD: { year: &quot;numeric&quot;, day: &quot;2-digit&quot;, month: &quot;2-digit&quot; },
-        SS: { second: &quot;2-digit&quot; }
+        time: { hour: &quot;2-digit&quot;, minute: &quot;2-digit&quot; },
+        date: { year: &quot;numeric&quot;, day: &quot;2-digit&quot;, month: &quot;2-digit&quot; },
+        seconds: { second: &quot;2-digit&quot; }
     }),
 /**
  * Internal object holding predefined formating arguments for &#x60;getFormatObject&#x60;. For example &#x60;format_arrays.YYYYMMDD=== [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]&#x60;.
+ * 
+ * Keys:
+ *  - &#x60;YMD_2d&#x60;: shows **&quot;YYYY-MM-DD&quot;**
+ *  - &#x60;YMDHmS_2d&#x60;: shows **&quot;YYYY-MM-DD HH:mm:ss&quot;**
+ *  - &#x60;Hms_2d&#x60;: shows **&quot;HH:mm:ss&quot;**
  * @property {Object} format_arrays
  * @private
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=&gt;({
-        YYYYMMDDHHmmss: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig, &quot;h23&quot;], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
-        YYYYMMDD: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]
+        YMDHmS_2d: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig], space, [&quot;hour&quot;, two_dig, &quot;h23&quot;], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ],
+        YMD_2d: [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ],
+        Hms_2d: [ [&quot;hour&quot;, two_dig, &quot;h23&quot;], colon, [&quot;minute&quot;, two_dig], colon, [&quot;second&quot;, two_dig] ]
     }))({
         dash: [ &quot;text&quot;, &quot;-&quot; ],
         colon: [ &quot;text&quot;, &quot;:&quot; ],

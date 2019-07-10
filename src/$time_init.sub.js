@@ -1,28 +1,43 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 const /* internal store */
 /**
- * Internal object holding predefined formating arguments for `Date.prototype.toLocaleString`. For example `format_objects.HHmm==={ hour: "2-digit", minute: "2-digit" }`.
+ * Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: "2-digit", minute: "2-digit" }`.
+ * 
+ * Keys:
+ *  - `time`: shows combination of 2-digits hour and minutes
+ *  - `time_seconds`: shows combination of `time` and seconds
+ *  - `date`: shows combination of 2-digits day, month and full year
+ *  - `date_time`: shows combination of `time` and `date`
+ *  - `date_time_seconds`: shows combination of `date_time` and `seconds`
  * @property {Object} format_objects
  * @private
  * @for $time.{namespace}
  */
-    format_objects= (({ HHmm, YYYYMMDD, SS })=>({
-        HHmm, YYYYMMDD,
-        HHmmSS: Object.assign(SS, HHmm) //,YYYYMMDDHHmmss: Object.assign({}, Object.assign(SS, HHmm), YYYYMMDD)
+    format_objects= (({ time, date, seconds })=>({
+        time, date,
+        time_seconds: Object.assign(seconds, time),
+        date_time: Object.assign({}, time, date),
+        date_time_seconds: Object.assign({}, Object.assign(seconds, time), date)
     }))({
-        HHmm: { hour: "2-digit", minute: "2-digit" },
-        YYYYMMDD: { year: "numeric", day: "2-digit", month: "2-digit" },
-        SS: { second: "2-digit" }
+        time: { hour: "2-digit", minute: "2-digit" },
+        date: { year: "numeric", day: "2-digit", month: "2-digit" },
+        seconds: { second: "2-digit" }
     }),
 /**
  * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
+ * 
+ * Keys:
+ *  - `YMD_2d`: shows **"YYYY-MM-DD"**
+ *  - `YMDHmS_2d`: shows **"YYYY-MM-DD HH:mm:ss"**
+ *  - `Hms_2d`: shows **"HH:mm:ss"**
  * @property {Object} format_arrays
  * @private
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=>({
-        YYYYMMDDHHmmss: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
-        YYYYMMDD: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]
+        YMDHmS_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+        YMD_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
+        Hms_2d: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
     }))({
         dash: [ "text", "-" ],
         colon: [ "text", ":" ],
