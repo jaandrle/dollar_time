@@ -63,7 +63,7 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, lo
  *  - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
  */
 function getFormatObject(format_string= ""){
-    let out= [];
+    let out= [], out_last_index, letter;
     while(format_string.length){
         switch(format_string[0]){
             case "M": handleM();                            break;
@@ -80,8 +80,9 @@ function getFormatObject(format_string= ""){
             case "s": handle("second", "s");                break;
             case "[": handleText();                         break;
             default:
-                let letter= format_string[0];
-                if(out[out.length-1][0]==="text") out[out.length-1][1]+= letter;
+                letter= format_string[0];
+                out_last_index= out.length-1;
+                if(out_last_index>-1&&out[out_last_index][0]==="text") out[out_last_index][1]+= letter;
                 else out.push(["text", letter]);
                 format_string= format_string.substring(1);
         }
