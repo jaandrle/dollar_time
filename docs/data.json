@@ -46,6 +46,15 @@
             },
             "namespaces": {}
         },
+        "src\\modify\\modify.sub.js": {
+            "name": "src\\modify\\modify.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
         "src\\to_functions\\helpers.sub.js": {
             "name": "src\\to_functions\\helpers.sub.js",
             "modules": {},
@@ -266,6 +275,57 @@
             "return": {
                 "description": "- `[ date, time, time_zone ]`\n - where:\n     - `date` is always \"YYYY-MM-DD\" or \"\"\n     - `time` is always \"HH:mm:SS\" or \"HH:mm:00\" or \"\"\n     - `time_zone` is always \"[+-]\\d\\d:\\d\\d\" or \"CET\" or \"\"",
                 "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\modify\\modify.sub.js",
+            "line": 5,
+            "itemtype": "method",
+            "name": "modify",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "mod_obj",
+                    "description": "- object literal representing requested operations\n - use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)\n - supports also *add\\** commands with the same notation (\"setMonth\" => \"addMonth\")\n - **IMPORTANT NOTE:** There are three behaviour changes\n     - \"setMonth\" is indexed from 1 (instead of 0)\n     - for \"setDate\" there is alias \"setDay\"\n     - for \"addDate\" there is alias \"addDays\"",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "- See [toDateArray](#methods_toDateArray).",
+                "type": "DateArray"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\modify\\modify.sub.js",
+            "line": 34,
+            "description": "Helper method for invoking \"add*\" operations in [`modify`](#methods_modify).\n\nIn general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).",
+            "itemtype": "method",
+            "name": "modifyAdditions",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "operation",
+                    "description": "- e.g. \"addMonth\"",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "- mainly argument (number) for",
+                    "type": "Number"
+                },
+                {
+                    "name": "dateObject",
+                    "description": "- instance of `Date`",
+                    "type": "Date"
+                }
+            ],
+            "return": {
+                "description": "- returns `dateObject`",
+                "type": "Date"
             },
             "class": "$time.{namespace}"
         },
@@ -727,6 +787,14 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " src\\from_functions\\toDateArray.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\modify\\modify.sub.js:5"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\modify\\modify.sub.js:34"
         },
         {
             "message": "replacing incorrect tag: returns with return",

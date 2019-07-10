@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.1.2</title>
+    <title>Documentation: $time@0.3.0</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: $time.{namespace}</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.1.2</em>
+            <em>API Docs for: 0.3.0</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -72,6 +72,8 @@
                             <li class="menuli"><a href="#methods_getOrdinalSuffix">getOrdinalSuffix</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_isDateString">isDateString</a> <i class="private_method">(private)</i></li>
                             <li class="menuli"><a href="#methods_isTimeString">isTimeString</a> <i class="private_method">(private)</i></li>
+                            <li class="menuli"><a href="#methods_modify">modify</a> <i class="public_method">(public)</i></li>
+                            <li class="menuli"><a href="#methods_modifyAdditions">modifyAdditions</a> <i class="private_method">(private)</i></li>
                             <li class="menuli"><a href="#methods_toDate">toDate</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_toDateArray">toDateArray</a> <i class="private_method">(private)</i></li>
                             <li class="menuli"><a href="#methods_toLocaleString">toLocaleString</a> <i class="public_method">(public)</i></li>
@@ -90,7 +92,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -422,6 +424,79 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
  isDateString(&quot;12:00:00&quot;);//= false !!!
  isDateString(&quot;Twrong&quot;);//= true !!!!</code></pre>
 
+</div>
+<a name="methods_modify"></a>
+<div class="method item public">
+    DateArray <strong class="name"><code>modify</code></strong>( <code>mod_obj</code> ) <br/><strong class="public_method">/* public method */</strong>
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/src_modify_modify.sub.js.html#l5"><code>src\modify\modify.sub.js:5</code></a>
+    </span><br>
+    
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>mod_obj</code> <strong>&lt;Object&gt;</strong>
+        <ul>
+<li>object literal representing requested operations</li>
+<li>use name convention like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter">setters for <code>Date</code></a> (only one argument is allowed)</li>
+<li>supports also <em>add*</em> commands with the same notation (&quot;setMonth&quot; =&gt; &quot;addMonth&quot;)</li>
+<li><strong>IMPORTANT NOTE:</strong> There are three behaviour changes
+<ul>
+<li>&quot;setMonth&quot; is indexed from 1 (instead of 0)</li>
+<li>for &quot;setDate&quot; there is alias &quot;setDay&quot;</li>
+<li>for &quot;addDate&quot; there is alias &quot;addDays&quot;</li>
+</ul>
+</li>
+</ul>
+
+        </li>
+    </ul>
+    <br><div class="returns"><strong>Returns:</strong> &lt;DateArray&gt; <ul>
+<li>See <a href="#methods_toDateArray">toDateArray</a>.</li>
+</ul>
+</div>
+</div>
+<a name="methods_modifyAdditions"></a>
+<div class="method item private">
+    Date <strong class="name"><code>modifyAdditions</code></strong>( <code>operation</code>, <code>value</code>, <code>dateObject</code> ) <br/><strong class="private_method">/* private method */</strong>
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/src_modify_modify.sub.js.html#l34"><code>src\modify\modify.sub.js:34</code></a>
+    </span><br>
+    <p>Helper method for invoking &quot;add*&quot; operations in <a href="#methods_modify"><code>modify</code></a>.</p>
+<p>In general <code>d.set...(d.get...+${value})</code> (where <code>d</code> is instance of <code>Date</code>).</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>operation</code> <strong>&lt;String&gt;</strong>
+        <ul>
+<li>e.g. &quot;addMonth&quot;</li>
+</ul>
+
+        </li>
+        <li>
+            <code>value</code> <strong>&lt;Number&gt;</strong>
+        <ul>
+<li>mainly argument (number) for</li>
+</ul>
+
+        </li>
+        <li>
+            <code>dateObject</code> <strong>&lt;Date&gt;</strong>
+        <ul>
+<li>instance of <code>Date</code></li>
+</ul>
+
+        </li>
+    </ul>
+    <br><div class="returns"><strong>Returns:</strong> &lt;Date&gt; <ul>
+<li>returns <code>dateObject</code></li>
+</ul>
+</div>
 </div>
 <a name="methods_toDate"></a>
 <div class="method item public">

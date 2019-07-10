@@ -1,7 +1,7 @@
 {
   "__SECTION_GULP": "",
   "fullName": "$time",
-  "version": "0.1.2",
+  "version": "0.3.0",
   "build": "0001",
   "src_folder": "src/",
   "bin_folder": "bin/",

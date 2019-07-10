@@ -5,7 +5,7 @@
  * @class $time.{namespace}
  * @static
  */
-const $time= (function init(){/* version: "0.1.2" */
+const $time= (function init(){/* version: "0.3.0" */
     const /* internal store */
     /**
      * Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: "2-digit", minute: "2-digit" }`.
@@ -682,7 +682,7 @@ const $time= (function init(){/* version: "0.1.2" */
      *  - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
      */
     function getFormatObject(format_string= ""){
-        let out= [];
+        let out= [], out_last_index, letter;
         while(format_string.length){
             switch(format_string[0]){
                 case "M": handleM();                            break;
@@ -699,8 +699,9 @@ const $time= (function init(){/* version: "0.1.2" */
                 case "s": handle("second", "s");                break;
                 case "[": handleText();                         break;
                 default:
-                    let letter= format_string[0];
-                    if(out[out.length-1][0]==="text") out[out.length-1][1]+= letter;
+                    letter= format_string[0];
+                    out_last_index= out.length-1;
+                    if(out_last_index>-1&&out[out_last_index][0]==="text") out[out_last_index][1]+= letter;
                     else out.push(["text", letter]);
                     format_string= format_string.substring(1);
             }
@@ -987,19 +988,55 @@ const $time= (function init(){/* version: "0.1.2" */
         }
         return 1 + Math.ceil((firstThursday - tdt) / 604800000);
     }
+    /**
+     * @method modify
+     * @for $time.{namespace}
+     * @public
+     * @param {Object} mod_obj
+     *  - object literal representing requested operations
+     *  - use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)
+     *  - supports also *add\** commands with the same notation ("setMonth" => "addMonth")
+     *  - **IMPORTANT NOTE:** There are three behaviour changes
+     *      - "setMonth" is indexed from 1 (instead of 0)
+     *      - for "setDate" there is alias "setDay"
+     *      - for "addDate" there is alias "addDays"
+     * @returns {DateArray}
+     *  - See [toDateArray](#methods_toDateArray).
+     */
     function modify(mod_obj){
         const operations= Object.keys(mod_obj);
         return function(date_array){
             const dateObject= toDate(date_array);
             for(let i=0, operation; ( operation= operations[i] ); i++){
                 if(operation==="addDays") addDays(mod_obj[operation])(dateObject);
-                else if(operation==="addMonths") addMonths(mod_obj[operation])(dateObject);
+                else if(operation.substr(0,3)==="add") modifyAdditions(operation, mod_obj[operation], dateObject);
                 else if(operation==="setMonth") dateObject.setMonth(mod_obj[operation]-1);
                 else if(Reflect.has(dateObject, operation)) dateObject[operation](mod_obj[operation]);
                 else if(operation==="setDay") dateObject.setDate(mod_obj[operation]);
             }
             return fromDate(dateObject);
         };
+    }
+    /**
+     * Helper method for invoking "add*" operations in [`modify`](#methods_modify).
+     * 
+     * In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
+     * @method modifyAdditions
+     * @for $time.{namespace}
+     * @private
+     * @param {String} operation
+     *  - e.g. "addMonth"
+     * @param {Number} value
+     *  - mainly argument (number) for 
+     * @param {Date} dateObject
+     *  - instance of `Date`
+     * @returns {Date}
+     *  - returns `dateObject`
+     */
+    function modifyAdditions(operation, value, dateObject){
+        const cmd= operation.substr(3); /* addMonths=> ...Month => (set/get)Month */
+        dateObject["set"+cmd](dateObject["get"+cmd]+value);
+        return dateObject;
     }
     function setTimeZone(zone= internal_zone){
         return ([ date= "", time= "" ]= [])=> [ date, time, zone ];
