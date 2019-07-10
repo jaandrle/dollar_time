@@ -63,7 +63,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -88,7 +88,7 @@ const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &q
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place(&quot;timezones/*.sub.js&quot;, &quot;glob&quot;);/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
     gulp_place(&quot;modify/*.sub.js&quot;, &quot;glob&quot;);/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
-    gulp_place(&quot;utility/*.sub.js&quot;, &quot;glob&quot;);/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth */
+    gulp_place(&quot;utility/*.sub.js&quot;, &quot;glob&quot;);/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth, daysInMonth */
     
     return {
         /**
@@ -109,7 +109,7 @@ const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &q
         setTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
-        getDaysInMonth,
+        getDaysInMonth, daysInMonth,
     
         getTimeZones: ()=&gt; ary_ianna_time_zones, isTimeZone: candidate=&gt; ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=&gt; internal_zone= zone, setInternalLocale: locale=&gt; internal_locale= locale

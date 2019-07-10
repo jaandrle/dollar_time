@@ -35,16 +35,16 @@ const $time= (function init(){/* version: "0.1.2" */
      * 
      * Keys:
      *  - `YMD_2d`: shows **"YYYY-MM-DD"**
-     *  - `YMDHmS_2d`: shows **"YYYY-MM-DD HH:mm:ss"**
+     *  - `YMDHms_2d`: shows **"YYYY-MM-DD HH:mm:ss"**
      *  - `Hms_2d`: shows **"HH:mm:ss"**
      * @property {Object} format_arrays
      * @private
      * @for $time.{namespace}
      */
         format_arrays= (({ dash, colon, space, two_dig })=>({
-            YMDHmS_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
             YMD_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
-            Hms_2d: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
+            Hms_2d: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+            YMDHms_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
         }))({
             dash: [ "text", "-" ],
             colon: [ "text", ":" ],
@@ -1010,8 +1010,36 @@ const $time= (function init(){/* version: "0.1.2" */
         n= String(n);
         return n.length===1 ? "0"+n : n;
     }
-    function getDaysInMonth(month_number, year= (new Date()).getFullYear()){/* months indexing from 0 */
-        return new Date(year, +month_number, 0 /* last in prev month */).getDate();
+    /**
+     * Returns number of days in given month (and year)
+     * @method daysInMonth
+     * @for $time.{namespace}
+     * @public
+     * @param {String|Number} month
+     *  - ISO number of month (eg 01 or 1 for January)
+     * @param {String|Number} year
+     *  - **Default: current year**
+     *  - ISO nimber of year (eg. 2019)
+     * @returns {Number}
+     *  - total of days
+     */
+    function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing from 0 */
+        return new Date(+year, +month, 0 /* last in prev month */).getDate();
+    }
+    /**
+     * Returns number of days in given month
+     * @method getDaysInMonth
+     * @for $time.{namespace}
+     * @public
+     * @param {DateArray} date_array
+     *  - **Default: current date**
+     *  - see [`toDateArray`](#methods_toDateArray)
+     * @returns {Number}
+     *  - total of days
+     */
+    function getDaysInMonth([ date= fromNow()[0] ]= []){
+        const [ _, month, year ]= date.split("-").map(Number);
+        return daysInMonth(month, year);
     }
     /**
     * @method getMonthName
@@ -1076,7 +1104,7 @@ const $time= (function init(){/* version: "0.1.2" */
         setTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
-        getDaysInMonth,
+        getDaysInMonth, daysInMonth,
     
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale

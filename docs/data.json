@@ -100,6 +100,15 @@
             },
             "namespaces": {}
         },
+        "src\\utility\\getDaysInMonth.sub.js": {
+            "name": "src\\utility\\getDaysInMonth.sub.js",
+            "modules": {},
+            "classes": {},
+            "fors": {
+                "$time.{namespace}": 1
+            },
+            "namespaces": {}
+        },
         "src\\utility\\getMonthName.sub.js": {
             "name": "src\\utility\\getMonthName.sub.js",
             "modules": {},
@@ -483,6 +492,53 @@
             "class": "$time.{namespace}"
         },
         {
+            "file": "src\\utility\\getDaysInMonth.sub.js",
+            "line": 3,
+            "description": "Returns number of days in given month (and year)",
+            "itemtype": "method",
+            "name": "daysInMonth",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "month",
+                    "description": "- ISO number of month (eg 01 or 1 for January)",
+                    "type": "String|Number"
+                },
+                {
+                    "name": "year",
+                    "description": "- **Default: current year**\n - ISO nimber of year (eg. 2019)",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "- total of days",
+                "type": "Number"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
+            "file": "src\\utility\\getDaysInMonth.sub.js",
+            "line": 19,
+            "description": "Returns number of days in given month",
+            "itemtype": "method",
+            "name": "getDaysInMonth",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "date_array",
+                    "description": "- **Default: current date**\n - see [`toDateArray`](#methods_toDateArray)",
+                    "type": "DateArray"
+                }
+            ],
+            "return": {
+                "description": "- total of days",
+                "type": "Number"
+            },
+            "class": "$time.{namespace}"
+        },
+        {
             "file": "src\\utility\\getMonthName.sub.js",
             "line": 2,
             "itemtype": "method",
@@ -561,7 +617,7 @@
         {
             "file": "src\\$time_init.sub.js",
             "line": 26,
-            "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.\n\nKeys:\n - `YMD_2d`: shows **\"YYYY-MM-DD\"**\n - `YMDHmS_2d`: shows **\"YYYY-MM-DD HH:mm:ss\"**\n - `Hms_2d`: shows **\"HH:mm:ss\"**",
+            "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.\n\nKeys:\n - `YMD_2d`: shows **\"YYYY-MM-DD\"**\n - `YMDHms_2d`: shows **\"YYYY-MM-DD HH:mm:ss\"**\n - `Hms_2d`: shows **\"HH:mm:ss\"**",
             "itemtype": "property",
             "name": "format_arrays",
             "type": "Object",
@@ -695,6 +751,14 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " src\\to_functions\\toStringPreDefined.sub.js:4"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\utility\\getDaysInMonth.sub.js:3"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " src\\utility\\getDaysInMonth.sub.js:19"
         },
         {
             "message": "replacing incorrect tag: returns with return",

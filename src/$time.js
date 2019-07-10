@@ -13,7 +13,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place("timezones/*.sub.js", "glob");/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
     gulp_place("modify/*.sub.js", "glob");/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
-    gulp_place("utility/*.sub.js", "glob");/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth */
+    gulp_place("utility/*.sub.js", "glob");/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth, daysInMonth */
     
     return {
         /**
@@ -34,7 +34,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         setTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
-        getDaysInMonth,
+        getDaysInMonth, daysInMonth,
     
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale

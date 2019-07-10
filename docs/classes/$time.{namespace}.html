@@ -60,11 +60,13 @@
                 </div>
                 <div class="bd">
                     <ul>
+                            <li class="menuli"><a href="#methods_daysInMonth">daysInMonth</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_double">double</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_fromDate">fromDate</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_fromDateArguments">fromDateArguments</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_fromNow">fromNow</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_fromString">fromString</a> <i class="public_method">(public)</i></li>
+                            <li class="menuli"><a href="#methods_getDaysInMonth">getDaysInMonth</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_getFormatObject">getFormatObject</a> <i class="private_method">(private)</i></li>
                             <li class="menuli"><a href="#methods_getMonthName">getMonthName</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_getOrdinalSuffix">getOrdinalSuffix</a> <i class="public_method">(public)</i></li>
@@ -88,7 +90,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -108,6 +110,39 @@
     </ul>
     <div>
             <div id="methods"><h4>Methods</h4>
+<a name="methods_daysInMonth"></a>
+<div class="method item public">
+    Number <strong class="name"><code>daysInMonth</code></strong>( <code>month</code>, <code>year</code> ) <br/><strong class="public_method">/* public method */</strong>
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/src_utility_getDaysInMonth.sub.js.html#l3"><code>src\utility\getDaysInMonth.sub.js:3</code></a>
+    </span><br>
+    <p>Returns number of days in given month (and year)</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>month</code> <strong>&lt;String | Number&gt;</strong>
+        <ul>
+<li>ISO number of month (eg 01 or 1 for January)</li>
+</ul>
+
+        </li>
+        <li>
+            <code>year</code> <strong>&lt;String | Number&gt;</strong>
+        <ul>
+<li><strong>Default: current year</strong></li>
+<li>ISO nimber of year (eg. 2019)</li>
+</ul>
+
+        </li>
+    </ul>
+    <br><div class="returns"><strong>Returns:</strong> &lt;Number&gt; <ul>
+<li>total of days</li>
+</ul>
+</div>
+</div>
 <a name="methods_double"></a>
 <div class="method item public">
     String <strong class="name"><code>double</code></strong>( <code>time</code> ) <br/><strong class="public_method">/* public method */</strong>
@@ -225,6 +260,32 @@
     </ul>
     <br><div class="returns"><strong>Returns:</strong> &lt;DateArray&gt; <ul>
 <li>See <a href="#methods_toDateArray">toDateArray</a>.</li>
+</ul>
+</div>
+</div>
+<a name="methods_getDaysInMonth"></a>
+<div class="method item public">
+    Number <strong class="name"><code>getDaysInMonth</code></strong>( <code>date_array</code> ) <br/><strong class="public_method">/* public method */</strong>
+    <br>
+    <span class="foundat">
+        
+        <a href="../files/src_utility_getDaysInMonth.sub.js.html#l19"><code>src\utility\getDaysInMonth.sub.js:19</code></a>
+    </span><br>
+    <p>Returns number of days in given month</p>
+
+    <strong>Parameters:</strong>
+    <ul class="params">
+        <li>
+            <code>date_array</code> <strong>&lt;DateArray&gt;</strong>
+        <ul>
+<li><strong>Default: current date</strong></li>
+<li>see <a href="#methods_toDateArray"><code>toDateArray</code></a></li>
+</ul>
+
+        </li>
+    </ul>
+    <br><div class="returns"><strong>Returns:</strong> &lt;Number&gt; <ul>
+<li>total of days</li>
 </ul>
 </div>
 </div>
@@ -640,7 +701,7 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 <p>Keys:</p>
 <ul>
 <li><code>YMD_2d</code>: shows <strong>&quot;YYYY-MM-DD&quot;</strong></li>
-<li><code>YMDHmS_2d</code>: shows <strong>&quot;YYYY-MM-DD HH:mm:ss&quot;</strong></li>
+<li><code>YMDHms_2d</code>: shows <strong>&quot;YYYY-MM-DD HH:mm:ss&quot;</strong></li>
 <li><code>Hms_2d</code>: shows <strong>&quot;HH:mm:ss&quot;</strong></li>
 </ul>
 
