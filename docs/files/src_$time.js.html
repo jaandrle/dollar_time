@@ -76,11 +76,11 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* global gulp_place */
 /**
- * This NAMESPACE provides features for time.
+ * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [&#x60;Date.prototype.toLocaleString&#x60;](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
  * @class $time.{namespace}
  * @static
  */
-const $time= (function init(){
+const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &quot;variable&quot;) */
     gulp_place(&quot;$time_init.sub.js&quot;);/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
 
     gulp_place(&quot;from_functions/*.sub.js&quot;, &quot;glob&quot;);/* global fromNow, fromString, fromDate, fromDateArguments */

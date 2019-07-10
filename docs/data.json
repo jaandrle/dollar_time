@@ -149,7 +149,7 @@
             "extension_for": [],
             "file": "src\\$time.js",
             "line": 3,
-            "description": "This NAMESPACE provides features for time.",
+            "description": "This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).",
             "static": 1
         }
     },
