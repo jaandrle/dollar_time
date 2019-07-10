@@ -78,6 +78,7 @@
 /* to_functions *//* global toDate */
 /* modify/Date *//* global addDays, addMonths */
 /**
+ * Curried method &#x60;mod_obj=&gt; date_array=&gt; result&#x60; – &#x60;mod_obj&#x60; holds information how modify given &#x60;date_array&#x60; **&amp;lt;DateArray&amp;gt;**. Result is again **&amp;lt;DateArray&amp;gt;**.
  * @method modify
  * @for $time.{namespace}
  * @public
@@ -90,7 +91,8 @@
  *      - for &quot;setDate&quot; there is alias &quot;setDay&quot;
  *      - for &quot;addDate&quot; there is alias &quot;addDays&quot;
  *  - Some operations: **&quot;\*Date&quot;** (or **&quot;setDay&quot;**, **&quot;addDays&quot;**), **&quot;\*Month&quot;**, **&quot;\*FullYear&quot;**, **&quot;\*Hours&quot;**, **&quot;\*Minutes&quot;**, **&quot;\*Seconds&quot;**
- * @returns {DateArray}
+ * @returns {Function}
+ *  - &#x60;date_array&#x60;**&amp;lt;DateArray&amp;gt;** &#x60;=&gt;&#x60; **&amp;lt;DateArray&amp;gt;**
  *  - See [toDateArray](#methods_toDateArray).
  */
 function modify(mod_obj){

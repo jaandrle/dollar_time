@@ -77,6 +77,8 @@
 /* from_functions *//* global toDateArray */
 /**
  * Function generates &#x60;DateArray&#x60; from current date and time.
+ * 
+ * **Warning:** Internally uses &#x60;toISOString&#x60; method so result is always converted to &quot;+00:00&quot;: &#x60;p($time.fromNow, $time.setTimeZone(&quot;+02:00&quot;), $time.toString())()&#x60; (&#x60;p&#x60; is some pipe function) — this returns &quot;2019-07-10T16:48:43+02:00&quot; instead of &quot;2019-07-10T18:48:43+02:00&quot; (current time) … the flow is &quot;2019-07-10T18:48:43+02:00&quot;-&#x60;fromNow&#x60;-&gt;&quot;2019-07-10T16:48:43Z&quot;-&#x60;setTimeZone&#x60;-&gt;&quot;2019-07-10T16:48:43+02:00&quot;.
  * @method fromNow
  * @for $time.{namespace}
  * @public

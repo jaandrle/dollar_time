@@ -524,6 +524,8 @@ const $time= (function init(){/* version: "0.3.0" */
     }
     /**
      * Function generates `DateArray` from current date and time.
+     * 
+     * **Warning:** Internally uses `toISOString` method so result is always converted to "+00:00": `p($time.fromNow, $time.setTimeZone("+02:00"), $time.toString())()` (`p` is some pipe function) — this returns "2019-07-10T16:48:43+02:00" instead of "2019-07-10T18:48:43+02:00" (current time) … the flow is "2019-07-10T18:48:43+02:00"-`fromNow`->"2019-07-10T16:48:43Z"-`setTimeZone`->"2019-07-10T16:48:43+02:00".
      * @method fromNow
      * @for $time.{namespace}
      * @public
@@ -989,6 +991,7 @@ const $time= (function init(){/* version: "0.3.0" */
         return 1 + Math.ceil((firstThursday - tdt) / 604800000);
     }
     /**
+     * Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.
      * @method modify
      * @for $time.{namespace}
      * @public
@@ -1001,7 +1004,8 @@ const $time= (function init(){/* version: "0.3.0" */
      *      - for "setDate" there is alias "setDay"
      *      - for "addDate" there is alias "addDays"
      *  - Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
-     * @returns {DateArray}
+     * @returns {Function}
+     *  - `date_array`**&lt;DateArray&gt;** `=>` **&lt;DateArray&gt;**
      *  - See [toDateArray](#methods_toDateArray).
      */
     function modify(mod_obj){

@@ -226,6 +226,7 @@
         <a href="../files/src_from_functions_fromNow.sub.js.html#l3"><code>src\from_functions\fromNow.sub.js:3</code></a>
     </span><br>
     <p>Function generates <code>DateArray</code> from current date and time.</p>
+<p><strong>Warning:</strong> Internally uses <code>toISOString</code> method so result is always converted to &quot;+00:00&quot;: <code>p($time.fromNow, $time.setTimeZone(&quot;+02:00&quot;), $time.toString())()</code> (<code>p</code> is some pipe function) — this returns &quot;2019-07-10T16:48:43+02:00&quot; instead of &quot;2019-07-10T18:48:43+02:00&quot; (current time) … the flow is &quot;2019-07-10T18:48:43+02:00&quot;-<code>fromNow</code>-&gt;&quot;2019-07-10T16:48:43Z&quot;-<code>setTimeZone</code>-&gt;&quot;2019-07-10T16:48:43+02:00&quot;.</p>
 
     <br><div class="returns"><strong>Returns:</strong> &lt;DateArray&gt; <ul>
 <li>See <a href="#methods_toDateArray">toDateArray</a>.</li>
@@ -427,13 +428,14 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 </div>
 <a name="methods_modify"></a>
 <div class="method item public">
-    DateArray <strong class="name"><code>modify</code></strong>( <code>mod_obj</code> ) <br/><strong class="public_method">/* public method */</strong>
+    Function <strong class="name"><code>modify</code></strong>( <code>mod_obj</code> ) <br/><strong class="public_method">/* public method */</strong>
     <br>
     <span class="foundat">
         
         <a href="../files/src_modify_modify.sub.js.html#l5"><code>src\modify\modify.sub.js:5</code></a>
     </span><br>
-    
+    <p>Curried method <code>mod_obj=&gt; date_array=&gt; result</code> – <code>mod_obj</code> holds information how modify given <code>date_array</code> <strong>&lt;DateArray&gt;</strong>. Result is again <strong>&lt;DateArray&gt;</strong>.</p>
+
     <strong>Parameters:</strong>
     <ul class="params">
         <li>
@@ -454,7 +456,8 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 
         </li>
     </ul>
-    <br><div class="returns"><strong>Returns:</strong> &lt;DateArray&gt; <ul>
+    <br><div class="returns"><strong>Returns:</strong> &lt;Function&gt; <ul>
+<li><code>date_array</code><strong>&lt;DateArray&gt;</strong> <code>=&gt;</code> <strong>&lt;DateArray&gt;</strong></li>
 <li>See <a href="#methods_toDateArray">toDateArray</a>.</li>
 </ul>
 </div>
@@ -465,7 +468,7 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
     <br>
     <span class="foundat">
         
-        <a href="../files/src_modify_modify.sub.js.html#l35"><code>src\modify\modify.sub.js:35</code></a>
+        <a href="../files/src_modify_modify.sub.js.html#l37"><code>src\modify\modify.sub.js:37</code></a>
     </span><br>
     <p>Helper method for invoking &quot;add*&quot; operations in <a href="#methods_modify"><code>modify</code></a>.</p>
 <p>In general <code>d.set...(d.get...+${value})</code> (where <code>d</code> is instance of <code>Date</code>).</p>
