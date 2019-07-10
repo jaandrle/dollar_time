@@ -48,7 +48,7 @@ function modify(mod_obj){
  *  - returns `dateObject`
  */
 function modifyAdditions(operation, value, dateObject){
-    const cmd= operation.substr(3); /* addMonths=> ...Month => (set/get)Month */
-    dateObject["set"+cmd](dateObject["get"+cmd]+value);
+    const cmd= operation.substr(3); /* addMonth=> ...Month => (set/get)Month */
+    dateObject["set"+cmd](dateObject["get"+cmd]()+value);
     return dateObject;
 }
