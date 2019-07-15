@@ -91,7 +91,10 @@
  *      - &#x60;time_zone&#x60; is always &quot;[+-]\d\d:\d\d&quot; or &quot;CET&quot; or &quot;&quot;
  */
 function toDateArray(timestamp_string){
-    let letter, counter= 0, acc= &quot;&quot;, substr_index, date= &quot;&quot;, time= &quot;&quot;, zone= &quot;&quot;;
+    let /* these hold outputs */
+        date= &quot;&quot;, time= &quot;&quot;, zone= &quot;&quot;;
+    let /* iteration vars: curr letter instring +helpers for timezones */
+        letter, acc= &quot;&quot;, substr_index;
     while(timestamp_string.length){
         letter= timestamp_string[0];
         if(/\d/.test(letter)){
@@ -99,7 +102,7 @@ function toDateArray(timestamp_string){
                 date= timestamp_string.substr(0, 10);
                 timestamp_string= timestamp_string.substr(10);
             } else if(!timestamp_string.search(/\d\d\/\d\d\/\d\d\d\d/)){
-                date= timestamp_string.substr(0, 10).split(&quot;/&quot;).sort((_,k)=&gt; k).join(&quot;-&quot;);
+                date= timestamp_string.substr(0, 10).split(&quot;/&quot;).sort(()=&gt; -1).join(&quot;-&quot;);
                 timestamp_string= timestamp_string.substr(10);
             } else if(!timestamp_string.search(/\d\d:\d\d:\d\d/)){
                 time= &quot;T&quot;+timestamp_string.substr(0, 8);
@@ -133,7 +136,7 @@ function toDateArray(timestamp_string){
         } else {
             timestamp_string= timestamp_string.substr(1);
         }
-        counter+= 1; if(counter&gt;5 &amp;&amp; date&amp;&amp;time&amp;&amp;zone){ timestamp_string= &quot;&quot;; }
+        if(date&amp;&amp;time&amp;&amp;zone){ timestamp_string= &quot;&quot;; }
     }
     return [ date, time, zone ];
 }

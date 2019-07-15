@@ -16,7 +16,10 @@
  *      - `time_zone` is always "[+-]\d\d:\d\d" or "CET" or ""
  */
 function toDateArray(timestamp_string){
-    let letter, counter= 0, acc= "", substr_index, date= "", time= "", zone= "";
+    let /* these hold outputs */
+        date= "", time= "", zone= "";
+    let /* iteration vars: curr letter instring +helpers for timezones */
+        letter, acc= "", substr_index;
     while(timestamp_string.length){
         letter= timestamp_string[0];
         if(/\d/.test(letter)){
@@ -24,7 +27,7 @@ function toDateArray(timestamp_string){
                 date= timestamp_string.substr(0, 10);
                 timestamp_string= timestamp_string.substr(10);
             } else if(!timestamp_string.search(/\d\d\/\d\d\/\d\d\d\d/)){
-                date= timestamp_string.substr(0, 10).split("/").sort((_,k)=> k).join("-");
+                date= timestamp_string.substr(0, 10).split("/").sort(()=> -1).join("-");
                 timestamp_string= timestamp_string.substr(10);
             } else if(!timestamp_string.search(/\d\d:\d\d:\d\d/)){
                 time= "T"+timestamp_string.substr(0, 8);
@@ -58,7 +61,7 @@ function toDateArray(timestamp_string){
         } else {
             timestamp_string= timestamp_string.substr(1);
         }
-        counter+= 1; if(counter>5 && date&&time&&zone){ timestamp_string= ""; }
+        if(date&&time&&zone){ timestamp_string= ""; }
     }
     return [ date, time, zone ];
 }
