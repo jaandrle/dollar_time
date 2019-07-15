@@ -33,7 +33,7 @@ function evaluateFormatObject(date, locale, timeZone, declension){
     const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
     return function([type, value, modify]){
         let out= evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj);
-        if(value==="2-digit"&&out.length===1) out= "0"+out; //fix
+        if(value==="2-digit"&&String(out).length===1) out= "0"+out; //fix
         if(modify==="two_letters") out= out.substr(0,2);
         else if(modify==="ordinal_number"&&locale.indexOf("en")!==-1) out= getOrdinalSuffix(out);
         return out;
