@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.3.0</title>
+    <title>Documentation: $time@0.4.0</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: src\to_functions\helpers.sub.js</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.3.0</em>
+            <em>API Docs for: 0.4.0</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -63,7 +63,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -74,7 +74,7 @@
 
 <pre class="code prettyprint linenums">
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
-/* init *//* global internal_locale, internal_zone */
+/* init *//* global internal_locale, internal_zone, format_arrays */
 /* timezones/generateTimeZoneFormatObject *//* global generateTimeZoneFormatObject */
 /* to_functions *//* global toDate */
 /* modify/Date *//* global getWeekNumber, getWeekDay */
@@ -101,8 +101,7 @@
  * @example
  *      $time.toStringFromObject(&quot;DD/MM/YYYY HH:mm:SS&quot;,{ locale: &quot;en-GB&quot; })($time.fromNow());//= &quot;05/06/2019 09:32:20&quot;
  */
-function toStringFromObject(format, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
-    if(!format) return date_array=&gt; date_array.join(&quot;&quot;);
+function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
     return date_array=&gt; format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join(&quot;&quot;);
 }
 function evaluateFormatObject(date, locale, timeZone, declension){

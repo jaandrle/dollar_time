@@ -91,15 +91,6 @@
             },
             "namespaces": {}
         },
-        "src\\to_functions\\toStringPreDefined.sub.js": {
-            "name": "src\\to_functions\\toStringPreDefined.sub.js",
-            "modules": {},
-            "classes": {},
-            "fors": {
-                "$time.{namespace}": 1
-            },
-            "namespaces": {}
-        },
         "src\\utility\\double.sub.js": {
             "name": "src\\utility\\double.sub.js",
             "modules": {},
@@ -378,7 +369,7 @@
         },
         {
             "file": "src\\to_functions\\helpers.sub.js",
-            "line": 54,
+            "line": 53,
             "description": "Generates multidimensional array for formatting (eg. \"YYYY\"=> `[ [ \"year\", \"numeric\" ] ]`).",
             "itemtype": "method",
             "name": "getFormatObject",
@@ -459,16 +450,16 @@
         {
             "file": "src\\to_functions\\toString.sub.js",
             "line": 3,
-            "description": "Function generates text based on `format_string`, `locale` and `timeZone` from `DateArray`.",
+            "description": "Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.",
             "itemtype": "method",
             "name": "toString",
             "access": "public",
             "tagname": "",
             "params": [
                 {
-                    "name": "format_string",
-                    "description": "- Placeholder for replace/generate final string (eg. \"MM\"===two digits month)\n - see [`getFormatObject`](#methods_getFormatObject)",
-                    "type": "String"
+                    "name": "format",
+                    "description": "- **Default: `$time.formats.SQL`**\n - Placeholder for replace/generate final string (eg. \"MM\"===two digits month) — see [`getFormatObject`](#methods_getFormatObject).\n - Or lists of predefined formats — see [`formats`](#props_formats).",
+                    "type": "String|...Array"
                 },
                 {
                     "name": "params_obj",
@@ -498,36 +489,7 @@
                 "type": "Function"
             },
             "example": [
-                "\n     $time.toStringFromObject(\"DD/MM/YYYY HH:mm:SS\",{ locale: \"en-GB\" })($time.fromNow());//= \"05/06/2019 09:32:20\""
-            ],
-            "class": "$time.{namespace}"
-        },
-        {
-            "file": "src\\to_functions\\toStringPreDefined.sub.js",
-            "line": 4,
-            "description": "Similar to [`toString`](#methods_toString) generates string based on given format. But now based on existing predefined/cached formats see [`format_arrays`](#props_format_arrays).",
-            "itemtype": "method",
-            "name": "toStringPreDefined",
-            "access": "public",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "format_name",
-                    "description": "- **Default: `\"YMDHms_2d\"`**\n - See [`format_arrays`](#props_format_arrays).",
-                    "type": "String"
-                },
-                {
-                    "name": "params_obj",
-                    "description": "- See [`toStringFromObject`](#methods_toStringFromObject).",
-                    "type": "DateArray"
-                }
-            ],
-            "return": {
-                "description": "- **`date_array`&lt;DateArray&gt;=> &lt;String&gt;**",
-                "type": "Function"
-            },
-            "example": [
-                "\n     $time.toStringPreDefined(\"YMDHms_2d\", { locale: \"en-GB\" })($time.fromNow());//= \"2019-06-05 09:32:20\""
+                "\n     $time.toString(\"DD/MM/YYYY HH:mm:SS\",{ locale: \"en-GB\" })($time.fromNow());//= \"05/06/2019 09:32:20\"\n     $time.toString($time.formats.SQL)($time.fromNow());//= \"2019-06-05 09:32:20\""
             ],
             "class": "$time.{namespace}"
         },
@@ -665,6 +627,17 @@
             "class": "$time.{namespace}"
         },
         {
+            "file": "src\\$time.js",
+            "line": 41,
+            "description": "Public name of [`format_arrays`](#props_format_arrays).",
+            "itemtype": "property",
+            "name": "formats",
+            "type": "Object",
+            "access": "public",
+            "tagname": "",
+            "class": "$time.{namespace}"
+        },
+        {
             "file": "src\\$time_init.sub.js",
             "line": 3,
             "description": "Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: \"2-digit\", minute: \"2-digit\" }`.\n\nKeys:\n - `time`: shows combination of 2-digits hour and minutes\n - `time_seconds`: shows combination of `time` and seconds\n - `date`: shows combination of 2-digits day, month and full year\n - `date_time`: shows combination of `time` and `date`\n - `date_time_seconds`: shows combination of `date_time` and `seconds`",
@@ -678,7 +651,7 @@
         {
             "file": "src\\$time_init.sub.js",
             "line": 26,
-            "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.\n\nKeys:\n - `YMD_2d`: shows **\"YYYY-MM-DD\"**\n - `YMDHms_2d`: shows **\"YYYY-MM-DD HH:mm:ss\"**\n - `Hms_2d`: shows **\"HH:mm:ss\"**",
+            "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.\n\nKeys:\n - `SQL_DATE`: shows **\"YYYY-MM-DD\"**\n - `SQL`: shows **\"YYYY-MM-DD HH:mm:ss\"**\n - `SQL_TIME`: shows **\"HH:mm:ss\"**",
             "itemtype": "property",
             "name": "format_arrays",
             "type": "Object",
@@ -803,7 +776,7 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\helpers.sub.js:54"
+            "line": " src\\to_functions\\helpers.sub.js:53"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -816,10 +789,6 @@
         {
             "message": "replacing incorrect tag: returns with return",
             "line": " src\\to_functions\\toString.sub.js:3"
-        },
-        {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\toStringPreDefined.sub.js:4"
         },
         {
             "message": "replacing incorrect tag: returns with return",

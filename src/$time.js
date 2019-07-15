@@ -6,10 +6,10 @@
  * @static
  */
 const $time= (function init(){/* version: gulp_place("app.version", "variable") */
-    gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
+    gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true, format_arrays */
 
     gulp_place("from_functions/*.sub.js", "glob");/* global fromNow, fromString, fromDate, fromDateArguments */
-    gulp_place("to_functions/*.sub.js", "glob");/* global toDate, toString, toStringPreDefined, toLocaleString, toRelative */
+    gulp_place("to_functions/*.sub.js", "glob");/* global toDate, toString, toLocaleString, toRelative */
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place("timezones/*.sub.js", "glob");/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
     gulp_place("modify/*.sub.js", "glob");/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
@@ -25,7 +25,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
     
         fromNow, fromString, fromDate, fromDateArguments,
     
-        toDate, toString, toStringPreDefined, toLocaleString, toRelative,
+        toDate, toString, toLocaleString, toRelative,
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
@@ -37,6 +37,12 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         getDaysInMonth, daysInMonth,
     
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
-        setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale
+        setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale,
+        /**
+         * Public name of [`format_arrays`](#props_format_arrays).
+         * @property {Object} formats
+         * @public
+         */
+        formats: format_arrays
     };
 })();

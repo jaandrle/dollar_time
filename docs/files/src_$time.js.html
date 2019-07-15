@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.3.0</title>
+    <title>Documentation: $time@0.4.0</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: src\$time.js</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.3.0</em>
+            <em>API Docs for: 0.4.0</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -63,7 +63,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -81,10 +81,10 @@
  * @static
  */
 const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &quot;variable&quot;) */
-    gulp_place(&quot;$time_init.sub.js&quot;);/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true */
+    gulp_place(&quot;$time_init.sub.js&quot;);/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true, format_arrays */
 
     gulp_place(&quot;from_functions/*.sub.js&quot;, &quot;glob&quot;);/* global fromNow, fromString, fromDate, fromDateArguments */
-    gulp_place(&quot;to_functions/*.sub.js&quot;, &quot;glob&quot;);/* global toDate, toString, toStringPreDefined, toLocaleString, toRelative */
+    gulp_place(&quot;to_functions/*.sub.js&quot;, &quot;glob&quot;);/* global toDate, toString, toLocaleString, toRelative */
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place(&quot;timezones/*.sub.js&quot;, &quot;glob&quot;);/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
     gulp_place(&quot;modify/*.sub.js&quot;, &quot;glob&quot;);/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
@@ -100,7 +100,7 @@ const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &q
     
         fromNow, fromString, fromDate, fromDateArguments,
     
-        toDate, toString, toStringPreDefined, toLocaleString, toRelative,
+        toDate, toString, toLocaleString, toRelative,
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
@@ -112,7 +112,13 @@ const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &q
         getDaysInMonth, daysInMonth,
     
         getTimeZones: ()=&gt; ary_ianna_time_zones, isTimeZone: candidate=&gt; ary_ianna_time_zones.indexOf(candidate)!==-1,
-        setInternalZone: zone=&gt; internal_zone= zone, setInternalLocale: locale=&gt; internal_locale= locale
+        setInternalZone: zone=&gt; internal_zone= zone, setInternalLocale: locale=&gt; internal_locale= locale,
+        /**
+         * Public name of [&#x60;format_arrays&#x60;](#props_format_arrays).
+         * @property {Object} formats
+         * @public
+         */
+        formats: format_arrays
     };
 })();
 </pre>

@@ -27,17 +27,17 @@ const /* internal store */
  * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
  * 
  * Keys:
- *  - `YMD_2d`: shows **"YYYY-MM-DD"**
- *  - `YMDHms_2d`: shows **"YYYY-MM-DD HH:mm:ss"**
- *  - `Hms_2d`: shows **"HH:mm:ss"**
+ *  - `SQL_DATE`: shows **"YYYY-MM-DD"**
+ *  - `SQL`: shows **"YYYY-MM-DD HH:mm:ss"**
+ *  - `SQL_TIME`: shows **"HH:mm:ss"**
  * @property {Object} format_arrays
  * @private
  * @for $time.{namespace}
  */
     format_arrays= (({ dash, colon, space, two_dig })=>({
-        YMD_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
-        Hms_2d: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
-        YMDHms_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
+        SQL_DATE: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
+        SQL_TIME: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+        SQL: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
     }))({
         dash: [ "text", "-" ],
         colon: [ "text", ":" ],

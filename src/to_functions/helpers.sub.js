@@ -1,5 +1,5 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
-/* init *//* global internal_locale, internal_zone */
+/* init *//* global internal_locale, internal_zone, format_arrays */
 /* timezones/generateTimeZoneFormatObject *//* global generateTimeZoneFormatObject */
 /* to_functions *//* global toDate */
 /* modify/Date *//* global getWeekNumber, getWeekDay */
@@ -26,8 +26,7 @@
  * @example
  *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
  */
-function toStringFromObject(format, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
-    if(!format) return date_array=> date_array.join("");
+function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
     return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
 }
 function evaluateFormatObject(date, locale, timeZone, declension){

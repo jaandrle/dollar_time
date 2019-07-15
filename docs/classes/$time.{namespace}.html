@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.3.0</title>
+    <title>Documentation: $time@0.4.0</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: $time.{namespace}</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.3.0</em>
+            <em>API Docs for: 0.4.0</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -79,7 +79,6 @@
                             <li class="menuli"><a href="#methods_toLocaleString">toLocaleString</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_toString">toString</a> <i class="public_method">(public)</i></li>
                             <li class="menuli"><a href="#methods_toStringFromObject">toStringFromObject</a> <i class="private_method">(private)</i></li>
-                            <li class="menuli"><a href="#methods_toStringPreDefined">toStringPreDefined</a> <i class="public_method">(public)</i></li>
                     </ul>
                 </div>
             </div>
@@ -92,7 +91,7 @@
                     <h2 class="no-toc">Files</h2>
                 </div>
                 <div class="bd">
-                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\to_functions\toStringPreDefined.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
+                    <ul><li>src\$time.js/<ul></ul></li><li>src\$time_init.sub.js/<ul></ul></li><li>src\from_functions\fromDate.sub.js/<ul></ul></li><li>src\from_functions\fromDateArguments.sub.js/<ul></ul></li><li>src\from_functions\fromNow.sub.js/<ul></ul></li><li>src\from_functions\fromString.sub.js/<ul></ul></li><li>src\from_functions\toDateArray.sub.js/<ul></ul></li><li>src\modify\modify.sub.js/<ul></ul></li><li>src\to_functions\helpers.sub.js/<ul></ul></li><li>src\to_functions\toDate.sub.js/<ul></ul></li><li>src\to_functions\toLocaleString.sub.js/<ul></ul></li><li>src\to_functions\toString.sub.js/<ul></ul></li><li>src\utility\double.sub.js/<ul></ul></li><li>src\utility\getDaysInMonth.sub.js/<ul></ul></li><li>src\utility\getMonthName.sub.js/<ul></ul></li><li>src\utility\getOrdinalSuffix.sub.js/<ul></ul></li></ul>
                 </div>
             </div>
             
@@ -298,7 +297,7 @@
     <br>
     <span class="foundat">
         
-        <a href="../files/src_to_functions_helpers.sub.js.html#l54"><code>src\to_functions\helpers.sub.js:54</code></a>
+        <a href="../files/src_to_functions_helpers.sub.js.html#l53"><code>src\to_functions\helpers.sub.js:53</code></a>
     </span><br>
     <p>Generates multidimensional array for formatting (eg. &quot;YYYY&quot;=&gt; <code>[ [ &quot;year&quot;, &quot;numeric&quot; ] ]</code>).</p>
 
@@ -607,21 +606,22 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 </div>
 <a name="methods_toString"></a>
 <div class="method item public">
-    Function <strong class="name"><code>toString</code></strong>( <code>format_string</code>, <code>params_obj</code> ) <br/><strong class="public_method">/* public method */</strong>
+    Function <strong class="name"><code>toString</code></strong>( <code>format</code>, <code>params_obj</code> ) <br/><strong class="public_method">/* public method */</strong>
     <br>
     <span class="foundat">
         
         <a href="../files/src_to_functions_toString.sub.js.html#l3"><code>src\to_functions\toString.sub.js:3</code></a>
     </span><br>
-    <p>Function generates text based on <code>format_string</code>, <code>locale</code> and <code>timeZone</code> from <code>DateArray</code>.</p>
+    <p>Function generates text based on <code>format</code>, <code>locale</code> and <code>timeZone</code> from <code>DateArray</code>.</p>
 
     <strong>Parameters:</strong>
     <ul class="params">
         <li>
-            <code>format_string</code> <strong>&lt;String&gt;</strong>
+            <code>format</code> <strong>&lt;String | ...Array&gt;</strong>
         <ul>
-<li>Placeholder for replace/generate final string (eg. &quot;MM&quot;===two digits month)</li>
-<li>see <a href="#methods_getFormatObject"><code>getFormatObject</code></a></li>
+<li><strong>Default: <code>$time.formats.SQL</code></strong></li>
+<li>Placeholder for replace/generate final string (eg. &quot;MM&quot;===two digits month) — see <a href="#methods_getFormatObject"><code>getFormatObject</code></a>.</li>
+<li>Or lists of predefined formats — see <a href="#props_formats"><code>formats</code></a>.</li>
 </ul>
 
         </li>
@@ -656,7 +656,8 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 </ul>
 </div>
         <h5>Example</h5>
-        <pre class="code prettyprint"><code> $time.toStringFromObject(&quot;DD/MM/YYYY HH:mm:SS&quot;,{ locale: &quot;en-GB&quot; })($time.fromNow());//= &quot;05/06/2019 09:32:20&quot;</code></pre>
+        <pre class="code prettyprint"><code> $time.toString(&quot;DD/MM/YYYY HH:mm:SS&quot;,{ locale: &quot;en-GB&quot; })($time.fromNow());//= &quot;05/06/2019 09:32:20&quot;
+ $time.toString($time.formats.SQL)($time.fromNow());//= &quot;2019-06-05 09:32:20&quot;</code></pre>
 
 </div>
 <a name="methods_toStringFromObject"></a>
@@ -713,42 +714,6 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
         <pre class="code prettyprint"><code> $time.toStringFromObject(&quot;DD/MM/YYYY HH:mm:SS&quot;,{ locale: &quot;en-GB&quot; })($time.fromNow());//= &quot;05/06/2019 09:32:20&quot;</code></pre>
 
 </div>
-<a name="methods_toStringPreDefined"></a>
-<div class="method item public">
-    Function <strong class="name"><code>toStringPreDefined</code></strong>( <code>format_name</code>, <code>params_obj</code> ) <br/><strong class="public_method">/* public method */</strong>
-    <br>
-    <span class="foundat">
-        
-        <a href="../files/src_to_functions_toStringPreDefined.sub.js.html#l4"><code>src\to_functions\toStringPreDefined.sub.js:4</code></a>
-    </span><br>
-    <p>Similar to <a href="#methods_toString"><code>toString</code></a> generates string based on given format. But now based on existing predefined/cached formats see <a href="#props_format_arrays"><code>format_arrays</code></a>.</p>
-
-    <strong>Parameters:</strong>
-    <ul class="params">
-        <li>
-            <code>format_name</code> <strong>&lt;String&gt;</strong>
-        <ul>
-<li><strong>Default: <code>&quot;YMDHms_2d&quot;</code></strong></li>
-<li>See <a href="#props_format_arrays"><code>format_arrays</code></a>.</li>
-</ul>
-
-        </li>
-        <li>
-            <code>params_obj</code> <strong>&lt;DateArray&gt;</strong>
-        <ul>
-<li>See <a href="#methods_toStringFromObject"><code>toStringFromObject</code></a>.</li>
-</ul>
-
-        </li>
-    </ul>
-    <br><div class="returns"><strong>Returns:</strong> &lt;Function&gt; <ul>
-<li><strong><code>date_array</code>&lt;DateArray&gt;=&gt; &lt;String&gt;</strong></li>
-</ul>
-</div>
-        <h5>Example</h5>
-        <pre class="code prettyprint"><code> $time.toStringPreDefined(&quot;YMDHms_2d&quot;, { locale: &quot;en-GB&quot; })($time.fromNow());//= &quot;2019-06-05 09:32:20&quot;</code></pre>
-
-</div>
             </div>
             <div id="props"><h4>Properties</h4>
 <a name="props__"></a>
@@ -783,9 +748,9 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
     <p>Internal object holding predefined formating arguments for <code>getFormatObject</code>. For example <code>format_arrays.YYYYMMDD=== [ [&quot;year&quot;, &quot;numeric&quot;], dash, [&quot;month&quot;, two_dig], dash, [&quot;day&quot;, two_dig] ]</code>.</p>
 <p>Keys:</p>
 <ul>
-<li><code>YMD_2d</code>: shows <strong>&quot;YYYY-MM-DD&quot;</strong></li>
-<li><code>YMDHms_2d</code>: shows <strong>&quot;YYYY-MM-DD HH:mm:ss&quot;</strong></li>
-<li><code>Hms_2d</code>: shows <strong>&quot;HH:mm:ss&quot;</strong></li>
+<li><code>SQL_DATE</code>: shows <strong>&quot;YYYY-MM-DD&quot;</strong></li>
+<li><code>SQL</code>: shows <strong>&quot;YYYY-MM-DD HH:mm:ss&quot;</strong></li>
+<li><code>SQL_TIME</code>: shows <strong>&quot;HH:mm:ss&quot;</strong></li>
 </ul>
 
 </div>
@@ -802,6 +767,13 @@ console.log($time.getMonthName(24, 4));//&quot;Dece&quot;</code></pre>
 <li><code>date_time</code>: shows combination of <code>time</code> and <code>date</code></li>
 <li><code>date_time_seconds</code>: shows combination of <code>date_time</code> and <code>seconds</code></li>
 </ul>
+
+</div>
+<a name="props_formats"></a>
+<div class="props item">
+    <code>formats</code> &lt;<strong>Object</strong>&gt;<br/><strong class="public_method">/* public property */</strong><br>
+    <span class="foundat"><a href="../files/src_$time.js.html#l41"><code>src\$time.js:41</code></a></span>
+    <p>Public name of <a href="#props_format_arrays"><code>format_arrays</code></a>.</p>
 
 </div>
 <a name="props_ordinal_numbers"></a>

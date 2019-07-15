@@ -5,7 +5,7 @@
  * @class $time.{namespace}
  * @static
  */
-const $time= (function init(){/* version: "0.3.0" */
+const $time= (function init(){/* version: "0.4.0" */
     const /* internal store */
     /**
      * Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: "2-digit", minute: "2-digit" }`.
@@ -34,17 +34,17 @@ const $time= (function init(){/* version: "0.3.0" */
      * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
      * 
      * Keys:
-     *  - `YMD_2d`: shows **"YYYY-MM-DD"**
-     *  - `YMDHms_2d`: shows **"YYYY-MM-DD HH:mm:ss"**
-     *  - `Hms_2d`: shows **"HH:mm:ss"**
+     *  - `SQL_DATE`: shows **"YYYY-MM-DD"**
+     *  - `SQL`: shows **"YYYY-MM-DD HH:mm:ss"**
+     *  - `SQL_TIME`: shows **"HH:mm:ss"**
      * @property {Object} format_arrays
      * @private
      * @for $time.{namespace}
      */
         format_arrays= (({ dash, colon, space, two_dig })=>({
-            YMD_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
-            Hms_2d: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
-            YMDHms_2d: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
+            SQL_DATE: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
+            SQL_TIME: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
+            SQL: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
         }))({
             dash: [ "text", "-" ],
             colon: [ "text", ":" ],
@@ -647,8 +647,7 @@ const $time= (function init(){/* version: "0.3.0" */
      * @example
      *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
      */
-    function toStringFromObject(format, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
-        if(!format) return date_array=> date_array.join("");
+    function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
         return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
     }
     function evaluateFormatObject(date, locale, timeZone, declension){
@@ -882,13 +881,14 @@ const $time= (function init(){/* version: "0.3.0" */
         return out_text.replace("%s", ms_diff+" years");
     }
     /**
-     * Function generates text based on `format_string`, `locale` and `timeZone` from `DateArray`.
+     * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
      * @method toString
      * @for $time.{namespace}
      * @public
-     * @param {String} format_string
-     *  - Placeholder for replace/generate final string (eg. "MM"===two digits month)
-     *  - see [`getFormatObject`](#methods_getFormatObject)
+     * @param {String|...Array} format
+     *  - **Default: `$time.formats.SQL`**
+     *  - Placeholder for replace/generate final string (eg. "MM"===two digits month) — see [`getFormatObject`](#methods_getFormatObject).
+     *  - Or lists of predefined formats — see [`formats`](#props_formats).
      * @param {DateArray} params_obj
      *  - It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
      * @param {String} params_obj.locale
@@ -901,28 +901,11 @@ const $time= (function init(){/* version: "0.3.0" */
      * @returns {Function}
      *  - `DateArray`=> **&lt;String&gt;**
      * @example
-     *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     *      $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     *      $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
      */
-    function toString(format_string, params_obj){
-        return toStringFromObject(format_string ? getFormatObject(format_string) : false, params_obj);
-    }
-    /**
-     * Similar to [`toString`](#methods_toString) generates string based on given format. But now based on existing predefined/cached formats see [`format_arrays`](#props_format_arrays).
-     * @method toStringPreDefined
-     * @for $time.{namespace}
-     * @public
-     * @param {String} format_name
-     *  - **Default: `"YMDHms_2d"`**
-     *  - See [`format_arrays`](#props_format_arrays).
-     * @param {DateArray} params_obj
-     *  - See [`toStringFromObject`](#methods_toStringFromObject).
-     * @returns {Function}
-     *  - **`date_array`&lt;DateArray&gt;=> &lt;String&gt;**
-     * @example
-     *      $time.toStringPreDefined("YMDHms_2d", { locale: "en-GB" })($time.fromNow());//= "2019-06-05 09:32:20"
-     */
-    function toStringPreDefined(format_name= "YMDHms_2d", params_obj= {}){
-        return toStringFromObject(format_arrays[format_name], params_obj);
+    function toString(format, params_obj){
+        return toStringFromObject(Array.isArray(format) ? format : format ? getFormatObject(format) : undefined, params_obj);
     }
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     
@@ -1145,7 +1128,7 @@ const $time= (function init(){/* version: "0.3.0" */
     
         fromNow, fromString, fromDate, fromDateArguments,
     
-        toDate, toString, toStringPreDefined, toLocaleString, toRelative,
+        toDate, toString, toLocaleString, toRelative,
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
@@ -1157,6 +1140,12 @@ const $time= (function init(){/* version: "0.3.0" */
         getDaysInMonth, daysInMonth,
     
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
-        setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale
+        setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale,
+        /**
+         * Public name of [`format_arrays`](#props_format_arrays).
+         * @property {Object} formats
+         * @public
+         */
+        formats: format_arrays
     };
 })();
