@@ -236,7 +236,7 @@
                 },
                 {
                     "name": "timezone",
-                    "description": "\n - Override timezone in `timestamp_string`",
+                    "description": "\n - Default timezone — uses if is not setted in `timestamp_string`",
                     "type": "String",
                     "optional": true,
                     "optdefault": " internal_zone"

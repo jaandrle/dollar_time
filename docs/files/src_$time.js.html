@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.4.0</title>
+    <title>Documentation: $time@0.5.0</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: src\$time.js</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.4.0</em>
+            <em>API Docs for: 0.5.0</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -87,7 +87,7 @@ const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &q
     gulp_place(&quot;to_functions/*.sub.js&quot;, &quot;glob&quot;);/* global toDate, toString, toLocaleString, toRelative */
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     gulp_place(&quot;timezones/*.sub.js&quot;, &quot;glob&quot;);/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
-    gulp_place(&quot;modify/*.sub.js&quot;, &quot;glob&quot;);/* global getWeekDay, addDays, addMonths, getWeekNumber, setTimeZone, modify */
+    gulp_place(&quot;modify/*.sub.js&quot;, &quot;glob&quot;);/* global getWeekDay, addDays, addMonths, getWeekNumber, redefineTimeZone, modify */
     gulp_place(&quot;utility/*.sub.js&quot;, &quot;glob&quot;);/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth, daysInMonth */
     
     return {
@@ -106,7 +106,7 @@ const $time= (function init(){/* version: gulp_place(&quot;app.version&quot;, &q
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
     
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
-        setTimeZone, modify,
+        redefineTimeZone, modify,
     
         /* backward compatibility */ double, getOrdinalSuffix, getMonthName,
         getDaysInMonth, daysInMonth,

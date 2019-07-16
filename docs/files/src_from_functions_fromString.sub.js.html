@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Documentation: $time@0.4.0</title>
+    <title>Documentation: $time@0.5.0</title>
     <link rel="stylesheet" href="../assets/from_yahhoapis/cssgrids-min.css">
 <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0pr2/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
@@ -17,7 +17,7 @@
             <h1><a href="../index.html"><img src="../assets/css/logo.png" width="117" height="52">$time</a>: src\from_functions\fromString.sub.js</h1>
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.4.0</em>
+            <em>API Docs for: 0.5.0</em>
         </div>
     </div>
     <div class="yui3-g">
@@ -85,7 +85,7 @@
  *  - Supported forms are combinations of date (&quot;YYYY-MM-DD&quot;, &quot;DD/MM/YYYY&quot;), time (&quot;HH:mm:ss&quot;, &quot;HH:mm&quot;) and timezone (&quot;CET&quot;, &quot;+01:00&quot;, &quot;-02:00&quot;, ...)
  *  - Typically: &quot;2019-06-02 12:35:45 +01:00&quot;, &quot;2019-06-02T12:35:45+01:00&quot;, &quot;12:35:45+01:00 2019-06-02&quot;, ...
  * @param {String} [timezone= internal_zone]
- *  - Override timezone in &#x60;timestamp_string&#x60;
+ *  - Default timezone — uses if is not setted in &#x60;timestamp_string&#x60;
  * @returns {DateArray}
  *  - See [toDateArray](#methods_toDateArray).
  */
@@ -95,12 +95,12 @@ function fromString(timestamp_string, timezone= internal_zone){
     if(date_array.length!==3){
         if(!isDateString(date_array[0])) date_array.unshift(&quot;&quot;);
         else if(!isTimeString(date_array[1])){
-            date_array[2]= timezone ? timezone : date_array[1];
+            date_array[2]= date_array[1] || timezone;
             date_array[1]= &quot;&quot;;
         } else {
-            date_array[2]= timezone ? timezone : &quot;&quot;;
+            date_array[2]= timezone;
         }
-    } else if(timezone){ date_array[2]= timezone; }
+    } else if(!date_array[2]&amp;&amp;timezone){ date_array[2]= timezone; }
     return date_array;
 }
 </pre>
