@@ -656,17 +656,17 @@ const $time= (function init(){/* version: "0.5.0" */
     function evaluateFormatObject(date, locale, timeZone, declension){
         const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
         return function([type, value, modify]){
-            let out= evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj);
+            let out= evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj);
             if(value==="2-digit"&&String(out).length===1) out= "0"+out; //fix
             if(modify==="two_letters") out= out.substr(0,2);
             else if(modify==="ordinal_number"&&locale.indexOf("en")!==-1) out= getOrdinalSuffix(out);
             return out;
         };
     }
-    function evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj){
+    function evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj){
         switch (true){
             case type==="text":                                     return value;
-            case type==="week":                                     return getWeekNumber(date);
+            case type==="week":                                     return getWeekNumber(date, timeZone);
             case type==="weekday"&&value==="numeric":               return getWeekDay()(date);
             case type==="month"&&value==="long"&&declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "");
             case type==="hour"&&modify.toLowerCase()==="a":         return date.toLocaleString(modify==="A" ? "en-US" : "en-GB",localeObj({ [type]: value, hourCycle: "h12" })).replace(/[\d \.\/\\]/g, "");
@@ -932,8 +932,14 @@ const $time= (function init(){/* version: "0.5.0" */
         if(out_description&&out_offset) out_description= " ("+out_description+")";
         return out_offset+out_description;
     }
-    function getTimeZoneOffset(date){
+    function getTimeZoneOffset(date, timeZone= internal_zone){
+        if(timeZone) return getTimeZoneDiffOffset(getDateInstaneFromDateArrayOrString(date), timeZone);
         return getDateInstaneFromDateArrayOrString(date).getTimezoneOffset();
+    }
+    function getTimeZoneDiffOffset(date_instance, timeZone= internal_zone){
+        const [ sign= "+", hours= 0, minutes= 0 ]= date_instance.toLocaleString('en-GB', { timeZone, weekday: "short", timeZoneName: "short" }).replace(/(\+|\-)/g, (_, m)=> m+":").replace(/[^\d:\+\-]/g, "").split(":");
+        const target_offset= ( sign==="-" ? -1 : 1 )*(Number(hours)*60+Number(minutes));
+        return target_offset-date_instance.getTimezoneOffset();
     }
     function getTimeZoneOffsetString(date){
          return getTimeZoneOffsetStringFromOffset(getTimeZoneOffset(date));
@@ -964,10 +970,11 @@ const $time= (function init(){/* version: "0.5.0" */
         return date_instance=> (date_instance.setMonth(date_instance.getMonth()+monthss_num), date_instance);
     }
     function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
-        return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, { weekday: type });
+        return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });
     }
-    function getWeekNumber(date_instance){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
+    function getWeekNumber(date_instance, timeZone= internal_zone){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
         const tdt= new Date(date_instance.valueOf());
+        if(timeZone){ tdt.setMinutes(tdt.getMinutes()+getTimeZoneDiffOffset(date_instance, timeZone)); }
         tdt.setDate(tdt.getDate() + 3 - (date_instance.getDay() + 6) % 7);
         var firstThursday = tdt.valueOf();
         tdt.setMonth(0, 1);

@@ -32,17 +32,17 @@ function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale
 function evaluateFormatObject(date, locale, timeZone, declension){
     const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
     return function([type, value, modify]){
-        let out= evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj);
+        let out= evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj);
         if(value==="2-digit"&&String(out).length===1) out= "0"+out; //fix
         if(modify==="two_letters") out= out.substr(0,2);
         else if(modify==="ordinal_number"&&locale.indexOf("en")!==-1) out= getOrdinalSuffix(out);
         return out;
     };
 }
-function evaluateNthFromObject(date, type, value, modify, declension, locale, localeObj){
+function evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj){
     switch (true){
         case type==="text":                                     return value;
-        case type==="week":                                     return getWeekNumber(date);
+        case type==="week":                                     return getWeekNumber(date, timeZone);
         case type==="weekday"&&value==="numeric":               return getWeekDay()(date);
         case type==="month"&&value==="long"&&declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "");
         case type==="hour"&&modify.toLowerCase()==="a":         return date.toLocaleString(modify==="A" ? "en-US" : "en-GB",localeObj({ [type]: value, hourCycle: "h12" })).replace(/[\d \.\/\\]/g, "");

@@ -1,8 +1,8 @@
 {
     "project": {},
     "files": {
-        "src\\from_functions\\fromDate.sub.js": {
-            "name": "src\\from_functions\\fromDate.sub.js",
+        "src/from_functions/fromDate.sub.js": {
+            "name": "src/from_functions/fromDate.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -10,8 +10,8 @@
             },
             "namespaces": {}
         },
-        "src\\from_functions\\fromDateArguments.sub.js": {
-            "name": "src\\from_functions\\fromDateArguments.sub.js",
+        "src/from_functions/fromDateArguments.sub.js": {
+            "name": "src/from_functions/fromDateArguments.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -19,8 +19,8 @@
             },
             "namespaces": {}
         },
-        "src\\from_functions\\fromNow.sub.js": {
-            "name": "src\\from_functions\\fromNow.sub.js",
+        "src/from_functions/fromNow.sub.js": {
+            "name": "src/from_functions/fromNow.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -28,8 +28,8 @@
             },
             "namespaces": {}
         },
-        "src\\from_functions\\fromString.sub.js": {
-            "name": "src\\from_functions\\fromString.sub.js",
+        "src/from_functions/fromString.sub.js": {
+            "name": "src/from_functions/fromString.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -37,8 +37,8 @@
             },
             "namespaces": {}
         },
-        "src\\from_functions\\toDateArray.sub.js": {
-            "name": "src\\from_functions\\toDateArray.sub.js",
+        "src/from_functions/toDateArray.sub.js": {
+            "name": "src/from_functions/toDateArray.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -46,8 +46,8 @@
             },
             "namespaces": {}
         },
-        "src\\modify\\modify.sub.js": {
-            "name": "src\\modify\\modify.sub.js",
+        "src/modify/modify.sub.js": {
+            "name": "src/modify/modify.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -55,8 +55,8 @@
             },
             "namespaces": {}
         },
-        "src\\to_functions\\helpers.sub.js": {
-            "name": "src\\to_functions\\helpers.sub.js",
+        "src/to_functions/helpers.sub.js": {
+            "name": "src/to_functions/helpers.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -64,8 +64,8 @@
             },
             "namespaces": {}
         },
-        "src\\to_functions\\toDate.sub.js": {
-            "name": "src\\to_functions\\toDate.sub.js",
+        "src/to_functions/toDate.sub.js": {
+            "name": "src/to_functions/toDate.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -73,8 +73,8 @@
             },
             "namespaces": {}
         },
-        "src\\to_functions\\toLocaleString.sub.js": {
-            "name": "src\\to_functions\\toLocaleString.sub.js",
+        "src/to_functions/toLocaleString.sub.js": {
+            "name": "src/to_functions/toLocaleString.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -82,8 +82,8 @@
             },
             "namespaces": {}
         },
-        "src\\to_functions\\toString.sub.js": {
-            "name": "src\\to_functions\\toString.sub.js",
+        "src/to_functions/toString.sub.js": {
+            "name": "src/to_functions/toString.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -91,8 +91,8 @@
             },
             "namespaces": {}
         },
-        "src\\utility\\double.sub.js": {
-            "name": "src\\utility\\double.sub.js",
+        "src/utility/double.sub.js": {
+            "name": "src/utility/double.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -100,8 +100,8 @@
             },
             "namespaces": {}
         },
-        "src\\utility\\getDaysInMonth.sub.js": {
-            "name": "src\\utility\\getDaysInMonth.sub.js",
+        "src/utility/getDaysInMonth.sub.js": {
+            "name": "src/utility/getDaysInMonth.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -109,8 +109,8 @@
             },
             "namespaces": {}
         },
-        "src\\utility\\getMonthName.sub.js": {
-            "name": "src\\utility\\getMonthName.sub.js",
+        "src/utility/getMonthName.sub.js": {
+            "name": "src/utility/getMonthName.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -118,8 +118,8 @@
             },
             "namespaces": {}
         },
-        "src\\utility\\getOrdinalSuffix.sub.js": {
-            "name": "src\\utility\\getOrdinalSuffix.sub.js",
+        "src/utility/getOrdinalSuffix.sub.js": {
+            "name": "src/utility/getOrdinalSuffix.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -127,8 +127,8 @@
             },
             "namespaces": {}
         },
-        "src\\$time.js": {
-            "name": "src\\$time.js",
+        "src/$time.js": {
+            "name": "src/$time.js",
             "modules": {},
             "classes": {
                 "$time.{namespace}": 1
@@ -136,8 +136,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src\\$time_init.sub.js": {
-            "name": "src\\$time_init.sub.js",
+        "src/$time_init.sub.js": {
+            "name": "src/$time_init.sub.js",
             "modules": {},
             "classes": {},
             "fors": {
@@ -156,7 +156,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "file": "src\\$time.js",
+            "file": "src/$time.js",
             "line": 3,
             "description": "This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).",
             "static": 1
@@ -165,7 +165,7 @@
     "elements": {},
     "classitems": [
         {
-            "file": "src\\from_functions\\fromDate.sub.js",
+            "file": "src/from_functions/fromDate.sub.js",
             "line": 3,
             "description": "Function generates `DateArray` from instance of `Date`.",
             "itemtype": "method",
@@ -186,7 +186,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\from_functions\\fromDateArguments.sub.js",
+            "file": "src/from_functions/fromDateArguments.sub.js",
             "line": 3,
             "description": "Function generates `DateArray` from arguments to initialize `Date`.",
             "itemtype": "method",
@@ -207,7 +207,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\from_functions\\fromNow.sub.js",
+            "file": "src/from_functions/fromNow.sub.js",
             "line": 3,
             "description": "Function generates `DateArray` from current date and time.\n\n**Warning:** Internally uses `toISOString` method so result is always converted to \"+00:00\": `p($time.fromNow, $time.setTimeZone(\"+02:00\"), $time.toString())()` (`p` is some pipe function) — this returns \"2019-07-10T16:48:43+02:00\" instead of \"2019-07-10T18:48:43+02:00\" (current time) … the flow is \"2019-07-10T18:48:43+02:00\"-`fromNow`->\"2019-07-10T16:48:43Z\"-`setTimeZone`->\"2019-07-10T16:48:43+02:00\".",
             "itemtype": "method",
@@ -221,7 +221,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\from_functions\\fromString.sub.js",
+            "file": "src/from_functions/fromString.sub.js",
             "line": 4,
             "description": "Function generates `DateArray` from passed string.",
             "itemtype": "method",
@@ -249,7 +249,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\from_functions\\toDateArray.sub.js",
+            "file": "src/from_functions/toDateArray.sub.js",
             "line": 3,
             "description": "Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.",
             "itemtype": "method",
@@ -270,7 +270,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\modify\\modify.sub.js",
+            "file": "src/modify/modify.sub.js",
             "line": 5,
             "description": "Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.",
             "itemtype": "method",
@@ -291,7 +291,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\modify\\modify.sub.js",
+            "file": "src/modify/modify.sub.js",
             "line": 37,
             "description": "Helper method for invoking \"add*\" operations in [`modify`](#methods_modify).\n\nIn general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).",
             "itemtype": "method",
@@ -322,7 +322,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\to_functions\\helpers.sub.js",
+            "file": "src/to_functions/helpers.sub.js",
             "line": 7,
             "description": "Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.",
             "itemtype": "method",
@@ -368,7 +368,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\to_functions\\helpers.sub.js",
+            "file": "src/to_functions/helpers.sub.js",
             "line": 53,
             "description": "Generates multidimensional array for formatting (eg. \"YYYY\"=> `[ [ \"year\", \"numeric\" ] ]`).",
             "itemtype": "method",
@@ -389,7 +389,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\to_functions\\toDate.sub.js",
+            "file": "src/to_functions/toDate.sub.js",
             "line": 4,
             "description": "Function initializes `Date` from `DateArray`.",
             "itemtype": "method",
@@ -410,7 +410,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\to_functions\\toLocaleString.sub.js",
+            "file": "src/to_functions/toLocaleString.sub.js",
             "line": 5,
             "description": "It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).",
             "itemtype": "method",
@@ -448,7 +448,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\to_functions\\toString.sub.js",
+            "file": "src/to_functions/toString.sub.js",
             "line": 3,
             "description": "Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.",
             "itemtype": "method",
@@ -494,7 +494,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\utility\\double.sub.js",
+            "file": "src/utility/double.sub.js",
             "line": 2,
             "description": "Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)",
             "itemtype": "method",
@@ -515,7 +515,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\utility\\getDaysInMonth.sub.js",
+            "file": "src/utility/getDaysInMonth.sub.js",
             "line": 3,
             "description": "Returns number of days in given month (and year)",
             "itemtype": "method",
@@ -541,7 +541,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\utility\\getDaysInMonth.sub.js",
+            "file": "src/utility/getDaysInMonth.sub.js",
             "line": 19,
             "description": "Returns number of days in given month",
             "itemtype": "method",
@@ -562,7 +562,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\utility\\getMonthName.sub.js",
+            "file": "src/utility/getMonthName.sub.js",
             "line": 2,
             "itemtype": "method",
             "name": "getMonthName",
@@ -592,7 +592,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\utility\\getOrdinalSuffix.sub.js",
+            "file": "src/utility/getOrdinalSuffix.sub.js",
             "line": 3,
             "description": "See [`ordinal_numbers`](#props_ordinal_numbers).",
             "itemtype": "method",
@@ -616,7 +616,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time.js",
+            "file": "src/$time.js",
             "line": 19,
             "description": "Alias for `undefined` which can be used to trigger default value of argument. (eg. `test($time._)===\"A\"; function test(a= \"A\"){ return a; }`)",
             "itemtype": "property",
@@ -627,7 +627,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time.js",
+            "file": "src/$time.js",
             "line": 41,
             "description": "Public name of [`format_arrays`](#props_format_arrays).",
             "itemtype": "property",
@@ -638,7 +638,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 3,
             "description": "Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: \"2-digit\", minute: \"2-digit\" }`.\n\nKeys:\n - `time`: shows combination of 2-digits hour and minutes\n - `time_seconds`: shows combination of `time` and seconds\n - `date`: shows combination of 2-digits day, month and full year\n - `date_time`: shows combination of `time` and `date`\n - `date_time_seconds`: shows combination of `date_time` and `seconds`",
             "itemtype": "property",
@@ -649,7 +649,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 26,
             "description": "Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ [\"year\", \"numeric\"], dash, [\"month\", two_dig], dash, [\"day\", two_dig] ]`.\n\nKeys:\n - `SQL_DATE`: shows **\"YYYY-MM-DD\"**\n - `SQL`: shows **\"YYYY-MM-DD HH:mm:ss\"**\n - `SQL_TIME`: shows **\"HH:mm:ss\"**",
             "itemtype": "property",
@@ -660,7 +660,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 47,
             "description": "Internal helper array for `getOrdinalSuffix`.",
             "itemtype": "property",
@@ -671,7 +671,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 55,
             "description": "Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.",
             "itemtype": "method",
@@ -695,7 +695,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 67,
             "description": "Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.",
             "itemtype": "method",
@@ -719,7 +719,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 83,
             "description": "This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.\n\nOriginal from [stackoverflow.com/a/54500197](https://stackoverflow.com/a/54500197).",
             "itemtype": "property",
@@ -730,7 +730,7 @@
             "class": "$time.{namespace}"
         },
         {
-            "file": "src\\$time_init.sub.js",
+            "file": "src/$time_init.sub.js",
             "line": 439,
             "description": "This object stores offsets in `ary_ianna_time_zones` (keys) and one corresponding index.\n\nSo for exmple, `ary_ianna_time_offsets[\"CET\"]` is equal to **284** which is index of `ary_ianna_time_zones[284]==='Europe/Prague'` (in winter \"+01:00\" and in summer \"+02:00\").\n\nNext example is `ary_ianna_time_offsets[\"-01:00\"]` is equal to **238** which is index of `ary_ianna_time_zones[238]==='Atlantic/Cape_Verde'` (always \"-01:00\").\n\n**IMPORTANT NOTE:** BST, EET, WET hasn't been validated! … idea is to behave the same way like CET",
             "itemtype": "property",
@@ -744,67 +744,67 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\from_functions\\fromDate.sub.js:3"
+            "line": " src/from_functions/fromDate.sub.js:3"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\from_functions\\fromDateArguments.sub.js:3"
+            "line": " src/from_functions/fromDateArguments.sub.js:3"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\from_functions\\fromNow.sub.js:3"
+            "line": " src/from_functions/fromNow.sub.js:3"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\from_functions\\fromString.sub.js:4"
+            "line": " src/from_functions/fromString.sub.js:4"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\from_functions\\toDateArray.sub.js:3"
+            "line": " src/from_functions/toDateArray.sub.js:3"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\modify\\modify.sub.js:5"
+            "line": " src/modify/modify.sub.js:5"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\modify\\modify.sub.js:37"
+            "line": " src/modify/modify.sub.js:37"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\helpers.sub.js:7"
+            "line": " src/to_functions/helpers.sub.js:7"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\helpers.sub.js:53"
+            "line": " src/to_functions/helpers.sub.js:53"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\toDate.sub.js:4"
+            "line": " src/to_functions/toDate.sub.js:4"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\toLocaleString.sub.js:5"
+            "line": " src/to_functions/toLocaleString.sub.js:5"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\to_functions\\toString.sub.js:3"
+            "line": " src/to_functions/toString.sub.js:3"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\utility\\getDaysInMonth.sub.js:3"
+            "line": " src/utility/getDaysInMonth.sub.js:3"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\utility\\getDaysInMonth.sub.js:19"
+            "line": " src/utility/getDaysInMonth.sub.js:19"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\$time_init.sub.js:55"
+            "line": " src/$time_init.sub.js:55"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " src\\$time_init.sub.js:67"
+            "line": " src/$time_init.sub.js:67"
         }
     ]
 }
