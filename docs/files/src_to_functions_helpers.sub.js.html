@@ -78,7 +78,7 @@
 /* timezones/generateTimeZoneFormatObject *//* global generateTimeZoneFormatObject */
 /* to_functions *//* global toDate */
 /* modify/Date *//* global getWeekNumber, getWeekDay */
-/* utility *//* global getOrdinalSuffix */
+/* utility *//* global getOrdinalSuffix, double */
 /**
  * Function generates text based on &#x60;format&#x60;, &#x60;locale&#x60; and &#x60;timeZone&#x60; from &#x60;DateArray&#x60;.
  * @method toStringFromObject
@@ -117,7 +117,7 @@ function evaluateFormatObject(date, locale, timeZone, declension){
 function evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj){
     switch (true){
         case type===&quot;text&quot;:                                     return value;
-        case type===&quot;week&quot;:                                     return getWeekNumber(date, timeZone);
+        case type===&quot;week&quot;:                                     return getWeekNumber(!timeZone ? date: new Date(( (l, timeZone, two)=&gt; l({ timeZone, year: &quot;numeric&quot; })+&quot;-&quot;+double(l({ timeZone, month: two }))+&quot;-&quot;+double(l({ timeZone, day: two }))+&quot;T&quot;+double(l({ timeZone, hour: two }))+&quot;:&quot;+double(l({ timeZone, minute: two }))+&quot;:&quot;+double(l({ timeZone, second: two })) )( Date.prototype.toLocaleString.bind(date, &quot;en-GB&quot;), timeZone, &quot;2-digit&quot; )));
         case type===&quot;weekday&quot;&amp;&amp;value===&quot;numeric&quot;:               return getWeekDay()(date);
         case type===&quot;month&quot;&amp;&amp;value===&quot;long&quot;&amp;&amp;declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: &quot;numeric&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;);
         case type===&quot;hour&quot;&amp;&amp;modify.toLowerCase()===&quot;a&quot;:         return date.toLocaleString(modify===&quot;A&quot; ? &quot;en-US&quot; : &quot;en-GB&quot;,localeObj({ [type]: value, hourCycle: &quot;h12&quot; })).replace(/[\d \.\/\\]/g, &quot;&quot;);

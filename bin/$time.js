@@ -608,6 +608,9 @@ const $time= (function init(){/* version: "0.6.0" */
                 if(Reflect.has(ary_ianna_time_offsets, acc)){
                     zone= acc;
                     acc= "";
+                } else if(acc.substr(1,5)==="00:00"){
+                    zone= "Z";
+                    acc= "";
                 }
             } else if(!timestamp_string.search(/[A-Z]{2,}/)){
                 substr_index= timestamp_string.search(/[^A-Z]/);
@@ -666,7 +669,7 @@ const $time= (function init(){/* version: "0.6.0" */
     function evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj){
         switch (true){
             case type==="text":                                     return value;
-            case type==="week":                                     return getWeekNumber(date, timeZone);
+            case type==="week":                                     return getWeekNumber(!timeZone ? date: new Date(( (l, timeZone, two)=> l({ timeZone, year: "numeric" })+"-"+double(l({ timeZone, month: two }))+"-"+double(l({ timeZone, day: two }))+"T"+double(l({ timeZone, hour: two }))+":"+double(l({ timeZone, minute: two }))+":"+double(l({ timeZone, second: two })) )( Date.prototype.toLocaleString.bind(date, "en-GB"), timeZone, "2-digit" )));
             case type==="weekday"&&value==="numeric":               return getWeekDay()(date);
             case type==="month"&&value==="long"&&declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "");
             case type==="hour"&&modify.toLowerCase()==="a":         return date.toLocaleString(modify==="A" ? "en-US" : "en-GB",localeObj({ [type]: value, hourCycle: "h12" })).replace(/[\d \.\/\\]/g, "");
@@ -994,7 +997,7 @@ const $time= (function init(){/* version: "0.6.0" */
     function getTimeZoneDiffOffset(date_instance, timeZone= internal_zone){
         const [ sign= "+", hours= 0, minutes= 0 ]= date_instance.toLocaleString('en-GB', { timeZone, weekday: "short", timeZoneName: "short" }).replace(/(\+|\-)/g, (_, m)=> m+":").replace(/[^\d:\+\-]/g, "").split(":");
         const target_offset= ( sign==="-" ? -1 : 1 )*(Number(hours)*60+Number(minutes));
-        return target_offset-date_instance.getTimezoneOffset();
+        return target_offset+date_instance.getTimezoneOffset();
     }
     function getTimeZoneOffsetString(date){
          return getTimeZoneOffsetStringFromOffset(getTimeZoneOffset(date));
@@ -1027,9 +1030,8 @@ const $time= (function init(){/* version: "0.6.0" */
     function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
         return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });
     }
-    function getWeekNumber(date_instance, timeZone= internal_zone){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
+    function getWeekNumber(date_instance){ /* calculates no. of thursdays from this week to the first one (January 4 is always in week 1.) */
         const tdt= new Date(date_instance.valueOf());
-        if(timeZone){ tdt.setMinutes(tdt.getMinutes()+getTimeZoneDiffOffset(date_instance, timeZone)); }
         tdt.setDate(tdt.getDate() + 3 - (date_instance.getDay() + 6) % 7);
         var firstThursday = tdt.valueOf();
         tdt.setMonth(0, 1);

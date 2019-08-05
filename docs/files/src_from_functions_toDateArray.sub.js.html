@@ -121,6 +121,9 @@ function toDateArray(timestamp_string){
             if(Reflect.has(ary_ianna_time_offsets, acc)){
                 zone= acc;
                 acc= &quot;&quot;;
+            } else if(acc.substr(1,5)===&quot;00:00&quot;){
+                zone= &quot;Z&quot;;
+                acc= &quot;&quot;;
             }
         } else if(!timestamp_string.search(/[A-Z]{2,}/)){
             substr_index= timestamp_string.search(/[^A-Z]/);
