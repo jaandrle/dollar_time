@@ -5,7 +5,7 @@
  * @class $time.{namespace}
  * @static
  */
-const $time= (function init(){/* version: "0.5.0" */
+const $time= (function init(){/* version: "0.6.0" */
     const /* internal store */
     /**
      * Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: "2-digit", minute: "2-digit" }`.
@@ -925,16 +925,71 @@ const $time= (function init(){/* version: "0.5.0" */
             [ date_one_hour, date_two_hours ]= [ "+01:00", "+02:00" ].map(offset=> new Date(date_and_time+offset).toLocaleString(locale, { timeZone }));
         return en_date_version===date_one_hour ? "+01:00" : en_date_version===date_two_hours ? "+02:00" : "Z";
     }
+    /**
+     * @method getTimeZone
+     * @for $time.{namespace}
+     * @param {DateArray} date
+     *  - See [toDateArray](#methods_toDateArray).
+     * @param {Object} parameters
+     * @param {String} parameters.locale
+     *  - **Default: internal_locale**
+     * @param {String} parameters.description
+     *  - **Default: "long"**
+     *  - The representation of the time zone name. Possible values are:
+     *      - `"none"` skip description
+     *      - `"long"` (e.g., `British Summer Time`)
+     *      - `"short"` (e.g., `GMT+1`)
+     * @param {String} parameters.offset
+     *  - **Default: false**
+     *  - show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
+     * @returns {String}
+     *  - Timezone name/identificator (with offset)
+     */
     function getTimeZone(date, { locale= internal_locale, description= "long", offset= false }= {}){
-        const date_instance= getDateInstaneFromDateArrayOrString(date);
-        let out_description= description==="none" ? "" : date_instance.toLocaleString(locale, { timeZoneName: description }).replace(date_instance.toLocaleString(locale), "").trim();
-        const out_offset= !offset ? "" : "UTC"+getTimeZoneOffsetStringFromOffset(date_instance.getTimezoneOffset());
+        description= description.toLocaleLowerCase();
+        const [ date_part, time_part, offset_part ]= getDateArrayFromMixed(date), date_instance= new Date([ date_part, time_part, offset_part ].join(""));
+        const locale_param= Object.keys(ary_ianna_time_offsets).indexOf(offset_part)!==-1 ? { timeZone: ary_ianna_time_zones[ary_ianna_time_offsets[offset_part]] } : {};
+        let out_description= description==="none" ? "" : date_instance.toLocaleString(locale, Object.assign({ timeZoneName: description }, locale_param)).replace(date_instance.toLocaleString(locale, locale_param), "").trim();
+        const out_offset= !offset ? "" : "UTC"+(offset_part==="Z" ? getTimeZoneOffsetStringFromOffset(date_instance.getTimezoneOffset()) : date_instance.toLocaleString(locale, Object.assign({ timeZoneName: "short" }, locale_param)).replace(date_instance.toLocaleString(locale, locale_param), "").replace(/[^\d\+\-\:]/g, "").trim());
+        if(out_description&&out_offset) out_description= " ("+out_description+")";
+        return out_offset+out_description;
+    }
+    /**
+     * @method getCurrentTimeZone
+     * @for $time.{namespace}
+     * @param {Object} parameters
+     * @param {String} parameters.locale
+     *  - **Default: internal_locale**
+     * @param {String} parameters.description
+     *  - **Default: "long"**
+     *  - The representation of the time zone name. Possible values are:
+     *      - `"none"` skip description
+     *      - `"long"` (e.g., `British Summer Time`)
+     *      - `"short"` (e.g., `GMT+1`)
+     *      - `"ianna"`/`"IANNA"` (e.g. `Europe/Prague`): `locale` has no effect for this
+     * @param {String} parameters.offset
+     *  - **Default: false**
+     *  - show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
+     * @returns {String}
+     *  - Timezone name/identificator (with offset) for current timezone
+     */
+    function getCurrentTimeZone({ locale= internal_locale, description= "long", offset= false }= {}){
+        description= description.toLocaleLowerCase();
+        if(description!=="ianna") return getTimeZone(undefined, { locale, description, offset });
+        let out_description= "", dtf;
+        if(typeof Intl!=='undefined'&&typeof Intl.DateTimeFormat==='function'){
+            dtf= Intl.DateTimeFormat() || {};
+            if(typeof dtf.resolvedOptions!=="function") return undefined;
+            out_description= dtf.resolvedOptions().timeZone.replace(/_/g, " ");
+        }
+        const out_offset= !offset ? "" : getTimeZone(undefined, { locale, description: "none", offset: true });
         if(out_description&&out_offset) out_description= " ("+out_description+")";
         return out_offset+out_description;
     }
     function getTimeZoneOffset(date, timeZone= internal_zone){
-        if(timeZone) return getTimeZoneDiffOffset(getDateInstaneFromDateArrayOrString(date), timeZone);
-        return getDateInstaneFromDateArrayOrString(date).getTimezoneOffset();
+        const date_instance= new Date(getDateArrayFromMixed(date).join(""));
+        if(timeZone) return getTimeZoneDiffOffset(date_instance, timeZone);
+        return date_instance.getTimezoneOffset();
     }
     function getTimeZoneDiffOffset(date_instance, timeZone= internal_zone){
         const [ sign= "+", hours= 0, minutes= 0 ]= date_instance.toLocaleString('en-GB', { timeZone, weekday: "short", timeZoneName: "short" }).replace(/(\+|\-)/g, (_, m)=> m+":").replace(/[^\d:\+\-]/g, "").split(":");
@@ -950,10 +1005,10 @@ const $time= (function init(){/* version: "0.5.0" */
         if(typeof ary_ianna_time_offsets[timeZone]!=="undefined") return Object.assign({ timeZone: ary_ianna_time_zones[ary_ianna_time_offsets[timeZone]] }, format_object);
         return format_object;
     }
-    function getDateInstaneFromDateArrayOrString(date_string){
-        if(!date_string) return new Date();
-        if(!Array.isArray(date_string)) date_string= toDateArray(date_string);
-        return new Date(...date_string[0].split("-").map((v,k)=> k===1 ? +v-1 : +v));
+    function getDateArrayFromMixed(date_string){
+        if(!date_string) return fromNow();
+        if(!Array.isArray(date_string)) return toDateArray(date_string);
+        return date_string;
     }
     function getTimeZoneOffsetStringFromOffset(offset){
         const { floor, abs }= Math;
@@ -1141,7 +1196,7 @@ const $time= (function init(){/* version: "0.5.0" */
         toDate, toString, toLocaleString, toRelative,
     
         getDiff, getRelative,
-        getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
+        getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone,
     
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         redefineTimeZone, modify,

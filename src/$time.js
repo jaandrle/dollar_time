@@ -11,7 +11,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
     gulp_place("from_functions/*.sub.js", "glob");/* global fromNow, fromString, fromDate, fromDateArguments */
     gulp_place("to_functions/*.sub.js", "glob");/* global toDate, toString, toLocaleString, toRelative */
     /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
-    gulp_place("timezones/*.sub.js", "glob");/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone */
+    gulp_place("timezones/*.sub.js", "glob");/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone */
     gulp_place("modify/*.sub.js", "glob");/* global getWeekDay, addDays, addMonths, getWeekNumber, redefineTimeZone, modify */
     gulp_place("utility/*.sub.js", "glob");/* global double, getOrdinalSuffix, getMonthName, getDaysInMonth, daysInMonth */
     
@@ -28,7 +28,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         toDate, toString, toLocaleString, toRelative,
     
         getDiff, getRelative,
-        getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone,
+        getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone,
     
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         redefineTimeZone, modify,
