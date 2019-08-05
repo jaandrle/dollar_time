@@ -127,11 +127,12 @@ function getTimeZone(date, { locale= internal_locale, description= &quot;long&qu
 function getCurrentTimeZone({ locale= internal_locale, description= &quot;long&quot;, offset= false }= {}){
     description= description.toLocaleLowerCase();
     if(description!==&quot;ianna&quot;) return getTimeZone(undefined, { locale, description, offset });
-    let out_description= &quot;&quot;, dtf;
+    let out_description= &quot;&quot;, dtf, dtf_ro;
     if(typeof Intl!==&#x27;undefined&#x27;&amp;&amp;typeof Intl.DateTimeFormat===&#x27;function&#x27;){
         dtf= Intl.DateTimeFormat() || {};
         if(typeof dtf.resolvedOptions!==&quot;function&quot;) return undefined;
-        out_description= dtf.resolvedOptions().timeZone.replace(/_/g, &quot; &quot;);
+        dtf_ro= dtf.resolvedOptions().timeZone;
+        out_description= Object.keys(ary_ianna_time_offsets).indexOf(dtf_ro)!==-1 ? ary_ianna_time_zones[ary_ianna_time_offsets[dtf_ro]] : dtf_ro;
     }
     const out_offset= !offset ? &quot;&quot; : getTimeZone(undefined, { locale, description: &quot;none&quot;, offset: true });
     if(out_description&amp;&amp;out_offset) out_description= &quot; (&quot;+out_description+&quot;)&quot;;

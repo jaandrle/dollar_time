@@ -52,11 +52,12 @@ function getTimeZone(date, { locale= internal_locale, description= "long", offse
 function getCurrentTimeZone({ locale= internal_locale, description= "long", offset= false }= {}){
     description= description.toLocaleLowerCase();
     if(description!=="ianna") return getTimeZone(undefined, { locale, description, offset });
-    let out_description= "", dtf;
+    let out_description= "", dtf, dtf_ro;
     if(typeof Intl!=='undefined'&&typeof Intl.DateTimeFormat==='function'){
         dtf= Intl.DateTimeFormat() || {};
         if(typeof dtf.resolvedOptions!=="function") return undefined;
-        out_description= dtf.resolvedOptions().timeZone.replace(/_/g, " ");
+        dtf_ro= dtf.resolvedOptions().timeZone;
+        out_description= Object.keys(ary_ianna_time_offsets).indexOf(dtf_ro)!==-1 ? ary_ianna_time_zones[ary_ianna_time_offsets[dtf_ro]] : dtf_ro;
     }
     const out_offset= !offset ? "" : getTimeZone(undefined, { locale, description: "none", offset: true });
     if(out_description&&out_offset) out_description= " ("+out_description+")";

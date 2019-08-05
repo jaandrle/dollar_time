@@ -484,6 +484,9 @@ const ary_ianna_time_offsets= Object.freeze({
     '+14:00': 326,
     BST: 275,
     CET: 284,
+    CEST: 284,
     EET: 264,
-    WET: 274
+    EEST: 264,
+    WET: 274,
+    WEST: 274
 });
