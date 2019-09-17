@@ -3,17 +3,18 @@
 /* to_functions *//* global toDate */
 /* modify/Date *//* global addDays, addMonths */
 /**
- * @function function_DateArray
+ * @function function_DateArray2DateArray
  * @memberof $time.types
  * @param {$time.types.DateArray} date_array
  * @returns {$time.types.DateArray}
  */
+
 /**
- * Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.
+ * Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
  * @method modify
  * @memberof $time
  * @public
- * @param {Object} mod_obj
+ * @param {Object} mod_obj &nbsp;
  * <br/>- object literal representing requested operations
  * <br/>- use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)
  * <br/>- supports also *add\** commands with the same notation ("setMonth" => "addMonth")
@@ -22,7 +23,7 @@
  * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay"
  * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays"
  * <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
- * @returns {$time.types.function_DateArray}
+ * @returns {$time.types.function_DateArray2DateArray}
  */
 function modify(mod_obj){
     const operations= Object.keys(mod_obj);

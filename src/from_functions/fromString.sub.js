@@ -6,9 +6,7 @@
  * @method fromString
  * @memberof $time
  * @public
- * @param {String} timestamp_string 
- *  <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
- *  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
+ * @param {String} [timestamp_string] If `undefined` returns result of {@link $time.fromNow}, else it is used {@link $time.toDateArray} for parsing.
  * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
  * @returns {$time.types.DateArray}
  */

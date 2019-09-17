@@ -11,9 +11,10 @@ This NAMESPACE provides features for date/time. Mainly, there are utilities usin
         * [.function_DateArray2String(date_array)](#$time.types.function_DateArray2String) ⇒ <code>String</code>
         * [.function_Date2Date(date_instance)](#$time.types.function_Date2Date) ⇒ <code>Date</code>
         * [.function_Date2Number(date_instance)](#$time.types.function_Date2Number) ⇒ <code>Number</code>
-        * [.function_DateArray(date_array)](#$time.types.function_DateArray) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
+        * [.function_DateArray2DateArray(date_array)](#$time.types.function_DateArray2DateArray) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
         * [.DateArray](#$time.types.DateArray) : <code>Array</code>
         * [.toLocaleStringOptions](#$time.types.toLocaleStringOptions) : <code>Object</code>
+        * [.ArrayOfOperation](#$time.types.ArrayOfOperation) : <code>Array</code>
     * [.format_objects](#$time.format_objects) : <code>object</code> ℗
     * [.format_arrays](#$time.format_arrays) : <code>object</code> ℗
     * [.Date](#$time.Date) : <code>object</code>
@@ -30,16 +31,16 @@ This NAMESPACE provides features for date/time. Mainly, there are utilities usin
     * [.fromDate(date_instance)](#$time.fromDate) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
     * [.fromDateArguments(...args)](#$time.fromDateArguments) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
     * [.fromNow()](#$time.fromNow) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
-    * [.fromString(timestamp_string, [timezone])](#$time.fromString) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
+    * [.fromString([timestamp_string], [timezone])](#$time.fromString) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
     * [.toDateArray(timestamp_string)](#$time.toDateArray) ⇒ [<code>DateArray</code>](#$time.types.DateArray) ℗
-    * [.toStringFromObject(format, params_obj)](#$time.toStringFromObject) ⇒ <code>function</code> ℗
-    * [.getFormatObject(format_string)](#$time.getFormatObject) ⇒ <code>Array</code> ℗
+    * [.toStringFromObject(...format, params_obj)](#$time.toStringFromObject) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String) ℗
+    * [.getFormatObject(format_string)](#$time.getFormatObject) ⇒ [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) ℗
     * [.toDate(date_array)](#$time.toDate) ⇒ <code>Date</code>
     * [.toLocaleString([format_object_name], [toLocaleStringOptions])](#$time.toLocaleString) ⇒ <code>function</code>
     * [.toString([format], toLocaleStringOptions)](#$time.toString) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
     * [.getTimeZone(date, parameters)](#$time.getTimeZone) ⇒ <code>String</code>
     * [.getCurrentTimeZone(parameters)](#$time.getCurrentTimeZone) ⇒ <code>String</code>
-    * [.modify(mod_obj)](#$time.modify) ⇒ [<code>function\_DateArray</code>](#$time.types.function_DateArray)
+    * [.modify(mod_obj)](#$time.modify) ⇒ [<code>function\_DateArray2DateArray</code>](#$time.types.function_DateArray2DateArray)
     * [.modifyAdditions(operation, value, dateObject)](#$time.modifyAdditions) ⇒ <code>Date</code> ℗
     * [.double(time)](#$time.double) ⇒ <code>String</code>
     * [.daysInMonth(month, year)](#$time.daysInMonth) ⇒ <code>Number</code>
@@ -55,7 +56,7 @@ This NAMESPACE provides features for date/time. Mainly, there are utilities usin
 ### $time.\_
 Alias for `undefined` which can be used to trigger default value of argument.
 
-**Kind**: static property of [<code>$time</code>](#$time) <a name="$time._" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1236" title="$time.js:1236"><small>(defined@1236)</small></a>  
+**Kind**: static property of [<code>$time</code>](#$time) <a name="$time._" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1248" title="$time.js:1248"><small>(defined@1248)</small></a>  
 **Access**: public  
 **Properties**
 
@@ -82,9 +83,10 @@ Just virtual key!!! This is overwiev of all internal types for better descriptio
     * [.function_DateArray2String(date_array)](#$time.types.function_DateArray2String) ⇒ <code>String</code>
     * [.function_Date2Date(date_instance)](#$time.types.function_Date2Date) ⇒ <code>Date</code>
     * [.function_Date2Number(date_instance)](#$time.types.function_Date2Number) ⇒ <code>Number</code>
-    * [.function_DateArray(date_array)](#$time.types.function_DateArray) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
+    * [.function_DateArray2DateArray(date_array)](#$time.types.function_DateArray2DateArray) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
     * [.DateArray](#$time.types.DateArray) : <code>Array</code>
     * [.toLocaleStringOptions](#$time.types.toLocaleStringOptions) : <code>Object</code>
+    * [.ArrayOfOperation](#$time.types.ArrayOfOperation) : <code>Array</code>
 
 
 * * *
@@ -92,7 +94,7 @@ Just virtual key!!! This is overwiev of all internal types for better descriptio
 <a name="$time.types.function_DateArray2String"></a>
 
 #### types.function\_DateArray2String(date_array) ⇒ <code>String</code>
-**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_DateArray2String" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L887" title="$time.js:887"><small>(defined@887)</small></a>  
+**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_DateArray2String" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L899" title="$time.js:899"><small>(defined@899)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -104,7 +106,7 @@ Just virtual key!!! This is overwiev of all internal types for better descriptio
 <a name="$time.types.function_Date2Date"></a>
 
 #### types.function\_Date2Date(date_instance) ⇒ <code>Date</code>
-**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_Date2Date" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1019" title="$time.js:1019"><small>(defined@1019)</small></a>  
+**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_Date2Date" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1031" title="$time.js:1031"><small>(defined@1031)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -116,7 +118,7 @@ Just virtual key!!! This is overwiev of all internal types for better descriptio
 <a name="$time.types.function_Date2Number"></a>
 
 #### types.function\_Date2Number(date_instance) ⇒ <code>Number</code>
-**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_Date2Number" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1025" title="$time.js:1025"><small>(defined@1025)</small></a>  
+**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_Date2Number" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1037" title="$time.js:1037"><small>(defined@1037)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -125,10 +127,10 @@ Just virtual key!!! This is overwiev of all internal types for better descriptio
 
 * * *
 
-<a name="$time.types.function_DateArray"></a>
+<a name="$time.types.function_DateArray2DateArray"></a>
 
-#### types.function\_DateArray(date_array) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
-**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_DateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1082" title="$time.js:1082"><small>(defined@1082)</small></a>  
+#### types.function\_DateArray2DateArray(date_array) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
+**Kind**: static method of [<code>types</code>](#$time.types) <a name="$time.types.function_DateArray2DateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1094" title="$time.js:1094"><small>(defined@1094)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -142,7 +144,7 @@ Just virtual key!!! This is overwiev of all internal types for better descriptio
 #### types.DateArray : <code>Array</code>
 This is in fact output of [toDateArray](#$time.toDateArray).
 
-**Kind**: static typedef of [<code>types</code>](#$time.types) <a name="$time.types.DateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L570" title="$time.js:570"><small>(defined@570)</small></a>  
+**Kind**: static typedef of [<code>types</code>](#$time.types) <a name="$time.types.DateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L568" title="$time.js:568"><small>(defined@568)</small></a>  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -159,7 +161,7 @@ This is in fact output of [toDateArray](#$time.toDateArray).
 #### types.toLocaleStringOptions : <code>Object</code>
 It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
 
-**Kind**: static typedef of [<code>types</code>](#$time.types) <a name="$time.types.toLocaleStringOptions" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L643" title="$time.js:643"><small>(defined@643)</small></a>  
+**Kind**: static typedef of [<code>types</code>](#$time.types) <a name="$time.types.toLocaleStringOptions" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L641" title="$time.js:641"><small>(defined@641)</small></a>  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -167,6 +169,25 @@ It is in fact argument for `options` in [`Date.prototype.toLocaleString` Paramet
 | [locale] | <code>String</code> | <code>internal_locale</code> | In which language/national format generate final string |
 | [timeZone] | <code>String</code> | <code>internal_zone</code> | Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones). |
 | [declension] | <code>Boolean</code> | <code>true</code> | Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`) |
+
+
+* * *
+
+<a name="$time.types.ArrayOfOperation"></a>
+
+#### types.ArrayOfOperation : <code>Array</code>
+This holds information about how show one piece of String output typically for [toString](#$time.toString).
+
+Predefined values can be found at [format_arrays](#$time.format_arrays).
+
+**Kind**: static typedef of [<code>types</code>](#$time.types) <a name="$time.types.ArrayOfOperation" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L684" title="$time.js:684"><small>(defined@684)</small></a>  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| operation | <code>String</code> | In fact names of keys in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "weekday", "month") or "text". |
+| argument | <code>String</code> | In fact value of given key in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "2-digit", "numeric"). |
+| params | <code>String</code> | Some additional information/modifications like "two_letters", "ordinal_number", …. |
 
 
 * * *
@@ -208,9 +229,9 @@ Internal object holding predefined formating arguments for [getFormatObject](#$t
 
 | Name | Type | Description |
 | --- | --- | --- |
-| SQL_DATE | <code>Array</code> | Generate format of **"YYYY-MM-DD"** |
-| SQL | <code>Array</code> | Generate format of **"YYYY-MM-DD HH:mm:ss"** |
-| SQL_TIME | <code>Array</code> | Generate format of **"HH:mm:ss"** |
+| ...SQL_DATE | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | Generate format of **"YYYY-MM-DD"** |
+| ...SQL | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | Generate format of **"YYYY-MM-DD HH:mm:ss"** |
+| ...SQL_TIME | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | Generate format of **"HH:mm:ss"** |
 
 **Example**  
 ```js
@@ -222,7 +243,7 @@ format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-d
 <a name="$time.Date"></a>
 
 ### $time.Date : <code>object</code>
-**Kind**: static namespace of [<code>$time</code>](#$time) <a name="$time.Date" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1244" title="$time.js:1244"><small>(defined@1244)</small></a>  
+**Kind**: static namespace of [<code>$time</code>](#$time) <a name="$time.Date" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1256" title="$time.js:1256"><small>(defined@1256)</small></a>  
 **Read only**: true  
 
 * [.Date](#$time.Date) : <code>object</code>
@@ -239,7 +260,7 @@ format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-d
 #### Date.addDays(days_num) ⇒ [<code>function\_Date2Date</code>](#$time.types.function_Date2Date)
 This modify given **Date** instance (add days).
 
-**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.addDays" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1031" title="$time.js:1031"><small>(defined@1031)</small></a>  
+**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.addDays" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1043" title="$time.js:1043"><small>(defined@1043)</small></a>  
 **Access**: public  
 
 | Param | Type | Description |
@@ -254,7 +275,7 @@ This modify given **Date** instance (add days).
 #### Date.addMonths(months_num) ⇒ [<code>function\_Date2Date</code>](#$time.types.function_Date2Date)
 This modify given **Date** instance (add months).
 
-**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.addMonths" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1042" title="$time.js:1042"><small>(defined@1042)</small></a>  
+**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.addMonths" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1054" title="$time.js:1054"><small>(defined@1054)</small></a>  
 **Access**: public  
 
 | Param | Type | Description |
@@ -267,7 +288,7 @@ This modify given **Date** instance (add months).
 <a name="$time.Date.getWeekDay"></a>
 
 #### Date.getWeekDay([type], [toLocaleStringOptions]) ⇒ [<code>function\_Date2Number</code>](#$time.types.function_Date2Number)
-**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.getWeekDay" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1053" title="$time.js:1053"><small>(defined@1053)</small></a>  
+**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.getWeekDay" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1065" title="$time.js:1065"><small>(defined@1065)</small></a>  
 **Returns**: [<code>function\_Date2Number</code>](#$time.types.function_Date2Number) - If `type="numeric"`, it returns **0 (Su) - 6 (Sa)**, else it returns **name of week day**  
 **Access**: public  
 
@@ -284,7 +305,7 @@ This modify given **Date** instance (add months).
 #### Date.getWeekNumber(date_instance) ⇒ <code>Number</code>
 This return ISO number of week.
 
-**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.getWeekNumber" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1064" title="$time.js:1064"><small>(defined@1064)</small></a>  
+**Kind**: static method of [<code>Date</code>](#$time.Date) <a name="$time.Date.getWeekNumber" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1076" title="$time.js:1076"><small>(defined@1076)</small></a>  
 **Returns**: <code>Number</code> - In fact, it calculates no. of thursdays from this week to the first one (January 4 is always in week 1.)  
 **Access**: public  
 
@@ -300,7 +321,7 @@ This return ISO number of week.
 ### $time.formats : <code>object</code>
 Public name of [format_arrays](#$time.format_arrays).
 
-**Kind**: static namespace of [<code>$time</code>](#$time) <a name="$time.formats" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1257" title="$time.js:1257"><small>(defined@1257)</small></a>  
+**Kind**: static namespace of [<code>$time</code>](#$time) <a name="$time.formats" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1269" title="$time.js:1269"><small>(defined@1269)</small></a>  
 **Read only**: true  
 
 * * *
@@ -448,7 +469,7 @@ Function generates `DateArray` from current date and time.
 
 <a name="$time.fromString"></a>
 
-### $time.fromString(timestamp_string, [timezone]) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
+### $time.fromString([timestamp_string], [timezone]) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
 Function generates `DateArray` from passed string.
 
 **Kind**: static method of [<code>$time</code>](#$time) <a name="$time.fromString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L545" title="$time.js:545"><small>(defined@545)</small></a>  
@@ -456,7 +477,7 @@ Function generates `DateArray` from passed string.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| timestamp_string | <code>String</code> |  | <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ... |
+| [timestamp_string] | <code>String</code> |  | If `undefined` returns result of [fromNow](#$time.fromNow), else it is used [toDateArray](#$time.toDateArray) for parsing. |
 | [timezone] | <code>String</code> | <code>internal_zone</code> | Default timezone — uses if is not setted in `timestamp_string` |
 
 
@@ -467,7 +488,7 @@ Function generates `DateArray` from passed string.
 ### $time.toDateArray(timestamp_string) ⇒ [<code>DateArray</code>](#$time.types.DateArray) ℗
 Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toDateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L579" title="$time.js:579"><small>(defined@579)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toDateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L577" title="$time.js:577"><small>(defined@577)</small></a>  
 **Access**: private  
 
 | Param | Type | Description |
@@ -479,17 +500,16 @@ Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like s
 
 <a name="$time.toStringFromObject"></a>
 
-### $time.toStringFromObject(format, params_obj) ⇒ <code>function</code> ℗
+### $time.toStringFromObject(...format, params_obj) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String) ℗
 Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toStringFromObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L651" title="$time.js:651"><small>(defined@651)</small></a>  
-**Returns**: <code>function</code> - `(date_array: `**[DateArray](#$time.types.DateArray)**`)` ⇒ **Srting**  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toStringFromObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L649" title="$time.js:649"><small>(defined@649)</small></a>  
 **Access**: private  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| format | <code>Array</code> | <br/>- Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month) <br/>- see [getFormatObject](#$time.getFormatObject) and [format_arrays](#$time.format_arrays). |
-| params_obj | [<code>toLocaleStringOptions</code>](#$time.types.toLocaleStringOptions) |  |
+| Param | Type |
+| --- | --- |
+| ...format | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | 
+| params_obj | [<code>toLocaleStringOptions</code>](#$time.types.toLocaleStringOptions) | 
 
 **Example**  
 ```js
@@ -500,17 +520,15 @@ $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNo
 
 <a name="$time.getFormatObject"></a>
 
-### $time.getFormatObject(format_string) ⇒ <code>Array</code> ℗
+### $time.getFormatObject(format_string) ⇒ [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) ℗
 Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getFormatObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L688" title="$time.js:688"><small>(defined@688)</small></a>  
-**Returns**: <code>Array</code> - <br/>- `[ [ operation, argument, params ] ]`
-<br/>- `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getFormatObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L695" title="$time.js:695"><small>(defined@695)</small></a>  
 **Access**: private  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| format_string | <code>String</code> | - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S", "W", "Wo" |
+| format_string | <code>String</code> | supports <br/>- "YYYY", "YY", <br/>- "MM", "MMM", "MMMM", <br/>- "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat), <br/>- "DD", "D", "Do", <br/>- "HH", "H", <br/>- "mm", "m", <br/>- "SS", "S", <br/>- "W", "Wo" |
 
 
 * * *
@@ -520,7 +538,7 @@ Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "nume
 ### $time.toDate(date_array) ⇒ <code>Date</code>
 Function initializes `Date` from `DateArray`.
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toDate" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L818" title="$time.js:818"><small>(defined@818)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toDate" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L830" title="$time.js:830"><small>(defined@830)</small></a>  
 **Access**: public  
 
 | Param | Type |
@@ -535,7 +553,7 @@ Function initializes `Date` from `DateArray`.
 ### $time.toLocaleString([format_object_name], [toLocaleStringOptions]) ⇒ <code>function</code>
 It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toLocaleString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L833" title="$time.js:833"><small>(defined@833)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toLocaleString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L845" title="$time.js:845"><small>(defined@845)</small></a>  
 **Returns**: <code>function</code> - <br/>- **`date_array`&lt;DateArray&gt;`=>` &lt;String&gt;**
 <br/>- returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);  
 **Access**: public  
@@ -553,7 +571,7 @@ It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozill
 ### $time.toString([format], toLocaleStringOptions) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
 Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L893" title="$time.js:893"><small>(defined@893)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L905" title="$time.js:905"><small>(defined@905)</small></a>  
 **Access**: public  
 
 | Param | Type | Default | Description |
@@ -564,7 +582,7 @@ Function generates text based on `format`, `locale` and `timeZone` from `DateArr
 **Example**  
 ```js
 $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
-     $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
+$time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
 ```
 
 * * *
@@ -572,7 +590,7 @@ $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "
 <a name="$time.getTimeZone"></a>
 
 ### $time.getTimeZone(date, parameters) ⇒ <code>String</code>
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getTimeZone" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L925" title="$time.js:925"><small>(defined@925)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getTimeZone" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L937" title="$time.js:937"><small>(defined@937)</small></a>  
 **Returns**: <code>String</code> - - Timezone name/identificator (with offset)  
 
 | Param | Type | Description |
@@ -589,7 +607,7 @@ $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "
 <a name="$time.getCurrentTimeZone"></a>
 
 ### $time.getCurrentTimeZone(parameters) ⇒ <code>String</code>
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getCurrentTimeZone" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L954" title="$time.js:954"><small>(defined@954)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getCurrentTimeZone" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L966" title="$time.js:966"><small>(defined@966)</small></a>  
 **Returns**: <code>String</code> - - Timezone name/identificator (with offset) for current timezone  
 
 | Param | Type | Description |
@@ -604,15 +622,15 @@ $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "
 
 <a name="$time.modify"></a>
 
-### $time.modify(mod_obj) ⇒ [<code>function\_DateArray</code>](#$time.types.function_DateArray)
-Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.
+### $time.modify(mod_obj) ⇒ [<code>function\_DateArray2DateArray</code>](#$time.types.function_DateArray2DateArray)
+Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.modify" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1088" title="$time.js:1088"><small>(defined@1088)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.modify" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1101" title="$time.js:1101"><small>(defined@1101)</small></a>  
 **Access**: public  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| mod_obj | <code>Object</code> | <br/>- object literal representing requested operations <br/>- use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed) <br/>- supports also *add\** commands with the same notation ("setMonth" => "addMonth") <br/>- **IMPORTANT NOTE:** There are three behaviour changes <br/>&nbsp;&nbsp;&nbsp;&nbsp;- "setMonth" is indexed from 1 (instead of 0) <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay" <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays" <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"** |
+| mod_obj | <code>Object</code> | &nbsp; <br/>- object literal representing requested operations <br/>- use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed) <br/>- supports also *add\** commands with the same notation ("setMonth" => "addMonth") <br/>- **IMPORTANT NOTE:** There are three behaviour changes <br/>&nbsp;&nbsp;&nbsp;&nbsp;- "setMonth" is indexed from 1 (instead of 0) <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay" <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays" <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"** |
 
 
 * * *
@@ -624,7 +642,7 @@ Helper method for invoking "add*" operations in [`modify`](#methods_modify).
 
 In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.modifyAdditions" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1118" title="$time.js:1118"><small>(defined@1118)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.modifyAdditions" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1131" title="$time.js:1131"><small>(defined@1131)</small></a>  
 **Returns**: <code>Date</code> - returns `dateObject`  
 **Access**: private  
 
@@ -642,7 +660,7 @@ In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 ### $time.double(time) ⇒ <code>String</code>
 Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.double" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1139" title="$time.js:1139"><small>(defined@1139)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.double" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1152" title="$time.js:1152"><small>(defined@1152)</small></a>  
 **Returns**: <code>String</code> - * 00, 01, 02, ..., 09, 10, ..., 100, ...  
 **Access**: public  
 
@@ -658,7 +676,7 @@ Function adds leading zero to the `time`. [It can be replaced in future: see `pa
 ### $time.daysInMonth(month, year) ⇒ <code>Number</code>
 Returns number of days in given month (and year)
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.daysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1152" title="$time.js:1152"><small>(defined@1152)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.daysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1165" title="$time.js:1165"><small>(defined@1165)</small></a>  
 **Returns**: <code>Number</code> - - total of days  
 **Access**: public  
 
@@ -675,7 +693,7 @@ Returns number of days in given month (and year)
 ### $time.getDaysInMonth(date_array) ⇒ <code>Number</code>
 Returns number of days in given month
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getDaysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1168" title="$time.js:1168"><small>(defined@1168)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getDaysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1181" title="$time.js:1181"><small>(defined@1181)</small></a>  
 **Returns**: <code>Number</code> - - total of days  
 **Access**: public  
 
@@ -689,7 +707,7 @@ Returns number of days in given month
 <a name="$time.getMonthName"></a>
 
 ### $time.getMonthName(n, [l]) ⇒ <code>String</code>
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getMonthName" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1183" title="$time.js:1183"><small>(defined@1183)</small></a>  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getMonthName" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1196" title="$time.js:1196"><small>(defined@1196)</small></a>  
 **Returns**: <code>String</code> - * English month name  
 **Access**: public  
 
@@ -709,10 +727,10 @@ console.log($time.getMonthName(5));//"May"
 <a name="$time.getOrdinalSuffix"></a>
 
 ### $time.getOrdinalSuffix(n) ⇒ <code>String</code>
-See [`ordinal_numbers`](#props_ordinal_numbers).
+See [ordinal_numbers](#$time.ordinal_numbers).
 
-**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getOrdinalSuffix" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1209" title="$time.js:1209"><small>(defined@1209)</small></a>  
-**Returns**: <code>String</code> - * `n`+English suffix  
+**Kind**: static method of [<code>$time</code>](#$time) <a name="$time.getOrdinalSuffix" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1222" title="$time.js:1222"><small>(defined@1222)</small></a>  
+**Returns**: <code>String</code> - `n`+English suffix  
 **Access**: public  
 
 | Param | Type |

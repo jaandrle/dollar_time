@@ -42,9 +42,9 @@ const $time= (function init(){/* version: "0.6.0" */
          * @namespace format_arrays
          * @private
          * @readonly
-         * @property {Array} SQL_DATE Generate format of **"YYYY-MM-DD"**
-         * @property {Array} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
-         * @property {Array} SQL_TIME Generate format of **"HH:mm:ss"**
+         * @property {...$time.types.ArrayOfOperation} SQL_DATE Generate format of **"YYYY-MM-DD"**
+         * @property {...$time.types.ArrayOfOperation} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
+         * @property {...$time.types.ArrayOfOperation} SQL_TIME Generate format of **"HH:mm:ss"**
          * @memberof $time
          * @example
          * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
@@ -547,9 +547,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method fromString
      * @memberof $time
      * @public
-     * @param {String} timestamp_string 
-     *  <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
-     *  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
+     * @param {String} [timestamp_string] If `undefined` returns result of {@link $time.fromNow}, else it is used {@link $time.toDateArray} for parsing.
      * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
      * @returns {$time.types.DateArray}
      */
@@ -653,13 +651,11 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method toStringFromObject
      * @memberof $time
      * @private
-     * @param {Array} format
-     * <br/>- Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month)
-     * <br/>- see {@link $time.getFormatObject} and {@link $time.format_arrays}.
+     * @param {...$time.types.ArrayOfOperation} format
      * @param {$time.types.toLocaleStringOptions} params_obj
-     * @returns {Function} `(date_array: `**{@link $time.types.DateArray}**`)` ⇒ **Srting**
+     * @returns {$time.types.function_DateArray2String}
      * @example
-     *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     * $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
      */
     function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
         return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
@@ -686,15 +682,31 @@ const $time= (function init(){/* version: "0.6.0" */
         }
     }
     /**
+     * This holds information about how show one piece of String output typically for {@link $time.toString}.
+     * 
+     * Predefined values can be found at {@link $time.format_arrays}.
+     * @typedef {Array} ArrayOfOperation
+     * @memberof $time.types
+     * @property {String} operation In fact names of keys in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "weekday", "month") or "text".
+     * @property {String} argument In fact value of given key in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "2-digit", "numeric").
+     * @property {String} params Some additional information/modifications like "two_letters", "ordinal_number", ….
+     */
+    
+    /**
      * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
      * @method getFormatObject
      * @memberof $time
      * @private
-     * @param {String} format_string
-     *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S", "W", "Wo"
-     * @returns {...Array}
-     * <br/>- `[ [ operation, argument, params ] ]`
-     * <br/>- `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
+     * @param {String} format_string supports
+     * <br/>- "YYYY", "YY",
+     * <br/>- "MM", "MMM", "MMMM",
+     * <br/>- "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat),
+     * <br/>- "DD", "D", "Do",
+     * <br/>- "HH", "H",
+     * <br/>- "mm", "m",
+     * <br/>- "SS", "S",
+     * <br/>- "W", "Wo"
+     * @returns {...$time.types.ArrayOfOperation}
      */
     function getFormatObject(format_string= ""){
         let out= [], out_last_index, letter;
@@ -901,8 +913,8 @@ const $time= (function init(){/* version: "0.6.0" */
      * @param {$time.types.toLocaleStringOptions} toLocaleStringOptions
      * @returns {$time.types.function_DateArray2String}
      * @example
-     *      $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
-     *      $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
+     * $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     * $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
      */
     function toString(format, params_obj){
         return toStringFromObject(Array.isArray(format) ? format : format ? getFormatObject(format) : undefined, params_obj);
@@ -1080,17 +1092,18 @@ const $time= (function init(){/* version: "0.6.0" */
         return 1 + Math.ceil((firstThursday - tdt) / 604800000);
     }
     /**
-     * @function function_DateArray
+     * @function function_DateArray2DateArray
      * @memberof $time.types
      * @param {$time.types.DateArray} date_array
      * @returns {$time.types.DateArray}
      */
+    
     /**
-     * Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.
+     * Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
      * @method modify
      * @memberof $time
      * @public
-     * @param {Object} mod_obj
+     * @param {Object} mod_obj &nbsp;
      * <br/>- object literal representing requested operations
      * <br/>- use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)
      * <br/>- supports also *add\** commands with the same notation ("setMonth" => "addMonth")
@@ -1099,7 +1112,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay"
      * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays"
      * <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
-     * @returns {$time.types.function_DateArray}
+     * @returns {$time.types.function_DateArray2DateArray}
      */
     function modify(mod_obj){
         const operations= Object.keys(mod_obj);
@@ -1207,15 +1220,14 @@ const $time= (function init(){/* version: "0.6.0" */
         return v;
     }
     /**
-     * See [`ordinal_numbers`](#props_ordinal_numbers).
+     * See {@link $time.ordinal_numbers}.
      * @method getOrdinalSuffix
      * @memberof $time
      * @public
      * @param {Number} n
-     * @return {String}
-     *  * `n`+English suffix
+     * @return {String} `n`+English suffix
      * @example
-     *     console.log($time.getOrdinalSuffix(1));//"1st"
+     * console.log($time.getOrdinalSuffix(1));//"1st"
      */
     function getOrdinalSuffix(n_orig) {
         const n= typeof n_orig==="number" ? n_orig : parseInt(n_orig);

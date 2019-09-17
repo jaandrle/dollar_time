@@ -17,13 +17,11 @@
  * @method toStringFromObject
  * @memberof $time
  * @private
- * @param {Array} format
- * <br/>- Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month)
- * <br/>- see {@link $time.getFormatObject} and {@link $time.format_arrays}.
+ * @param {...$time.types.ArrayOfOperation} format
  * @param {$time.types.toLocaleStringOptions} params_obj
- * @returns {Function} `(date_array: `**{@link $time.types.DateArray}**`)` ⇒ **Srting**
+ * @returns {$time.types.function_DateArray2String}
  * @example
- *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+ * $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
  */
 function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
     return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
@@ -50,15 +48,31 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, ti
     }
 }
 /**
+ * This holds information about how show one piece of String output typically for {@link $time.toString}.
+ * 
+ * Predefined values can be found at {@link $time.format_arrays}.
+ * @typedef {Array} ArrayOfOperation
+ * @memberof $time.types
+ * @property {String} operation In fact names of keys in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "weekday", "month") or "text".
+ * @property {String} argument In fact value of given key in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "2-digit", "numeric").
+ * @property {String} params Some additional information/modifications like "two_letters", "ordinal_number", ….
+ */
+
+/**
  * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
  * @method getFormatObject
  * @memberof $time
  * @private
- * @param {String} format_string
- *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S", "W", "Wo"
- * @returns {...Array}
- * <br/>- `[ [ operation, argument, params ] ]`
- * <br/>- `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
+ * @param {String} format_string supports
+ * <br/>- "YYYY", "YY",
+ * <br/>- "MM", "MMM", "MMMM",
+ * <br/>- "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat),
+ * <br/>- "DD", "D", "Do",
+ * <br/>- "HH", "H",
+ * <br/>- "mm", "m",
+ * <br/>- "SS", "S",
+ * <br/>- "W", "Wo"
+ * @returns {...$time.types.ArrayOfOperation}
  */
 function getFormatObject(format_string= ""){
     let out= [], out_last_index, letter;
