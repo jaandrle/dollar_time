@@ -16,7 +16,7 @@ Library also supports localization - internaly uses [`Date.prototype.toLocaleStr
 
 **IMPORTANT NOTE 3: Supports all modern browsers — main limitations are new patterns (e.g. arrow functions) and [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) see [compatibility table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Browser_compatibility) (iOS webkit in Cordova works - based on my tests, but I haven't found any official report about it)**
 ## Links
-- **WIP !!!** [Documentation](https://jaandrle.github.io/dollar_time/$time.md)
+- **WIP !!!** [Documentation](docs/$time.md)
 ## Contribute
 - Installation: use `node install`
 - Build: use `gulp`
