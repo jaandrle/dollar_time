@@ -2,7 +2,7 @@
 /* global gulp_place */
 module.exports= {
     pathHelper: function(path){
-        const folder_part= path.split("undefined"+"\\")[1];
+        const folder_part= path.split("dollar_time"+"\\")[1];
         return "https://github.com/jaandrle/dollar_time"+"/blob/master/"+folder_part+"/";
     }
 };
