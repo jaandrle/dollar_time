@@ -3,16 +3,12 @@
 * @method getMonthName
 * @memberof $time
 * @public
-* @param {Number} n
-*  * Month number (typically [1-12])
-*  * Works cyclically `13===1, ...`
-* @param {Number|Boolean} [l=undefined]
-*  * Length of output Month name
-* @return {String}
-*  * English month name
+* @param {Number} n Month number (typically [1-12]); Works cyclically `13===1, ...`
+* @param {Number|Boolean} [l=undefined] Length of output Month name
+* @return {String} English month name
 * @example
-*     console.log($time.getMonthName(5));//"May"
-*     console.log($time.getMonthName(24, 4));//"Dece"
+* console.log($time.getMonthName(5));//"May"
+* console.log($time.getMonthName(24, 4));//"Dece"
 */
 function getMonthName(n,l) {
     if(typeof n!=="number") n= parseInt(n);

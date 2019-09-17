@@ -21,7 +21,7 @@
  * @param {$time.types.toLocaleStringOptions} params_obj
  * @returns {$time.types.function_DateArray2String}
  * @example
- * $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+ * $time.toStringFromObject([ ["day", "2-digit"], [ "text", "/" ], ["month", "2-digit"], [ "text", "/" ], ["year", "numeric"] ],{ locale: "en-GB" })($time.fromNow());//= "05/06/2019"
  */
 function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
     return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
@@ -63,7 +63,7 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, ti
  * @method getFormatObject
  * @memberof $time
  * @private
- * @param {String} format_string supports
+ * @param {String} format_string supports:
  * <br/>- "YYYY", "YY",
  * <br/>- "MM", "MMM", "MMMM",
  * <br/>- "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat),
@@ -72,7 +72,7 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, ti
  * <br/>- "mm", "m",
  * <br/>- "SS", "S",
  * <br/>- "W", "Wo"
- * @returns {...$time.types.ArrayOfOperation}
+ * @returns {$time.types.ArrayOfOperation[]}
  */
 function getFormatObject(format_string= ""){
     let out= [], out_last_index, letter;

@@ -4,22 +4,15 @@
 /**
  * @method getTimeZone
  * @memberof $time
- * @param {DateArray} date
- *  - See [toDateArray](#methods_toDateArray).
+ * @param {$time.types.DateArray} date
  * @param {Object} parameters
- * @param {String} parameters.locale
- *  - **Default: internal_locale**
- * @param {String} parameters.description
- *  - **Default: "long"**
- *  - The representation of the time zone name. Possible values are:
- *      - `"none"` skip description
- *      - `"long"` (e.g., `British Summer Time`)
- *      - `"short"` (e.g., `GMT+1`)
- * @param {String} parameters.offset
- *  - **Default: false**
- *  - show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
- * @returns {String}
- *  - Timezone name/identificator (with offset)
+ * @param {String} [parameters.locale=internal_locale]
+ * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
+ * <br/>- `"none"` skip description
+ * <br/>- `"long"` (e.g., `British Summer Time`)
+ * <br/>- `"short"` (e.g., `GMT+1`)
+ * @param {String} [parameters.offset=false] show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
+ * @returns {String} Timezone name/identificator (with offset)
  */
 function getTimeZone(date, { locale= internal_locale, description= "long", offset= false }= {}){
     description= description.toLocaleLowerCase();
@@ -34,20 +27,14 @@ function getTimeZone(date, { locale= internal_locale, description= "long", offse
  * @method getCurrentTimeZone
  * @memberof $time
  * @param {Object} parameters
- * @param {String} parameters.locale
- *  - **Default: internal_locale**
- * @param {String} parameters.description
- *  - **Default: "long"**
- *  - The representation of the time zone name. Possible values are:
- *      - `"none"` skip description
- *      - `"long"` (e.g., `British Summer Time`)
- *      - `"short"` (e.g., `GMT+1`)
- *      - `"ianna"`/`"IANNA"` (e.g. `Europe/Prague`): `locale` has no effect for this
- * @param {String} parameters.offset
- *  - **Default: false**
- *  - show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
- * @returns {String}
- *  - Timezone name/identificator (with offset) for current timezone
+ * @param {String} [parameters.locale=internal_locale]
+ * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
+ * <br/>- `"none"` skip description
+ * <br/>- `"long"` (e.g., `British Summer Time`)
+ * <br/>- `"short"` (e.g., `GMT+1`)
+ * <br/>- `"ianna"`/`"IANNA"` (e.g. `Europe/Prague`): `locale` has no effect for this
+ * @param {String} [parameters.offset=false] show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
+ * @returns {String} Timezone name/identificator (with offset) for current timezone
  */
 function getCurrentTimeZone({ locale= internal_locale, description= "long", offset= false }= {}){
     description= description.toLocaleLowerCase();

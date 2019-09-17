@@ -11,7 +11,7 @@
  * @method toString
  * @memberof $time
  * @public
- * @param {String|...Array} [format=$time.formats.SQL]
+ * @param {String|$time.types.ArrayOfOperation[]} [format=$time.formats.SQL]
  * <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see {@link $time.getFormatObject}.
  * <br/>- Or lists of predefined formats — see {@link $time.formats}.
  * @param {$time.types.toLocaleStringOptions} toLocaleStringOptions

@@ -655,7 +655,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @param {$time.types.toLocaleStringOptions} params_obj
      * @returns {$time.types.function_DateArray2String}
      * @example
-     * $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
+     * $time.toStringFromObject([ ["day", "2-digit"], [ "text", "/" ], ["month", "2-digit"], [ "text", "/" ], ["year", "numeric"] ],{ locale: "en-GB" })($time.fromNow());//= "05/06/2019"
      */
     function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
         return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
@@ -697,7 +697,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method getFormatObject
      * @memberof $time
      * @private
-     * @param {String} format_string supports
+     * @param {String} format_string supports:
      * <br/>- "YYYY", "YY",
      * <br/>- "MM", "MMM", "MMMM",
      * <br/>- "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat),
@@ -706,7 +706,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * <br/>- "mm", "m",
      * <br/>- "SS", "S",
      * <br/>- "W", "Wo"
-     * @returns {...$time.types.ArrayOfOperation}
+     * @returns {$time.types.ArrayOfOperation[]}
      */
     function getFormatObject(format_string= ""){
         let out= [], out_last_index, letter;
@@ -847,11 +847,9 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method toLocaleString
      * @memberof $time
      * @public
-     * @param {String} [format_object_name="date_time"] name of predefined time/date combinations see [`format_objects`](#props_format_objects).
+     * @param {String} [format_object_name="date_time"] name of predefined time/date combinations see {@link $time.format_objects}.
      * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions]
-     * @returns {Function}
-     * <br/>- **`date_array`&lt;DateArray&gt;`=>` &lt;String&gt;**
-     * <br/>- returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);
+     * @returns {$time.types.function_DateArray2String} returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);
      */
     function toLocaleString(format_object_name= "date_time", { locale= internal_locale, timeZone= internal_zone }= {}){
         return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object_name]));
@@ -907,7 +905,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method toString
      * @memberof $time
      * @public
-     * @param {String|...Array} [format=$time.formats.SQL]
+     * @param {String|$time.types.ArrayOfOperation[]} [format=$time.formats.SQL]
      * <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see {@link $time.getFormatObject}.
      * <br/>- Or lists of predefined formats — see {@link $time.formats}.
      * @param {$time.types.toLocaleStringOptions} toLocaleStringOptions
@@ -937,22 +935,15 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * @method getTimeZone
      * @memberof $time
-     * @param {DateArray} date
-     *  - See [toDateArray](#methods_toDateArray).
+     * @param {$time.types.DateArray} date
      * @param {Object} parameters
-     * @param {String} parameters.locale
-     *  - **Default: internal_locale**
-     * @param {String} parameters.description
-     *  - **Default: "long"**
-     *  - The representation of the time zone name. Possible values are:
-     *      - `"none"` skip description
-     *      - `"long"` (e.g., `British Summer Time`)
-     *      - `"short"` (e.g., `GMT+1`)
-     * @param {String} parameters.offset
-     *  - **Default: false**
-     *  - show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
-     * @returns {String}
-     *  - Timezone name/identificator (with offset)
+     * @param {String} [parameters.locale=internal_locale]
+     * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
+     * <br/>- `"none"` skip description
+     * <br/>- `"long"` (e.g., `British Summer Time`)
+     * <br/>- `"short"` (e.g., `GMT+1`)
+     * @param {String} [parameters.offset=false] show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
+     * @returns {String} Timezone name/identificator (with offset)
      */
     function getTimeZone(date, { locale= internal_locale, description= "long", offset= false }= {}){
         description= description.toLocaleLowerCase();
@@ -967,20 +958,14 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method getCurrentTimeZone
      * @memberof $time
      * @param {Object} parameters
-     * @param {String} parameters.locale
-     *  - **Default: internal_locale**
-     * @param {String} parameters.description
-     *  - **Default: "long"**
-     *  - The representation of the time zone name. Possible values are:
-     *      - `"none"` skip description
-     *      - `"long"` (e.g., `British Summer Time`)
-     *      - `"short"` (e.g., `GMT+1`)
-     *      - `"ianna"`/`"IANNA"` (e.g. `Europe/Prague`): `locale` has no effect for this
-     * @param {String} parameters.offset
-     *  - **Default: false**
-     *  - show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
-     * @returns {String}
-     *  - Timezone name/identificator (with offset) for current timezone
+     * @param {String} [parameters.locale=internal_locale]
+     * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
+     * <br/>- `"none"` skip description
+     * <br/>- `"long"` (e.g., `British Summer Time`)
+     * <br/>- `"short"` (e.g., `GMT+1`)
+     * <br/>- `"ianna"`/`"IANNA"` (e.g. `Europe/Prague`): `locale` has no effect for this
+     * @param {String} [parameters.offset=false] show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
+     * @returns {String} Timezone name/identificator (with offset) for current timezone
      */
     function getCurrentTimeZone({ locale= internal_locale, description= "long", offset= false }= {}){
         description= description.toLocaleLowerCase();
@@ -1167,13 +1152,9 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method daysInMonth
      * @memberof $time
      * @public
-     * @param {String|Number} month
-     *  - ISO number of month (eg 01 or 1 for January)
-     * @param {String|Number} year
-     *  - **Default: current year**
-     *  - ISO nimber of year (eg. 2019)
-     * @returns {Number}
-     *  - total of days
+     * @param {String|Number} month ISO number of month (eg 01 or 1 for January)
+     * @param {String|Number} [year=">>current year<<"]  ISO nimber of year (eg. 2019)
+     * @returns {Number} total of days
      */
     function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing from 0 */
         return new Date(+year, +month, 0 /* last in prev month */).getDate();
@@ -1183,11 +1164,8 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method getDaysInMonth
      * @memberof $time
      * @public
-     * @param {DateArray} date_array
-     *  - **Default: current date**
-     *  - see [`toDateArray`](#methods_toDateArray)
-     * @returns {Number}
-     *  - total of days
+     * @param {$time.types.DateArray} [date_array=">>current year<<"]
+     * @returns {Number} total of days
      */
     function getDaysInMonth([ date= fromNow()[0] ]= []){
         const [ _, month, year ]= date.split("-").map(Number);
@@ -1197,16 +1175,12 @@ const $time= (function init(){/* version: "0.6.0" */
     * @method getMonthName
     * @memberof $time
     * @public
-    * @param {Number} n
-    *  * Month number (typically [1-12])
-    *  * Works cyclically `13===1, ...`
-    * @param {Number|Boolean} [l=undefined]
-    *  * Length of output Month name
-    * @return {String}
-    *  * English month name
+    * @param {Number} n Month number (typically [1-12]); Works cyclically `13===1, ...`
+    * @param {Number|Boolean} [l=undefined] Length of output Month name
+    * @return {String} English month name
     * @example
-    *     console.log($time.getMonthName(5));//"May"
-    *     console.log($time.getMonthName(24, 4));//"Dece"
+    * console.log($time.getMonthName(5));//"May"
+    * console.log($time.getMonthName(24, 4));//"Dece"
     */
     function getMonthName(n,l) {
         if(typeof n!=="number") n= parseInt(n);
