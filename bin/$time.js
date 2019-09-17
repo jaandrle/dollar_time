@@ -514,7 +514,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @memberof $time
      * @public
      * @param {Date} date_instance instance of `Date` class
-     * @returns {DateArray}
+     * @returns {$time.types.DateArray}
      */
     function fromDate(date_instance){
         return toDateArray(date_instance.toISOString());
@@ -525,7 +525,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @memberof $time
      * @public
      * @param {...Mixed} args parameters for initialize `Date` class
-     * @returns {DateArray}
+     * @returns {$time.types.DateArray}
      */
     function fromDateArguments(...args){
         return toDateArray((args.filter(d=> typeof d!=="undefined").length ? new Date(...args) : new Date()).toISOString());
@@ -537,7 +537,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method fromNow
      * @memberof $time
      * @public
-     * @returns {DateArray}
+     * @returns {$time.types.DateArray}
      */
     function fromNow(){
         return toDateArray((new Date()).toISOString());
@@ -551,7 +551,7 @@ const $time= (function init(){/* version: "0.6.0" */
      *  <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
      *  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
      * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
-     * @returns {DateArray}
+     * @returns {$time.types.DateArray}
      */
     function fromString(timestamp_string, timezone= internal_zone){
         if(!timestamp_string) return fromNow();
@@ -584,7 +584,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @param {String} timestamp_string
      *  <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
      *  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
-     * @returns {DateArray}
+     * @returns {$time.types.DateArray}
      */
     function toDateArray(timestamp_string){
         let /* these hold outputs */
@@ -1021,12 +1021,24 @@ const $time= (function init(){/* version: "0.6.0" */
     }
     
     /**
+     * @function function_Date2Date
+     * @memberof $time.types
+     * @param {Date} date_instance
+     * @returns {Date}
+     */
+    /**
+     * @function function_Date2Number
+     * @memberof $time.types
+     * @param {Date} date_instance
+     * @returns {Number}
+     */
+    /**
      * This modify given **Date** instance (add days).
      * @method addDays
      * @memberof $time.Date
      * @public
      * @param {Number} days_num How many days to add to `date_instance`
-     * @returns {Function} `(date_instance: `**Date**`)` ⇒ **Date**
+     * @returns {$time.types.function_Date2Date}
      * */
     function addDays(days_num){
         return date_instance=> (date_instance.setDate(date_instance.getDate()+days_num), date_instance);
@@ -1037,7 +1049,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @memberof $time.Date
      * @public
      * @param {Number} months_num How many months to add to `date_instance`
-     * @returns {Function} `(date_instance: `**Date**`)` ⇒ **Date**
+     * @returns {$time.types.function_Date2Date}
      * */
     function addMonths(months_num){
         return date_instance=> (date_instance.setMonth(date_instance.getMonth()+months_num), date_instance);
@@ -1048,9 +1060,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @public
      * @param {String} [type="numeric"] Show week numebr by default or se `weekday` in **MDN** see {@link $time.types.toLocaleStringOptions}
      * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions] Key `declension` is redutant for this function
-     * @returns {Function} `(date_instance: `**Date**`)` ⇒ **Number**
-     * - If `type="numeric"`, it returns 0 (Su) - 6 (Sa)
-     * - Else it returns name of week day
+     * @returns {$time.types.function_Date2Number} If `type="numeric"`, it returns **0 (Su) - 6 (Sa)**, else it returns **name of week day**
      * */
     function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
         return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });
@@ -1074,22 +1084,26 @@ const $time= (function init(){/* version: "0.6.0" */
         return 1 + Math.ceil((firstThursday - tdt) / 604800000);
     }
     /**
+     * @function function_DateArray
+     * @memberof $time.types
+     * @param {$time.types.DateArray} date_array
+     * @returns {$time.types.DateArray}
+     */
+    /**
      * Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.
      * @method modify
      * @memberof $time
      * @public
      * @param {Object} mod_obj
-     *  - object literal representing requested operations
-     *  - use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)
-     *  - supports also *add\** commands with the same notation ("setMonth" => "addMonth")
-     *  - **IMPORTANT NOTE:** There are three behaviour changes
-     *      - "setMonth" is indexed from 1 (instead of 0)
-     *      - for "setDate" there is alias "setDay"
-     *      - for "addDate" there is alias "addDays"
-     *  - Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
-     * @returns {Function}
-     *  - `date_array`**&lt;DateArray&gt;** `=>` **&lt;DateArray&gt;**
-     *  - See [toDateArray](#methods_toDateArray).
+     * <br/>- object literal representing requested operations
+     * <br/>- use name convention like [setters for `Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Setter) (only one argument is allowed)
+     * <br/>- supports also *add\** commands with the same notation ("setMonth" => "addMonth")
+     * <br/>- **IMPORTANT NOTE:** There are three behaviour changes
+     * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- "setMonth" is indexed from 1 (instead of 0)
+     * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay"
+     * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays"
+     * <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
+     * @returns {$time.types.function_DateArray}
      */
     function modify(mod_obj){
         const operations= Object.keys(mod_obj);
@@ -1112,14 +1126,10 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method modifyAdditions
      * @memberof $time
      * @private
-     * @param {String} operation
-     *  - e.g. "addMonth"
-     * @param {Number} value
-     *  - mainly argument (number) for 
-     * @param {Date} dateObject
-     *  - instance of `Date`
-     * @returns {Date}
-     *  - returns `dateObject`
+     * @param {String} operation e.g. "addMonth"
+     * @param {Number} value mainly argument (number) for 
+     * @param {Date} dateObject instance of `Date`
+     * @returns {Date} returns `dateObject`
      */
     function modifyAdditions(operation, value, dateObject){
         const cmd= operation.substr(3); /* addMonth=> ...Month => (set/get)Month */

@@ -1,12 +1,24 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* init *//* global internal_locale, internal_zone */
 /**
+ * @function function_Date2Date
+ * @memberof $time.types
+ * @param {Date} date_instance
+ * @returns {Date}
+ */
+/**
+ * @function function_Date2Number
+ * @memberof $time.types
+ * @param {Date} date_instance
+ * @returns {Number}
+ */
+/**
  * This modify given **Date** instance (add days).
  * @method addDays
  * @memberof $time.Date
  * @public
  * @param {Number} days_num How many days to add to `date_instance`
- * @returns {Function} `(date_instance: `**Date**`)` ⇒ **Date**
+ * @returns {$time.types.function_Date2Date}
  * */
 function addDays(days_num){
     return date_instance=> (date_instance.setDate(date_instance.getDate()+days_num), date_instance);
@@ -17,7 +29,7 @@ function addDays(days_num){
  * @memberof $time.Date
  * @public
  * @param {Number} months_num How many months to add to `date_instance`
- * @returns {Function} `(date_instance: `**Date**`)` ⇒ **Date**
+ * @returns {$time.types.function_Date2Date}
  * */
 function addMonths(months_num){
     return date_instance=> (date_instance.setMonth(date_instance.getMonth()+months_num), date_instance);
@@ -28,9 +40,7 @@ function addMonths(months_num){
  * @public
  * @param {String} [type="numeric"] Show week numebr by default or se `weekday` in **MDN** see {@link $time.types.toLocaleStringOptions}
  * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions] Key `declension` is redutant for this function
- * @returns {Function} `(date_instance: `**Date**`)` ⇒ **Number**
- * - If `type="numeric"`, it returns 0 (Su) - 6 (Sa)
- * - Else it returns name of week day
+ * @returns {$time.types.function_Date2Number} If `type="numeric"`, it returns **0 (Su) - 6 (Sa)**, else it returns **name of week day**
  * */
 function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
     return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });

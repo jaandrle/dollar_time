@@ -6,7 +6,7 @@
  * @memberof $time
  * @public
  * @param {...Mixed} args parameters for initialize `Date` class
- * @returns {DateArray}
+ * @returns {$time.types.DateArray}
  */
 function fromDateArguments(...args){
     return toDateArray((args.filter(d=> typeof d!=="undefined").length ? new Date(...args) : new Date()).toISOString());

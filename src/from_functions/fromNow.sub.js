@@ -7,7 +7,7 @@
  * @method fromNow
  * @memberof $time
  * @public
- * @returns {DateArray}
+ * @returns {$time.types.DateArray}
  */
 function fromNow(){
     return toDateArray((new Date()).toISOString());

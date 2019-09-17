@@ -6,7 +6,7 @@
  * @memberof $time
  * @public
  * @param {Date} date_instance instance of `Date` class
- * @returns {DateArray}
+ * @returns {$time.types.DateArray}
  */
 function fromDate(date_instance){
     return toDateArray(date_instance.toISOString());
