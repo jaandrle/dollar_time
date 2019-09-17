@@ -3,6 +3,6 @@
 module.exports= {
     pathHelper: function(path){
         const folder_part= path.split("undefined"+"\\")[1];
-        return "https://github.com/jaandrle/dollar_time#readme"+"/blob/master/"+folder_part+"/";
+        return "https://github.com/jaandrle/dollar_time"+"/blob/master/"+folder_part+"/";
     }
 };

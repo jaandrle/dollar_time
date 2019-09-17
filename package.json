@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/jaandrle/dollar_time/issues"
   },
-  "homepage": "https://github.com/jaandrle/dollar_time#readme",
+  "homepage": "https://github.com/jaandrle/dollar_time",
   "dependencies": {
     "gulp": ">3.9.1",
     "gulp-concat": "2.6.1",
