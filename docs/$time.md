@@ -33,7 +33,7 @@ This NAMESPACE provides features for date/time. Mainly, there are utilities usin
     * [.fromNow()](#$time.fromNow) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
     * [.fromString([timestamp_string], [timezone])](#$time.fromString) ⇒ [<code>DateArray</code>](#$time.types.DateArray)
     * [.toDateArray(timestamp_string)](#$time.toDateArray) ⇒ [<code>DateArray</code>](#$time.types.DateArray) ℗
-    * [.toStringFromObject(...format, params_obj)](#$time.toStringFromObject) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String) ℗
+    * [.toStringFromObject(format, params_obj)](#$time.toStringFromObject) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String) ℗
     * [.getFormatObject(format_string)](#$time.getFormatObject) ⇒ [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) ℗
     * [.toDate(date_array)](#$time.toDate) ⇒ <code>Date</code>
     * [.toLocaleString([format_object_name], [toLocaleStringOptions])](#$time.toLocaleString) ⇒ <code>function</code>
@@ -229,9 +229,9 @@ Internal object holding predefined formating arguments for [getFormatObject](#$t
 
 | Name | Type | Description |
 | --- | --- | --- |
-| ...SQL_DATE | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | Generate format of **"YYYY-MM-DD"** |
-| ...SQL | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | Generate format of **"YYYY-MM-DD HH:mm:ss"** |
-| ...SQL_TIME | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | Generate format of **"HH:mm:ss"** |
+| SQL_DATE | [<code>Array.&lt;ArrayOfOperation&gt;</code>](#$time.types.ArrayOfOperation) | Generate format of **"YYYY-MM-DD"** |
+| SQL | [<code>Array.&lt;ArrayOfOperation&gt;</code>](#$time.types.ArrayOfOperation) | Generate format of **"YYYY-MM-DD HH:mm:ss"** |
+| SQL_TIME | [<code>Array.&lt;ArrayOfOperation&gt;</code>](#$time.types.ArrayOfOperation) | Generate format of **"HH:mm:ss"** |
 
 **Example**  
 ```js
@@ -500,7 +500,7 @@ Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like s
 
 <a name="$time.toStringFromObject"></a>
 
-### $time.toStringFromObject(...format, params_obj) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String) ℗
+### $time.toStringFromObject(format, params_obj) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String) ℗
 Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
 
 **Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toStringFromObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L649" title="$time.js:649"><small>(defined@649)</small></a>  
@@ -508,7 +508,7 @@ Function generates text based on `format`, `locale` and `timeZone` from `DateArr
 
 | Param | Type |
 | --- | --- |
-| ...format | [<code>ArrayOfOperation</code>](#$time.types.ArrayOfOperation) | 
+| format | [<code>Array.&lt;ArrayOfOperation&gt;</code>](#$time.types.ArrayOfOperation) | 
 | params_obj | [<code>toLocaleStringOptions</code>](#$time.types.toLocaleStringOptions) | 
 
 **Example**  

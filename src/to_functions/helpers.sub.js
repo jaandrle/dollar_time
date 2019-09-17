@@ -17,7 +17,7 @@
  * @method toStringFromObject
  * @memberof $time
  * @private
- * @param {...$time.types.ArrayOfOperation} format
+ * @param {$time.types.ArrayOfOperation[]} format
  * @param {$time.types.toLocaleStringOptions} params_obj
  * @returns {$time.types.function_DateArray2String}
  * @example

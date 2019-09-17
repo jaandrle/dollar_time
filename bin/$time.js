@@ -42,9 +42,9 @@ const $time= (function init(){/* version: "0.6.0" */
          * @namespace format_arrays
          * @private
          * @readonly
-         * @property {...$time.types.ArrayOfOperation} SQL_DATE Generate format of **"YYYY-MM-DD"**
-         * @property {...$time.types.ArrayOfOperation} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
-         * @property {...$time.types.ArrayOfOperation} SQL_TIME Generate format of **"HH:mm:ss"**
+         * @property {$time.types.ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
+         * @property {$time.types.ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
+         * @property {$time.types.ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
          * @memberof $time
          * @example
          * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
@@ -651,7 +651,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @method toStringFromObject
      * @memberof $time
      * @private
-     * @param {...$time.types.ArrayOfOperation} format
+     * @param {$time.types.ArrayOfOperation[]} format
      * @param {$time.types.toLocaleStringOptions} params_obj
      * @returns {$time.types.function_DateArray2String}
      * @example

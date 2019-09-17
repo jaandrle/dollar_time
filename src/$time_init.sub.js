@@ -30,9 +30,9 @@ const /* internal store */
      * @namespace format_arrays
      * @private
      * @readonly
-     * @property {...$time.types.ArrayOfOperation} SQL_DATE Generate format of **"YYYY-MM-DD"**
-     * @property {...$time.types.ArrayOfOperation} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
-     * @property {...$time.types.ArrayOfOperation} SQL_TIME Generate format of **"HH:mm:ss"**
+     * @property {$time.types.ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
+     * @property {$time.types.ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
+     * @property {$time.types.ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
      * @memberof $time
      * @example
      * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
