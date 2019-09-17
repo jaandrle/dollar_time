@@ -885,25 +885,21 @@ const $time= (function init(){/* version: "0.6.0" */
         return out_text.replace("%s", ms_diff+" years");
     }
     /**
+     * @function function_DateArray2String
+     * @memberof $time.types
+     * @param {$time.types.DateArray} date_array
+     * @returns {String}
+     */
+    /**
      * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
      * @method toString
      * @memberof $time
      * @public
-     * @param {String|...Array} format
-     *  - **Default: `$time.formats.SQL`**
-     *  - Placeholder for replace/generate final string (eg. "MM"===two digits month) — see [`getFormatObject`](#methods_getFormatObject).
-     *  - Or lists of predefined formats — see [`formats`](#props_formats).
-     * @param {DateArray} params_obj
-     *  - It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
-     * @param {String} params_obj.locale
-     *  - In which language/national format generate final string
-     * @param {String} params_obj.timeZone
-     *  - Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
-     * @param {String} params_obj.declension
-     *  - **default: true**
-     *  - Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
-     * @returns {Function}
-     *  - `DateArray`=> **&lt;String&gt;**
+     * @param {String|...Array} [format=$time.formats.SQL]
+     * <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see {@link $time.getFormatObject}.
+     * <br/>- Or lists of predefined formats — see {@link $time.formats}.
+     * @param {$time.types.toLocaleStringOptions} toLocaleStringOptions
+     * @returns {$time.types.function_DateArray2String}
      * @example
      *      $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
      *      $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
