@@ -5,7 +5,7 @@
 /**
  * Curried method `mod_obj=> date_array=> result` – `mod_obj` holds information how modify given `date_array` **&lt;DateArray&gt;**. Result is again **&lt;DateArray&gt;**.
  * @method modify
- * @for $time.{namespace}
+ * @memberof $time
  * @public
  * @param {Object} mod_obj
  *  - object literal representing requested operations
@@ -39,7 +39,7 @@ function modify(mod_obj){
  * 
  * In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
  * @method modifyAdditions
- * @for $time.{namespace}
+ * @memberof $time
  * @private
  * @param {String} operation
  *  - e.g. "addMonth"

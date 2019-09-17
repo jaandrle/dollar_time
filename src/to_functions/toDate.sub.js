@@ -4,10 +4,9 @@
 /**
  * Function initializes `Date` from `DateArray`.
  * @method toDate
- * @for $time.{namespace}
+ * @memberof $time
  * @public
- * @param {DateArray} date_array
- *  - See [toDateArray](#methods_toDateArray).
+ * @param {$time.types.DateArray} date_array
  * @returns {Date}
  */
 function toDate([ date, time, zone ]= []){

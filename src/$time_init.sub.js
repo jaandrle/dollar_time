@@ -1,19 +1,20 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 const /* internal store */
-/**
- * Internal object holding predefined formating arguments for `$time.toLocaleString`. For example `format_objects.time==={ hour: "2-digit", minute: "2-digit" }`.
- * 
- * Keys:
- *  - `time`: shows combination of 2-digits hour and minutes
- *  - `time_seconds`: shows combination of `time` and seconds
- *  - `date`: shows combination of 2-digits day, month and full year
- *  - `date_time`: shows combination of `time` and `date`
- *  - `date_time_seconds`: shows combination of `date_time` and `seconds`
- * @property {Object} format_objects
- * @private
- * @for $time.{namespace}
- */
     format_objects= (({ time, date, seconds })=>({
+    /**
+     * Internal object holding predefined formating arguments for {@link $time.toLocaleString}.
+     * @namespace format_objects
+     * @private
+     * @readonly
+     * @property {Object} time shows combination of 2-digits hour and minutes
+     * @property {Object} time_seconds shows combination of `time` and seconds
+     * @property {Object} date shows combination of 2-digits day, month and full year
+     * @property {Object} date_time shows combination of `time` and `date`
+     * @property {Object} date_time_seconds shows combination of `date_time` and `seconds`
+     * @memberof $time
+     * @example
+     * format_objects.time==={ hour: "2-digit", minute: "2-digit" }
+     */
         time, date,
         time_seconds: Object.assign(seconds, time),
         date_time: Object.assign({}, time, date),
@@ -23,18 +24,19 @@ const /* internal store */
         date: { year: "numeric", day: "2-digit", month: "2-digit" },
         seconds: { second: "2-digit" }
     }),
-/**
- * Internal object holding predefined formating arguments for `getFormatObject`. For example `format_arrays.YYYYMMDD=== [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ]`.
- * 
- * Keys:
- *  - `SQL_DATE`: shows **"YYYY-MM-DD"**
- *  - `SQL`: shows **"YYYY-MM-DD HH:mm:ss"**
- *  - `SQL_TIME`: shows **"HH:mm:ss"**
- * @property {Object} format_arrays
- * @private
- * @for $time.{namespace}
- */
     format_arrays= (({ dash, colon, space, two_dig })=>({
+    /**
+     * Internal object holding predefined formating arguments for {@link $time.getFormatObject}.
+     * @namespace format_arrays
+     * @private
+     * @readonly
+     * @property {Array} SQL_DATE Generate format of **"YYYY-MM-DD"**
+     * @property {Array} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
+     * @property {Array} SQL_TIME Generate format of **"HH:mm:ss"**
+     * @memberof $time
+     * @example
+     * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
+     */
         SQL_DATE: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
         SQL_TIME: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
         SQL: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
@@ -44,37 +46,38 @@ const /* internal store */
         space: [ "text", " " ],
         two_dig: "2-digit"
     }),
-/**
- * Internal helper array for `getOrdinalSuffix`.
- * @property {Array} ordinal_numbers
- * @private
- * @for $time.{namespace}
- */
+    /**
+     * Internal helper array for {@link $time.getOrdinalSuffix}.
+     * @property {Array} ordinal_numbers
+     * @private
+     * @readonly
+     * @memberof $time
+     */
     ordinal_numbers= [ "th", "st", "nd", "rd" ];
 const /* validation functions */
 /**
  * Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
  * @method isDateString
- * @for $time.{namespace}
+ * @memberof $time
  * @private
  * @param {String|...String} date_string
  * @returns {Boolean}
  * @example
- *      isDateString("2019-05-06");//= true
- *      isDateString("06/05/2019");//= false !!!!
+ * isDateString("2019-05-06");//= true
+ * isDateString("06/05/2019");//= false !!!!
  */
     isDateString= date_string=> date_string.indexOf("-")!==-1,
 /**
  * Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
  * @method isTimeString
- * @for $time.{namespace}
+ * @memberof $time
  * @private
  * @param {String|...String} date_string
  * @returns {Boolean}
  * @example
- *      isDateString("T12:00:00");//= true
- *      isDateString("12:00:00");//= false !!!
- *      isDateString("Twrong");//= true !!!!
+ * isTimeString("T12:00:00");//= true
+ * isTimeString("12:00:00");//= false !!!
+ * isTimeString("Twrong");//= true !!!!
  */
     isTimeString= date_string=> date_string.indexOf("T")!==-1;
 let /* internal variables*/
@@ -86,7 +89,8 @@ let /* internal variables*/
  * Original from [stackoverflow.com/a/54500197](https://stackoverflow.com/a/54500197).
  * @property {Array} ary_ianna_time_zones
  * @private
- * @for $time.{namespace}
+ * @readonly
+ * @memberof $time
  */
 const ary_ianna_time_zones= Object.freeze([
     'Africa/Abidjan',
@@ -446,7 +450,7 @@ const ary_ianna_time_zones= Object.freeze([
  * **IMPORTANT NOTE:** BST, EET, WET hasn't been validated! … idea is to behave the same way like CET
  * @property {Object} ary_ianna_time_offsets
  * @private
- * @for $time.{namespace}
+ * @memberof $time
  */
 const ary_ianna_time_offsets= Object.freeze({
     '-01:00': 238,

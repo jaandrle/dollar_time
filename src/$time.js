@@ -2,8 +2,13 @@
 /* global gulp_place */
 /**
  * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
- * @class $time.{namespace}
- * @static
+ * @namespace $time
+ */
+/**
+ * Just virtual key!!! This is overwiev of all internal types for better description.
+ * @namespace types
+ * @private
+ * @memberof $time
  */
 const $time= (function init(){/* version: gulp_place("app.version", "variable") */
     gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true, format_arrays */
@@ -17,9 +22,12 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
     
     return {
         /**
-         * Alias for `undefined` which can be used to trigger default value of argument. (eg. `test($time._)==="A"; function test(a= "A"){ return a; }`)
-         * @property {undefined} _
+         * Alias for `undefined` which can be used to trigger default value of argument.
+         * @property {Undefined} _
+         * @memberof $time
          * @public
+         * @example
+         * test($time._)==="A"; function test(a= "A"){ return a; }
          */
         _: undefined,
     
@@ -29,7 +37,11 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
     
         getDiff, getRelative,
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone,
-    
+        /**
+         * @namespace Date
+         * @memberof $time
+         * @readonly
+         */
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
         redefineTimeZone, modify,
     
@@ -39,9 +51,12 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale,
         /**
-         * Public name of [`format_arrays`](#props_format_arrays).
-         * @property {Object} formats
-         * @public
+         * Public name of {@link $time.format_arrays}.
+         * @namespace formats
+         * @alias $time.format_arrays
+         * @memberof $time
+         * @readonly
+         * @static
          */
         formats: format_arrays
     };

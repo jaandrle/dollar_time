@@ -3,7 +3,7 @@
 /**
  * Returns number of days in given month (and year)
  * @method daysInMonth
- * @for $time.{namespace}
+ * @memberof $time
  * @public
  * @param {String|Number} month
  *  - ISO number of month (eg 01 or 1 for January)
@@ -19,7 +19,7 @@ function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing
 /**
  * Returns number of days in given month
  * @method getDaysInMonth
- * @for $time.{namespace}
+ * @memberof $time
  * @public
  * @param {DateArray} date_array
  *  - **Default: current date**

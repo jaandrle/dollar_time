@@ -3,7 +3,7 @@
 /**
  * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
  * @method toString
- * @for $time.{namespace}
+ * @memberof $time
  * @public
  * @param {String|...Array} format
  *  - **Default: `$time.formats.SQL`**

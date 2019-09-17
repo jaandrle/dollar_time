@@ -3,12 +3,10 @@
 /**
  * Function generates `DateArray` from arguments to initialize `Date`.
  * @method fromDateArguments
- * @for $time.{namespace}
+ * @memberof $time
  * @public
- * @param {...Mixed} args 
- *  - parameters for initialize `Date` class
+ * @param {...Mixed} args parameters for initialize `Date` class
  * @returns {DateArray}
- *  - See [toDateArray](#methods_toDateArray).
  */
 function fromDateArguments(...args){
     return toDateArray((args.filter(d=> typeof d!=="undefined").length ? new Date(...args) : new Date()).toISOString());

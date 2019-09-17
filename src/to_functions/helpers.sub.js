@@ -5,24 +5,23 @@
 /* modify/Date *//* global getWeekNumber, getWeekDay */
 /* utility *//* global getOrdinalSuffix, double */
 /**
+ * It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
+ * @typedef {Object} toLocaleStringOptions
+ * @memberof $time.types
+ * @property {String} [locale=internal_locale] In which language/national format generate final string
+ * @property {String} [timeZone=internal_zone] Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
+ * @property {Boolean} [declension=true] Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
+ */
+/**
  * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
  * @method toStringFromObject
- * @for $time.{namespace}
+ * @memberof $time
  * @private
  * @param {Array} format
- *  - Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month)
- *  - see [`getFormatObject`](#methods_getFormatObject) an [`format_arrays`](#props_format_arrays).
- * @param {DateArray} params_obj
- *  - It is in fact argument for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString)
- * @param {String} params_obj.locale
- *  - In which language/national format generate final string
- * @param {String} params_obj.timeZone
- *  - Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
- * @param {String} params_obj.declension
- *  - **default: true**
- *  - Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
- * @returns {Function}
- *  - `DateArray`=> **&lt;String&gt;**
+ * <br/>- Placeholder for replace/generate final string (eg. [[ "month", "2-digits" ]]===two digits month)
+ * <br/>- see {@link $time.getFormatObject} and {@link $time.format_arrays}.
+ * @param {$time.types.toLocaleStringOptions} params_obj
+ * @returns {Function} `(date_array: `**{@link $time.types.DateArray}**`)` ⇒ **Srting**
  * @example
  *      $time.toStringFromObject("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
  */
@@ -53,13 +52,13 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, ti
 /**
  * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
  * @method getFormatObject
- * @for $time.{namespace}
+ * @memberof $time
  * @private
  * @param {String} format_string
  *  - supports "YYYY", "YY", "MM", "MMM", "MMMM", "dddd" (weekday - Monday), "ddd" (shorter weekday - Mon), "dd" (Mo), "d" (0===Sun <> 6===Sat), "DD", "D", "Do", "HH", "H", "mm", "m", "SS", "S", "W", "Wo"
  * @returns {...Array}
- *  - `[ [ operation, argument, params ] ]`
- *  - `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
+ * <br/>- `[ [ operation, argument, params ] ]`
+ * <br/>- `Opertions` are in fact arguments for [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) and `arguments` are their values.
  */
 function getFormatObject(format_string= ""){
     let out= [], out_last_index, letter;

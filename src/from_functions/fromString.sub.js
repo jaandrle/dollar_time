@@ -4,15 +4,13 @@
 /**
  * Function generates `DateArray` from passed string.
  * @method fromString
- * @for $time.{namespace}
+ * @memberof $time
  * @public
  * @param {String} timestamp_string 
- *  - Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
- *  - Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
- * @param {String} [timezone= internal_zone]
- *  - Default timezone — uses if is not setted in `timestamp_string`
+ *  <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
+ *  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
+ * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
  * @returns {DateArray}
- *  - See [toDateArray](#methods_toDateArray).
  */
 function fromString(timestamp_string, timezone= internal_zone){
     if(!timestamp_string) return fromNow();

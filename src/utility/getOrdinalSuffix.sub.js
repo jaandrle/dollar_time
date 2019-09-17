@@ -3,7 +3,7 @@
 /**
  * See [`ordinal_numbers`](#props_ordinal_numbers).
  * @method getOrdinalSuffix
- * @for $time.{namespace}
+ * @memberof $time
  * @public
  * @param {Number} n
  * @return {String}

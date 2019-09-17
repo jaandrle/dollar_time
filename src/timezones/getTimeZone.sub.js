@@ -3,7 +3,7 @@
 /* timezones/helpers *//* global getDateArrayFromMixed, getTimeZoneOffsetStringFromOffset */
 /**
  * @method getTimeZone
- * @for $time.{namespace}
+ * @memberof $time
  * @param {DateArray} date
  *  - See [toDateArray](#methods_toDateArray).
  * @param {Object} parameters
@@ -32,7 +32,7 @@ function getTimeZone(date, { locale= internal_locale, description= "long", offse
 }
 /**
  * @method getCurrentTimeZone
- * @for $time.{namespace}
+ * @memberof $time
  * @param {Object} parameters
  * @param {String} parameters.locale
  *  - **Default: internal_locale**
