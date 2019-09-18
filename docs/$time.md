@@ -37,7 +37,7 @@ This NAMESPACE provides features for date/time. Mainly, there are utilities usin
     * [.getFormatObject(format_string)](#$time.getFormatObject) ⇒ [<code>Array.&lt;ArrayOfOperation&gt;</code>](#$time.types.ArrayOfOperation) ℗
     * [.toDate(date_array)](#$time.toDate) ⇒ <code>Date</code>
     * [.toLocaleString([format_object_name], [toLocaleStringOptions])](#$time.toLocaleString) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
-    * [.toString([format], toLocaleStringOptions)](#$time.toString) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
+    * [.toString([format], [toLocaleStringOptions])](#$time.toString) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
     * [.getTimeZone(date, parameters)](#$time.getTimeZone) ⇒ <code>String</code>
     * [.getCurrentTimeZone(parameters)](#$time.getCurrentTimeZone) ⇒ <code>String</code>
     * [.modify(mod_obj)](#$time.modify) ⇒ [<code>function\_DateArray2DateArray</code>](#$time.types.function_DateArray2DateArray)
@@ -567,7 +567,7 @@ It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozill
 
 <a name="$time.toString"></a>
 
-### $time.toString([format], toLocaleStringOptions) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
+### $time.toString([format], [toLocaleStringOptions]) ⇒ [<code>function\_DateArray2String</code>](#$time.types.function_DateArray2String)
 Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
 
 **Kind**: static method of [<code>$time</code>](#$time) <a name="$time.toString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L903" title="$time.js:903"><small>(defined@903)</small></a>  
@@ -576,7 +576,7 @@ Function generates text based on `format`, `locale` and `timeZone` from `DateArr
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [format] | <code>String</code> \| [<code>Array.&lt;ArrayOfOperation&gt;</code>](#$time.types.ArrayOfOperation) | <code>$time.formats.SQL</code> | <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see [getFormatObject](#$time.getFormatObject). <br/>- Or lists of predefined formats — see [formats](#$time.formats). |
-| toLocaleStringOptions | [<code>toLocaleStringOptions</code>](#$time.types.toLocaleStringOptions) |  |  |
+| [toLocaleStringOptions] | [<code>toLocaleStringOptions</code>](#$time.types.toLocaleStringOptions) |  |  |
 
 **Example**  
 ```js

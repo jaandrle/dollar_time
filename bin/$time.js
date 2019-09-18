@@ -908,7 +908,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @param {String|$time.types.ArrayOfOperation[]} [format=$time.formats.SQL]
      * <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see {@link $time.getFormatObject}.
      * <br/>- Or lists of predefined formats — see {@link $time.formats}.
-     * @param {$time.types.toLocaleStringOptions} toLocaleStringOptions
+     * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions]
      * @returns {$time.types.function_DateArray2String}
      * @example
      * $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
