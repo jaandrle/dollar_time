@@ -67,7 +67,7 @@
 <a name="module_jaaJSU..$time"></a>
 
 ### jaaJSU~$time : <code>object</code>
-This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+>This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
 
 **Kind**: inner namespace of [<code>jaaJSU</code>](#module_jaaJSU) <a name="module_jaaJSU..$time" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L5" title="$time.js:5"><small>(defined@5)</small></a>  
 **Category**: namespaces  
@@ -123,7 +123,7 @@ This NAMESPACE provides features for date/time. Mainly, there are utilities usin
 <a name="module_jaaJSU..$time._"></a>
 
 #### $time.\_
-Alias for `undefined` which can be used to trigger default value of argument.
+>Alias for `undefined` which can be used to trigger default value of argument.
 
 **Kind**: static property of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time._" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1225" title="$time.js:1225"><small>(defined@1225)</small></a>  
 **Access**: public  
@@ -143,7 +143,7 @@ test($time._)==="A"; function test(a= "A"){ return a; }
 <a name="module_jaaJSU..$time.format_objects"></a>
 
 #### $time.format\_objects : <code>object</code> ℗
-Internal object holding predefined formating arguments for [toLocaleString](#module_jaaJSU..$time.toLocaleString).
+>Internal object holding predefined formating arguments for [toLocaleString](#module_jaaJSU..$time.toLocaleString).
 
 **Kind**: static namespace of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.format_objects" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L15" title="$time.js:15"><small>(defined@15)</small></a>  
 **Access**: private  
@@ -168,7 +168,7 @@ format_objects.time==={ hour: "2-digit", minute: "2-digit" }
 <a name="module_jaaJSU..$time.format_arrays"></a>
 
 #### $time.format\_arrays : <code>object</code> ℗
-Internal object holding predefined formating arguments for [getFormatObject](#module_jaaJSU..$time.getFormatObject).
+>Internal object holding predefined formating arguments for [getFormatObject](#module_jaaJSU..$time.getFormatObject).
 
 **Kind**: static namespace of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.format_arrays" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L39" title="$time.js:39"><small>(defined@39)</small></a>  
 **Access**: private  
@@ -206,7 +206,7 @@ format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-d
 <a name="module_jaaJSU..$time.Date.addDays"></a>
 
 ##### Date.addDays(days_num) ⇒ [<code>function\_Date2Date</code>](#module_jaaJSU..$time.function_Date2Date)
-This modify given **Date** instance (add days).
+>This modify given **Date** instance (add days).
 
 **Kind**: static method of [<code>Date</code>](#module_jaaJSU..$time.Date) <a name="module_jaaJSU..$time.Date.addDays" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1030" title="$time.js:1030"><small>(defined@1030)</small></a>  
 **Access**: public  
@@ -221,7 +221,7 @@ This modify given **Date** instance (add days).
 <a name="module_jaaJSU..$time.Date.addMonths"></a>
 
 ##### Date.addMonths(months_num) ⇒ [<code>function\_Date2Date</code>](#module_jaaJSU..$time.function_Date2Date)
-This modify given **Date** instance (add months).
+>This modify given **Date** instance (add months).
 
 **Kind**: static method of [<code>Date</code>](#module_jaaJSU..$time.Date) <a name="module_jaaJSU..$time.Date.addMonths" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1041" title="$time.js:1041"><small>(defined@1041)</small></a>  
 **Access**: public  
@@ -251,7 +251,7 @@ This modify given **Date** instance (add months).
 <a name="module_jaaJSU..$time.Date.getWeekNumber"></a>
 
 ##### Date.getWeekNumber(date_instance) ⇒ <code>Number</code>
-This return ISO number of week.
+>This return ISO number of week.
 
 **Kind**: static method of [<code>Date</code>](#module_jaaJSU..$time.Date) <a name="module_jaaJSU..$time.Date.getWeekNumber" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1063" title="$time.js:1063"><small>(defined@1063)</small></a>  
 **Returns**: <code>Number</code> - In fact, it calculates no. of thursdays from this week to the first one (January 4 is always in week 1.)  
@@ -267,7 +267,7 @@ This return ISO number of week.
 <a name="module_jaaJSU..$time.formats"></a>
 
 #### $time.formats : <code>object</code>
-Public name of [format_arrays](#module_jaaJSU..$time.format_arrays).
+>Public name of [format_arrays](#module_jaaJSU..$time.format_arrays).
 
 **Kind**: static namespace of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.formats" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1246" title="$time.js:1246"><small>(defined@1246)</small></a>  
 **Read only**: true  
@@ -277,7 +277,7 @@ Public name of [format_arrays](#module_jaaJSU..$time.format_arrays).
 <a name="module_jaaJSU..$time.ordinal_numbers"></a>
 
 #### $time.ordinal\_numbers ℗
-Internal helper array for [getOrdinalSuffix](#module_jaaJSU..$time.getOrdinalSuffix).
+>Internal helper array for [getOrdinalSuffix](#module_jaaJSU..$time.getOrdinalSuffix).
 
 **Kind**: static constant of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.ordinal_numbers" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L67" title="$time.js:67"><small>(defined@67)</small></a>  
 **Access**: private  
@@ -294,7 +294,7 @@ Internal helper array for [getOrdinalSuffix](#module_jaaJSU..$time.getOrdinalSuf
 <a name="module_jaaJSU..$time.ary_ianna_time_zones"></a>
 
 #### $time.ary\_ianna\_time\_zones ℗
-This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.
+>This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.
 
 Original from [stackoverflow.com/a/54500197](https://stackoverflow.com/a/54500197).
 
@@ -313,7 +313,7 @@ Original from [stackoverflow.com/a/54500197](https://stackoverflow.com/a/5450019
 <a name="module_jaaJSU..$time.ary_ianna_time_offsets"></a>
 
 #### $time.ary\_ianna\_time\_offsets ℗
-This object stores offsets in `ary_ianna_time_zones` (keys) and one corresponding index.
+>This object stores offsets in `ary_ianna_time_zones` (keys) and one corresponding index.
 
 So for exmple, `ary_ianna_time_offsets["CET"]` is equal to **284** which is index of `ary_ianna_time_zones[284]==='Europe/Prague'` (in winter "+01:00" and in summer "+02:00").
 
@@ -335,7 +335,7 @@ Next example is `ary_ianna_time_offsets["-01:00"]` is equal to **238** which is 
 <a name="module_jaaJSU..$time.isDateString"></a>
 
 #### $time.isDateString(date_string) ⇒ <code>Boolean</code> ℗
-Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
+>Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.isDateString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L69" title="$time.js:69"><small>(defined@69)</small></a>  
 **Access**: private  
@@ -355,7 +355,7 @@ isDateString("06/05/2019");//= false !!!!
 <a name="module_jaaJSU..$time.isTimeString"></a>
 
 #### $time.isTimeString(date_string) ⇒ <code>Boolean</code> ℗
-Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
+>Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.isTimeString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L81" title="$time.js:81"><small>(defined@81)</small></a>  
 **Access**: private  
@@ -376,7 +376,7 @@ isTimeString("Twrong");//= true !!!!
 <a name="module_jaaJSU..$time.fromDate"></a>
 
 #### $time.fromDate(date_instance) ⇒ [<code>DateArray</code>](#module_jaaJSU..$time.DateArray)
-Function generates `DateArray` from instance of `Date`.
+>Function generates `DateArray` from instance of `Date`.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.fromDate" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L510" title="$time.js:510"><small>(defined@510)</small></a>  
 **Access**: public  
@@ -391,7 +391,7 @@ Function generates `DateArray` from instance of `Date`.
 <a name="module_jaaJSU..$time.fromDateArguments"></a>
 
 #### $time.fromDateArguments(...args) ⇒ [<code>DateArray</code>](#module_jaaJSU..$time.DateArray)
-Function generates `DateArray` from arguments to initialize `Date`.
+>Function generates `DateArray` from arguments to initialize `Date`.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.fromDateArguments" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L521" title="$time.js:521"><small>(defined@521)</small></a>  
 **Access**: public  
@@ -406,7 +406,7 @@ Function generates `DateArray` from arguments to initialize `Date`.
 <a name="module_jaaJSU..$time.fromNow"></a>
 
 #### $time.fromNow() ⇒ [<code>DateArray</code>](#module_jaaJSU..$time.DateArray)
-Function generates `DateArray` from current date and time.
+>Function generates `DateArray` from current date and time.
 
 **Warning:** Internally uses `toISOString` method so result is always converted to "+00:00": `p($time.fromNow, $time.setTimeZone("+02:00"), $time.toString())()` (`p` is some pipe function) — this returns "2019-07-10T16:48:43+02:00" instead of "2019-07-10T18:48:43+02:00" (current time) … the flow is "2019-07-10T18:48:43+02:00"-`fromNow`->"2019-07-10T16:48:43Z"-`setTimeZone`->"2019-07-10T16:48:43+02:00".
 
@@ -418,7 +418,7 @@ Function generates `DateArray` from current date and time.
 <a name="module_jaaJSU..$time.fromString"></a>
 
 #### $time.fromString([timestamp_string], [timezone]) ⇒ [<code>DateArray</code>](#module_jaaJSU..$time.DateArray)
-Function generates `DateArray` from passed string.
+>Function generates `DateArray` from passed string.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.fromString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L544" title="$time.js:544"><small>(defined@544)</small></a>  
 **Access**: public  
@@ -434,7 +434,7 @@ Function generates `DateArray` from passed string.
 <a name="module_jaaJSU..$time.toDateArray"></a>
 
 #### $time.toDateArray(timestamp_string) ⇒ [<code>DateArray</code>](#module_jaaJSU..$time.DateArray) ℗
-Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.
+>Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.toDateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L576" title="$time.js:576"><small>(defined@576)</small></a>  
 **Access**: private  
@@ -449,7 +449,7 @@ Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like s
 <a name="module_jaaJSU..$time.toStringFromObject"></a>
 
 #### $time.toStringFromObject(format, params_obj) ⇒ [<code>function\_DateArray2String</code>](#module_jaaJSU..$time.function_DateArray2String) ℗
-Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
+>Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.toStringFromObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L649" title="$time.js:649"><small>(defined@649)</small></a>  
 **Access**: private  
@@ -469,7 +469,7 @@ $time.toStringFromObject([ ["day", "2-digit"], [ "text", "/" ], ["month", "2-dig
 <a name="module_jaaJSU..$time.getFormatObject"></a>
 
 #### $time.getFormatObject(format_string) ⇒ [<code>Array.&lt;ArrayOfOperation&gt;</code>](#module_jaaJSU..$time.ArrayOfOperation) ℗
-Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
+>Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getFormatObject" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L696" title="$time.js:696"><small>(defined@696)</small></a>  
 **Access**: private  
@@ -484,7 +484,7 @@ Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "nume
 <a name="module_jaaJSU..$time.toDate"></a>
 
 #### $time.toDate(date_array) ⇒ <code>Date</code>
-Function initializes `Date` from `DateArray`.
+>Function initializes `Date` from `DateArray`.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.toDate" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L831" title="$time.js:831"><small>(defined@831)</small></a>  
 **Access**: public  
@@ -499,7 +499,7 @@ Function initializes `Date` from `DateArray`.
 <a name="module_jaaJSU..$time.toLocaleString"></a>
 
 #### $time.toLocaleString([format_object_name], [toLocaleStringOptions]) ⇒ [<code>function\_DateArray2String</code>](#module_jaaJSU..$time.function_DateArray2String)
-It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+>It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.toLocaleString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L846" title="$time.js:846"><small>(defined@846)</small></a>  
 **Returns**: [<code>function\_DateArray2String</code>](#module_jaaJSU..$time.function_DateArray2String) - returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);  
@@ -528,7 +528,7 @@ It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozill
 <a name="module_jaaJSU..$time.toString"></a>
 
 #### $time.toString([format], [toLocaleStringOptions]) ⇒ [<code>function\_DateArray2String</code>](#module_jaaJSU..$time.function_DateArray2String)
-Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
+>Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.toString" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L904" title="$time.js:904"><small>(defined@904)</small></a>  
 **Access**: public  
@@ -582,7 +582,7 @@ $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
 <a name="module_jaaJSU..$time.modify"></a>
 
 #### $time.modify(mod_obj) ⇒ [<code>function\_DateArray2DateArray</code>](#module_jaaJSU..$time.function_DateArray2DateArray)
-Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
+>Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.modify" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1089" title="$time.js:1089"><small>(defined@1089)</small></a>  
 **Access**: public  
@@ -597,7 +597,7 @@ Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and ret
 <a name="module_jaaJSU..$time.modifyAdditions"></a>
 
 #### $time.modifyAdditions(operation, value, dateObject) ⇒ <code>Date</code> ℗
-Helper method for invoking "add*" operations in [`modify`](#methods_modify).
+>Helper method for invoking "add*" operations in [`modify`](#methods_modify).
 
 In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 
@@ -617,7 +617,7 @@ In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 <a name="module_jaaJSU..$time.double"></a>
 
 #### $time.double(time) ⇒ <code>String</code>
-Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
+>Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.double" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1140" title="$time.js:1140"><small>(defined@1140)</small></a>  
 **Returns**: <code>String</code> - * 00, 01, 02, ..., 09, 10, ..., 100, ...  
@@ -633,7 +633,7 @@ Function adds leading zero to the `time`. [It can be replaced in future: see `pa
 <a name="module_jaaJSU..$time.daysInMonth"></a>
 
 #### $time.daysInMonth(month, [year]) ⇒ <code>Number</code>
-Returns number of days in given month (and year)
+>Returns number of days in given month (and year)
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.daysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1153" title="$time.js:1153"><small>(defined@1153)</small></a>  
 **Returns**: <code>Number</code> - total of days  
@@ -650,7 +650,7 @@ Returns number of days in given month (and year)
 <a name="module_jaaJSU..$time.getDaysInMonth"></a>
 
 #### $time.getDaysInMonth([date_array]) ⇒ <code>Number</code>
-Returns number of days in given month
+>Returns number of days in given month
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getDaysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1165" title="$time.js:1165"><small>(defined@1165)</small></a>  
 **Returns**: <code>Number</code> - total of days  
@@ -686,7 +686,7 @@ console.log($time.getMonthName(24, 4));//"Dece"
 <a name="module_jaaJSU..$time.getOrdinalSuffix"></a>
 
 #### $time.getOrdinalSuffix(n) ⇒ <code>String</code>
-See [ordinal_numbers](#module_jaaJSU..$time.ordinal_numbers).
+>See [ordinal_numbers](#module_jaaJSU..$time.ordinal_numbers).
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getOrdinalSuffix" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1199" title="$time.js:1199"><small>(defined@1199)</small></a>  
 **Returns**: <code>String</code> - `n`+English suffix  
@@ -745,7 +745,7 @@ console.log($time.getOrdinalSuffix(1));//"1st"
 <a name="module_jaaJSU..$time.DateArray"></a>
 
 #### $time.DateArray : <code>Array</code>
-This is in fact output of [toDateArray](#module_jaaJSU..$time.toDateArray).
+>This is in fact output of [toDateArray](#module_jaaJSU..$time.toDateArray).
 
 **Kind**: static typedef of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.DateArray" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L567" title="$time.js:567"><small>(defined@567)</small></a>  
 **Category**: virtual  
@@ -763,7 +763,7 @@ This is in fact output of [toDateArray](#module_jaaJSU..$time.toDateArray).
 <a name="module_jaaJSU..$time.toLocaleStringOptions"></a>
 
 #### $time.toLocaleStringOptions : <code>Object</code>
-It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
+>It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
 
 **Kind**: static typedef of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.toLocaleStringOptions" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L640" title="$time.js:640"><small>(defined@640)</small></a>  
 **Category**: virtual  
@@ -781,7 +781,7 @@ It is in fact argument for `options` in [`Date.prototype.toLocaleString` Paramet
 <a name="module_jaaJSU..$time.ArrayOfOperation"></a>
 
 #### $time.ArrayOfOperation : <code>Array</code>
-This holds information about how show one piece of String output typically for [toString](#module_jaaJSU..$time.toString).
+>This holds information about how show one piece of String output typically for [toString](#module_jaaJSU..$time.toString).
 
 Predefined values can be found at [format_arrays](#module_jaaJSU..$time.format_arrays).
 
@@ -801,7 +801,7 @@ Predefined values can be found at [format_arrays](#module_jaaJSU..$time.format_a
 <a name="$time"></a>
 
 ## $time : <code>object</code>
-Exported name of [$time](#module_jaaJSU..$time) namespace.
+>Exported name of [$time](#module_jaaJSU..$time) namespace.
 
 **Kind**: global namespace <a name="$time" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1257" title="$time.js:1257"><small>(defined@1257)</small></a>  
 
