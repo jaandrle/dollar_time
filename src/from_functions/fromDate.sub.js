@@ -6,7 +6,7 @@
  * @memberof module:jaaJSU~$time
  * @public
  * @param {Date} date_instance instance of `Date` class
- * @returns {module:jaaJSU~$time.DateArray}
+ * @returns {module:jaaJSU~$time~DateArray}
  */
 function fromDate(date_instance){
     return toDateArray(date_instance.toISOString());

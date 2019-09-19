@@ -8,7 +8,7 @@
  * @public
  * @param {String} [timestamp_string] If `undefined` returns result of {@link module:jaaJSU~$time.fromNow}, else it is used {@link module:jaaJSU~$time.toDateArray} for parsing.
  * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
- * @returns {module:jaaJSU~$time.DateArray}
+ * @returns {module:jaaJSU~$time~DateArray}
  */
 function fromString(timestamp_string, timezone= internal_zone){
     if(!timestamp_string) return fromNow();

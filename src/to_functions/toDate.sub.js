@@ -6,7 +6,7 @@
  * @method toDate
  * @memberof module:jaaJSU~$time
  * @public
- * @param {module:jaaJSU~$time.DateArray} date_array
+ * @param {module:jaaJSU~$time~DateArray} date_array
  * @returns {Date}
  */
 function toDate([ date, time, zone ]= []){

@@ -5,9 +5,10 @@
 /**
  * @function function_DateArray2DateArray
  * @memberof module:jaaJSU~$time
- * @category virtual
- * @param {module:jaaJSU~$time.DateArray} date_array
- * @returns {module:jaaJSU~$time.DateArray}
+ * @category types descriptions
+ * @inner
+ * @param {module:jaaJSU~$time~DateArray} date_array
+ * @returns {module:jaaJSU~$time~DateArray}
  */
 
 /**
@@ -24,7 +25,7 @@
  * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay"
  * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays"
  * <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
- * @returns {module:jaaJSU~$time.function_DateArray2DateArray}
+ * @returns {module:jaaJSU~$time~function_DateArray2DateArray}
  */
 function modify(mod_obj){
     const operations= Object.keys(mod_obj);

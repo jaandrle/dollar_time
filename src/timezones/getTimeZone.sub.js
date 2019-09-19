@@ -4,7 +4,7 @@
 /**
  * @method getTimeZone
  * @memberof module:jaaJSU~$time
- * @param {module:jaaJSU~$time.DateArray} date
+ * @param {module:jaaJSU~$time~DateArray} date
  * @param {Object} parameters
  * @param {String} [parameters.locale=internal_locale]
  * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:

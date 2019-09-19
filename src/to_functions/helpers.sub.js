@@ -8,7 +8,8 @@
  * It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
  * @typedef {Object} toLocaleStringOptions
  * @memberof module:jaaJSU~$time
- * @category virtual
+ * @category types descriptions
+ * @inner
  * @property {String} [locale=internal_locale] In which language/national format generate final string
  * @property {String} [timeZone=internal_zone] Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
  * @property {Boolean} [declension=true] Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
@@ -18,9 +19,9 @@
  * @method toStringFromObject
  * @memberof module:jaaJSU~$time
  * @private
- * @param {module:jaaJSU~$time.ArrayOfOperation[]} format
- * @param {module:jaaJSU~$time.toLocaleStringOptions} params_obj
- * @returns {module:jaaJSU~$time.function_DateArray2String}
+ * @param {module:jaaJSU~$time~ArrayOfOperation[]} format
+ * @param {module:jaaJSU~$time~toLocaleStringOptions} params_obj
+ * @returns {module:jaaJSU~$time~function_DateArray2String}
  * @example
  * $time.toStringFromObject([ ["day", "2-digit"], [ "text", "/" ], ["month", "2-digit"], [ "text", "/" ], ["year", "numeric"] ],{ locale: "en-GB" })($time.fromNow());//= "05/06/2019"
  */
@@ -54,7 +55,8 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, ti
  * Predefined values can be found at {@link module:jaaJSU~$time.format_arrays}.
  * @typedef {Array} ArrayOfOperation
  * @memberof module:jaaJSU~$time
- * @category virtual
+ * @category types descriptions
+ * @inner
  * @property {String} operation In fact names of keys in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "weekday", "month") or "text".
  * @property {String} argument In fact value of given key in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "2-digit", "numeric").
  * @property {String} params Some additional information/modifications like "two_letters", "ordinal_number", ….
@@ -74,7 +76,7 @@ function evaluateNthFromObject(date, type, value, modify, declension, locale, ti
  * <br/>- "mm", "m",
  * <br/>- "SS", "S",
  * <br/>- "W", "Wo"
- * @returns {module:jaaJSU~$time.ArrayOfOperation[]}
+ * @returns {module:jaaJSU~$time~ArrayOfOperation[]}
  */
 function getFormatObject(format_string= ""){
     let out= [], out_last_index, letter;

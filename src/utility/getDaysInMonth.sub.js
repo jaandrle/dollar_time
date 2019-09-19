@@ -17,7 +17,7 @@ function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing
  * @method getDaysInMonth
  * @memberof module:jaaJSU~$time
  * @public
- * @param {module:jaaJSU~$time.types.DateArray} [date_array=">>current year<<"]
+ * @param {module:jaaJSU~$time.types~DateArray} [date_array=">>current year<<"]
  * @returns {Number} total of days
  */
 function getDaysInMonth([ date= fromNow()[0] ]= []){

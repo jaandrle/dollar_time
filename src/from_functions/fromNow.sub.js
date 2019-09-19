@@ -7,7 +7,7 @@
  * @method fromNow
  * @memberof module:jaaJSU~$time
  * @public
- * @returns {module:jaaJSU~$time.DateArray}
+ * @returns {module:jaaJSU~$time~DateArray}
  */
 function fromNow(){
     return toDateArray((new Date()).toISOString());
