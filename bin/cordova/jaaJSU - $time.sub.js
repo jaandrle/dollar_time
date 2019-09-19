@@ -1254,8 +1254,3 @@ const $time= (function init(){
         formats: format_arrays
     };
 })();
-/**
- * Exported name of {@link module:jaaJSU~$time} namespace.
- * @namespace $time
- * @global
- */
