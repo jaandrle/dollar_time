@@ -3,7 +3,7 @@
 /**
  * Returns number of days in given month (and year)
  * @method daysInMonth
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
  * @param {String|Number} month ISO number of month (eg 01 or 1 for January)
  * @param {String|Number} [year=">>current year<<"]  ISO nimber of year (eg. 2019)
@@ -15,9 +15,9 @@ function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing
 /**
  * Returns number of days in given month
  * @method getDaysInMonth
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
- * @param {$time.types.DateArray} [date_array=">>current year<<"]
+ * @param {module:jaaJSU~$time.types.DateArray} [date_array=">>current year<<"]
  * @returns {Number} total of days
  */
 function getDaysInMonth([ date= fromNow()[0] ]= []){

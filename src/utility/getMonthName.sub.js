@@ -1,7 +1,7 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /**
 * @method getMonthName
-* @memberof $time
+* @memberof module:jaaJSU~$time
 * @public
 * @param {Number} n Month number (typically [1-12]); Works cyclically `13===1, ...`
 * @param {Number|Boolean} [l=undefined] Length of output Month name

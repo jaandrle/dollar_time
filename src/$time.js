@@ -1,14 +1,12 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* global gulp_place */
 /**
- * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
- * @namespace $time
+ * @module jaaJSU
  */
 /**
- * Just virtual key!!! This is overwiev of all internal types for better description.
- * @namespace types
- * @private
- * @memberof $time
+ * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+ * @namespace $time
+ * @category namespaces
  */
 const $time= (function init(){/* version: gulp_place("app.version", "variable") */
     gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true, format_arrays */
@@ -24,7 +22,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         /**
          * Alias for `undefined` which can be used to trigger default value of argument.
          * @property {Undefined} _
-         * @memberof $time
+         * @memberof module:jaaJSU~$time
          * @public
          * @example
          * test($time._)==="A"; function test(a= "A"){ return a; }
@@ -39,7 +37,7 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone,
         /**
          * @namespace Date
-         * @memberof $time
+         * @memberof module:jaaJSU~$time
          * @readonly
          */
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
@@ -51,10 +49,10 @@ const $time= (function init(){/* version: gulp_place("app.version", "variable") 
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale,
         /**
-         * Public name of {@link $time.format_arrays}.
+         * Public name of {@link module:jaaJSU~$time.format_arrays}.
          * @namespace formats
-         * @alias $time.format_arrays
-         * @memberof $time
+         * @alias module:jaaJSU~$time.format_arrays
+         * @memberof module:jaaJSU~$time
          * @readonly
          * @static
          */

@@ -3,10 +3,10 @@
 /**
  * Function generates `DateArray` from instance of `Date`.
  * @method fromDate
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
  * @param {Date} date_instance instance of `Date` class
- * @returns {$time.types.DateArray}
+ * @returns {module:jaaJSU~$time.DateArray}
  */
 function fromDate(date_instance){
     return toDateArray(date_instance.toISOString());

@@ -3,8 +3,8 @@
 /* timezones/helpers *//* global getDateArrayFromMixed, getTimeZoneOffsetStringFromOffset */
 /**
  * @method getTimeZone
- * @memberof $time
- * @param {$time.types.DateArray} date
+ * @memberof module:jaaJSU~$time
+ * @param {module:jaaJSU~$time.DateArray} date
  * @param {Object} parameters
  * @param {String} [parameters.locale=internal_locale]
  * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
@@ -25,7 +25,7 @@ function getTimeZone(date, { locale= internal_locale, description= "long", offse
 }
 /**
  * @method getCurrentTimeZone
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @param {Object} parameters
  * @param {String} [parameters.locale=internal_locale]
  * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:

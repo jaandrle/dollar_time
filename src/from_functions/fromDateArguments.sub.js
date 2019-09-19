@@ -3,10 +3,10 @@
 /**
  * Function generates `DateArray` from arguments to initialize `Date`.
  * @method fromDateArguments
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
  * @param {...Mixed} args parameters for initialize `Date` class
- * @returns {$time.types.DateArray}
+ * @returns {module:jaaJSU~$time.DateArray}
  */
 function fromDateArguments(...args){
     return toDateArray((args.filter(d=> typeof d!=="undefined").length ? new Date(...args) : new Date()).toISOString());

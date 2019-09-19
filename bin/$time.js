@@ -1,20 +1,18 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* global gulp_place */
 /**
- * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
- * @namespace $time
+ * @module jaaJSU
  */
 /**
- * Just virtual key!!! This is overwiev of all internal types for better description.
- * @namespace types
- * @private
- * @memberof $time
+ * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
+ * @namespace $time
+ * @category namespaces
  */
 const $time= (function init(){/* version: "0.6.0" */
     const /* internal store */
         format_objects= (({ time, date, seconds })=>({
         /**
-         * Internal object holding predefined formating arguments for {@link $time.toLocaleString}.
+         * Internal object holding predefined formating arguments for {@link module:jaaJSU~$time.toLocaleString}.
          * @namespace format_objects
          * @private
          * @readonly
@@ -23,7 +21,7 @@ const $time= (function init(){/* version: "0.6.0" */
          * @property {Object} date shows combination of 2-digits day, month and full year
          * @property {Object} date_time shows combination of `time` and `date`
          * @property {Object} date_time_seconds shows combination of `date_time` and `seconds`
-         * @memberof $time
+         * @memberof module:jaaJSU~$time
          * @example
          * format_objects.time==={ hour: "2-digit", minute: "2-digit" }
          */
@@ -38,14 +36,14 @@ const $time= (function init(){/* version: "0.6.0" */
         }),
         format_arrays= (({ dash, colon, space, two_dig })=>({
         /**
-         * Internal object holding predefined formating arguments for {@link $time.getFormatObject}.
+         * Internal object holding predefined formating arguments for {@link module:jaaJSU~$time.getFormatObject}.
          * @namespace format_arrays
          * @private
          * @readonly
-         * @property {$time.types.ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
-         * @property {$time.types.ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
-         * @property {$time.types.ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
-         * @memberof $time
+         * @property {module:jaaJSU~$time.ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
+         * @property {module:jaaJSU~$time.ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
+         * @property {module:jaaJSU~$time.ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
+         * @memberof module:jaaJSU~$time
          * @example
          * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
          */
@@ -59,18 +57,18 @@ const $time= (function init(){/* version: "0.6.0" */
             two_dig: "2-digit"
         }),
         /**
-         * Internal helper array for {@link $time.getOrdinalSuffix}.
+         * Internal helper array for {@link module:jaaJSU~$time.getOrdinalSuffix}.
          * @property {Array} ordinal_numbers
          * @private
          * @readonly
-         * @memberof $time
+         * @memberof module:jaaJSU~$time
          */
         ordinal_numbers= [ "th", "st", "nd", "rd" ];
     const /* validation functions */
     /**
      * Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
      * @method isDateString
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @private
      * @param {String|...String} date_string
      * @returns {Boolean}
@@ -82,7 +80,7 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
      * @method isTimeString
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @private
      * @param {String|...String} date_string
      * @returns {Boolean}
@@ -102,7 +100,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * @property {Array} ary_ianna_time_zones
      * @private
      * @readonly
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      */
     const ary_ianna_time_zones= Object.freeze([
         'Africa/Abidjan',
@@ -462,7 +460,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * **IMPORTANT NOTE:** BST, EET, WET hasn't been validated! … idea is to behave the same way like CET
      * @property {Object} ary_ianna_time_offsets
      * @private
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      */
     const ary_ianna_time_offsets= Object.freeze({
         '-01:00': 238,
@@ -511,10 +509,10 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Function generates `DateArray` from instance of `Date`.
      * @method fromDate
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
      * @param {Date} date_instance instance of `Date` class
-     * @returns {$time.types.DateArray}
+     * @returns {module:jaaJSU~$time.DateArray}
      */
     function fromDate(date_instance){
         return toDateArray(date_instance.toISOString());
@@ -522,10 +520,10 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Function generates `DateArray` from arguments to initialize `Date`.
      * @method fromDateArguments
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
      * @param {...Mixed} args parameters for initialize `Date` class
-     * @returns {$time.types.DateArray}
+     * @returns {module:jaaJSU~$time.DateArray}
      */
     function fromDateArguments(...args){
         return toDateArray((args.filter(d=> typeof d!=="undefined").length ? new Date(...args) : new Date()).toISOString());
@@ -535,9 +533,9 @@ const $time= (function init(){/* version: "0.6.0" */
      * 
      * **Warning:** Internally uses `toISOString` method so result is always converted to "+00:00": `p($time.fromNow, $time.setTimeZone("+02:00"), $time.toString())()` (`p` is some pipe function) — this returns "2019-07-10T16:48:43+02:00" instead of "2019-07-10T18:48:43+02:00" (current time) … the flow is "2019-07-10T18:48:43+02:00"-`fromNow`->"2019-07-10T16:48:43Z"-`setTimeZone`->"2019-07-10T16:48:43+02:00".
      * @method fromNow
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
-     * @returns {$time.types.DateArray}
+     * @returns {module:jaaJSU~$time.DateArray}
      */
     function fromNow(){
         return toDateArray((new Date()).toISOString());
@@ -545,11 +543,11 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Function generates `DateArray` from passed string.
      * @method fromString
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
-     * @param {String} [timestamp_string] If `undefined` returns result of {@link $time.fromNow}, else it is used {@link $time.toDateArray} for parsing.
+     * @param {String} [timestamp_string] If `undefined` returns result of {@link module:jaaJSU~$time.fromNow}, else it is used {@link module:jaaJSU~$time.toDateArray} for parsing.
      * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
-     * @returns {$time.types.DateArray}
+     * @returns {module:jaaJSU~$time.DateArray}
      */
     function fromString(timestamp_string, timezone= internal_zone){
         if(!timestamp_string) return fromNow();
@@ -566,10 +564,10 @@ const $time= (function init(){/* version: "0.6.0" */
         return date_array;
     }
     /**
-     * This is in fact output of {@link $time.toDateArray}.
-     * @typedef DateArray
-     * @memberof $time.types
-     * @type {Array}
+     * This is in fact output of {@link module:jaaJSU~$time.toDateArray}.
+     * @typedef {Array} DateArray
+     * @memberof module:jaaJSU~$time
+     * @category virtual
      * @property {String} [date=""] is always in form of "YYYY-MM-DD" or ""
      * @property {String} [time=""] is always in form of "HH:mm:SS" or "HH:mm:00" or ""
      * @property {String} [time_zone=""] is always in form of "[+-]\d\d:\d\d" or "CET" or ""
@@ -577,12 +575,12 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Function generates array in a form `[ date, time, time_zone ]` from 'ISO' like string.
      * @method toDateArray
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @private
      * @param {String} timestamp_string
      *  <br/>- Supported forms are combinations of date ("YYYY-MM-DD", "DD/MM/YYYY"), time ("HH:mm:ss", "HH:mm") and timezone ("CET", "+01:00", "-02:00", ...)
      *  <br/>- Typically: "2019-06-02 12:35:45 +01:00", "2019-06-02T12:35:45+01:00", "12:35:45+01:00 2019-06-02", ...
-     * @returns {$time.types.DateArray}
+     * @returns {module:jaaJSU~$time.DateArray}
      */
     function toDateArray(timestamp_string){
         let /* these hold outputs */
@@ -641,7 +639,8 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
      * @typedef {Object} toLocaleStringOptions
-     * @memberof $time.types
+     * @memberof module:jaaJSU~$time
+     * @category virtual
      * @property {String} [locale=internal_locale] In which language/national format generate final string
      * @property {String} [timeZone=internal_zone] Time zone name from [`ary_ianna_time_zones`](#props_ary_ianna_time_zones).
      * @property {Boolean} [declension=true] Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
@@ -649,11 +648,11 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
      * @method toStringFromObject
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @private
-     * @param {$time.types.ArrayOfOperation[]} format
-     * @param {$time.types.toLocaleStringOptions} params_obj
-     * @returns {$time.types.function_DateArray2String}
+     * @param {module:jaaJSU~$time.ArrayOfOperation[]} format
+     * @param {module:jaaJSU~$time.toLocaleStringOptions} params_obj
+     * @returns {module:jaaJSU~$time.function_DateArray2String}
      * @example
      * $time.toStringFromObject([ ["day", "2-digit"], [ "text", "/" ], ["month", "2-digit"], [ "text", "/" ], ["year", "numeric"] ],{ locale: "en-GB" })($time.fromNow());//= "05/06/2019"
      */
@@ -682,11 +681,12 @@ const $time= (function init(){/* version: "0.6.0" */
         }
     }
     /**
-     * This holds information about how show one piece of String output typically for {@link $time.toString}.
+     * This holds information about how show one piece of String output typically for {@link module:jaaJSU~$time.toString}.
      * 
-     * Predefined values can be found at {@link $time.format_arrays}.
+     * Predefined values can be found at {@link module:jaaJSU~$time.format_arrays}.
      * @typedef {Array} ArrayOfOperation
-     * @memberof $time.types
+     * @memberof module:jaaJSU~$time
+     * @category virtual
      * @property {String} operation In fact names of keys in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "weekday", "month") or "text".
      * @property {String} argument In fact value of given key in [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) (i. e. "2-digit", "numeric").
      * @property {String} params Some additional information/modifications like "two_letters", "ordinal_number", ….
@@ -695,7 +695,7 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`).
      * @method getFormatObject
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @private
      * @param {String} format_string supports:
      * <br/>- "YYYY", "YY",
@@ -706,7 +706,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * <br/>- "mm", "m",
      * <br/>- "SS", "S",
      * <br/>- "W", "Wo"
-     * @returns {$time.types.ArrayOfOperation[]}
+     * @returns {module:jaaJSU~$time.ArrayOfOperation[]}
      */
     function getFormatObject(format_string= ""){
         let out= [], out_last_index, letter;
@@ -830,9 +830,9 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Function initializes `Date` from `DateArray`.
      * @method toDate
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
-     * @param {$time.types.DateArray} date_array
+     * @param {module:jaaJSU~$time.DateArray} date_array
      * @returns {Date}
      */
     function toDate([ date, time, zone ]= []){
@@ -845,11 +845,11 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * It is wrapper arround [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
      * @method toLocaleString
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
-     * @param {String} [format_object_name="date_time"] name of predefined time/date combinations see {@link $time.format_objects}.
-     * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions]
-     * @returns {$time.types.function_DateArray2String} returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);
+     * @param {String} [format_object_name="date_time"] name of predefined time/date combinations see {@link module:jaaJSU~$time.format_objects}.
+     * @param {module:jaaJSU~$time.toLocaleStringOptions} [toLocaleStringOptions]
+     * @returns {module:jaaJSU~$time.function_DateArray2String} returns result of [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString);
      */
     function toLocaleString(format_object_name= "date_time", { locale= internal_locale, timeZone= internal_zone }= {}){
         return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object_name]));
@@ -896,20 +896,20 @@ const $time= (function init(){/* version: "0.6.0" */
     }
     /**
      * @function function_DateArray2String
-     * @memberof $time.types
-     * @param {$time.types.DateArray} date_array
+     * @memberof module:jaaJSU~$time
+     * @param {module:jaaJSU~$time.DateArray} date_array
      * @returns {String}
      */
     /**
      * Function generates text based on `format`, `locale` and `timeZone` from `DateArray`.
      * @method toString
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
-     * @param {String|$time.types.ArrayOfOperation[]} [format=$time.formats.SQL]
-     * <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see {@link $time.getFormatObject}.
-     * <br/>- Or lists of predefined formats — see {@link $time.formats}.
-     * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions]
-     * @returns {$time.types.function_DateArray2String}
+     * @param {String|module:jaaJSU~$time.ArrayOfOperation[]} [format=$time.formats.SQL]
+     * <br/>- Placeholder for replace/generate final string (eg. "MM"===two digits month) — see {@link module:jaaJSU~$time.getFormatObject}.
+     * <br/>- Or lists of predefined formats — see {@link module:jaaJSU~$time.formats}.
+     * @param {module:jaaJSU~$time.toLocaleStringOptions} [toLocaleStringOptions]
+     * @returns {module:jaaJSU~$time.function_DateArray2String}
      * @example
      * $time.toString("DD/MM/YYYY HH:mm:SS",{ locale: "en-GB" })($time.fromNow());//= "05/06/2019 09:32:20"
      * $time.toString($time.formats.SQL)($time.fromNow());//= "2019-06-05 09:32:20"
@@ -934,8 +934,8 @@ const $time= (function init(){/* version: "0.6.0" */
     }
     /**
      * @method getTimeZone
-     * @memberof $time
-     * @param {$time.types.DateArray} date
+     * @memberof module:jaaJSU~$time
+     * @param {module:jaaJSU~$time.DateArray} date
      * @param {Object} parameters
      * @param {String} [parameters.locale=internal_locale]
      * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
@@ -956,7 +956,7 @@ const $time= (function init(){/* version: "0.6.0" */
     }
     /**
      * @method getCurrentTimeZone
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @param {Object} parameters
      * @param {String} [parameters.locale=internal_locale]
      * @param {String} [parameters.description="long"] The representation of the time zone name. Possible values are:
@@ -1015,23 +1015,25 @@ const $time= (function init(){/* version: "0.6.0" */
     
     /**
      * @function function_Date2Date
-     * @memberof $time.types
+     * @memberof module:jaaJSU~$time
+     * @category virtual
      * @param {Date} date_instance
      * @returns {Date}
      */
     /**
      * @function function_Date2Number
-     * @memberof $time.types
+     * @memberof module:jaaJSU~$time
+     * @category virtual
      * @param {Date} date_instance
      * @returns {Number}
      */
     /**
      * This modify given **Date** instance (add days).
      * @method addDays
-     * @memberof $time.Date
+     * @memberof module:jaaJSU~$time.Date
      * @public
      * @param {Number} days_num How many days to add to `date_instance`
-     * @returns {$time.types.function_Date2Date}
+     * @returns {module:jaaJSU~$time.function_Date2Date}
      * */
     function addDays(days_num){
         return date_instance=> (date_instance.setDate(date_instance.getDate()+days_num), date_instance);
@@ -1039,21 +1041,21 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * This modify given **Date** instance (add months).
      * @method addMonths
-     * @memberof $time.Date
+     * @memberof module:jaaJSU~$time.Date
      * @public
      * @param {Number} months_num How many months to add to `date_instance`
-     * @returns {$time.types.function_Date2Date}
+     * @returns {module:jaaJSU~$time.function_Date2Date}
      * */
     function addMonths(months_num){
         return date_instance=> (date_instance.setMonth(date_instance.getMonth()+months_num), date_instance);
     }
     /**
      * @method getWeekDay
-     * @memberof $time.Date
+     * @memberof module:jaaJSU~$time.Date
      * @public
-     * @param {String} [type="numeric"] Show week numebr by default or se `weekday` in **MDN** see {@link $time.types.toLocaleStringOptions}
-     * @param {$time.types.toLocaleStringOptions} [toLocaleStringOptions] Key `declension` is redutant for this function
-     * @returns {$time.types.function_Date2Number} If `type="numeric"`, it returns **0 (Su) - 6 (Sa)**, else it returns **name of week day**
+     * @param {String} [type="numeric"] Show week numebr by default or se `weekday` in **MDN** see {@link module:jaaJSU~$time.toLocaleStringOptions}
+     * @param {module:jaaJSU~$time.toLocaleStringOptions} [toLocaleStringOptions] Key `declension` is redutant for this function
+     * @returns {module:jaaJSU~$time.function_Date2Number} If `type="numeric"`, it returns **0 (Su) - 6 (Sa)**, else it returns **name of week day**
      * */
     function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
         return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });
@@ -1061,7 +1063,7 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * This return ISO number of week.
      * @method getWeekNumber
-     * @memberof $time.Date
+     * @memberof module:jaaJSU~$time.Date
      * @public
      * @param {Date} date_instance
      * @return {Number} In fact, it calculates no. of thursdays from this week to the first one (January 4 is always in week 1.)
@@ -1078,15 +1080,16 @@ const $time= (function init(){/* version: "0.6.0" */
     }
     /**
      * @function function_DateArray2DateArray
-     * @memberof $time.types
-     * @param {$time.types.DateArray} date_array
-     * @returns {$time.types.DateArray}
+     * @memberof module:jaaJSU~$time
+     * @category virtual
+     * @param {module:jaaJSU~$time.DateArray} date_array
+     * @returns {module:jaaJSU~$time.DateArray}
      */
     
     /**
      * Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
      * @method modify
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
      * @param {Object} mod_obj &nbsp;
      * <br/>- object literal representing requested operations
@@ -1097,7 +1100,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay"
      * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays"
      * <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
-     * @returns {$time.types.function_DateArray2DateArray}
+     * @returns {module:jaaJSU~$time.function_DateArray2DateArray}
      */
     function modify(mod_obj){
         const operations= Object.keys(mod_obj);
@@ -1118,7 +1121,7 @@ const $time= (function init(){/* version: "0.6.0" */
      * 
      * In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
      * @method modifyAdditions
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @private
      * @param {String} operation e.g. "addMonth"
      * @param {Number} value mainly argument (number) for 
@@ -1137,7 +1140,7 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
     * Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
     * @method double
-    * @memberof $time
+    * @memberof module:jaaJSU~$time
     * @public
     * @param {Number|String} time
     * @return {String}
@@ -1150,7 +1153,7 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Returns number of days in given month (and year)
      * @method daysInMonth
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
      * @param {String|Number} month ISO number of month (eg 01 or 1 for January)
      * @param {String|Number} [year=">>current year<<"]  ISO nimber of year (eg. 2019)
@@ -1162,9 +1165,9 @@ const $time= (function init(){/* version: "0.6.0" */
     /**
      * Returns number of days in given month
      * @method getDaysInMonth
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
-     * @param {$time.types.DateArray} [date_array=">>current year<<"]
+     * @param {module:jaaJSU~$time.types.DateArray} [date_array=">>current year<<"]
      * @returns {Number} total of days
      */
     function getDaysInMonth([ date= fromNow()[0] ]= []){
@@ -1173,7 +1176,7 @@ const $time= (function init(){/* version: "0.6.0" */
     }
     /**
     * @method getMonthName
-    * @memberof $time
+    * @memberof module:jaaJSU~$time
     * @public
     * @param {Number} n Month number (typically [1-12]); Works cyclically `13===1, ...`
     * @param {Number|Boolean} [l=undefined] Length of output Month name
@@ -1194,9 +1197,9 @@ const $time= (function init(){/* version: "0.6.0" */
         return v;
     }
     /**
-     * See {@link $time.ordinal_numbers}.
+     * See {@link module:jaaJSU~$time.ordinal_numbers}.
      * @method getOrdinalSuffix
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @public
      * @param {Number} n
      * @return {String} `n`+English suffix
@@ -1214,7 +1217,7 @@ const $time= (function init(){/* version: "0.6.0" */
         /**
          * Alias for `undefined` which can be used to trigger default value of argument.
          * @property {Undefined} _
-         * @memberof $time
+         * @memberof module:jaaJSU~$time
          * @public
          * @example
          * test($time._)==="A"; function test(a= "A"){ return a; }
@@ -1229,7 +1232,7 @@ const $time= (function init(){/* version: "0.6.0" */
         getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone,
         /**
          * @namespace Date
-         * @memberof $time
+         * @memberof module:jaaJSU~$time
          * @readonly
          */
         Date: { getWeekDay, getWeekNumber, addDays, addMonths },
@@ -1241,10 +1244,10 @@ const $time= (function init(){/* version: "0.6.0" */
         getTimeZones: ()=> ary_ianna_time_zones, isTimeZone: candidate=> ary_ianna_time_zones.indexOf(candidate)!==-1,
         setInternalZone: zone=> internal_zone= zone, setInternalLocale: locale=> internal_locale= locale,
         /**
-         * Public name of {@link $time.format_arrays}.
+         * Public name of {@link module:jaaJSU~$time.format_arrays}.
          * @namespace formats
-         * @alias $time.format_arrays
-         * @memberof $time
+         * @alias module:jaaJSU~$time.format_arrays
+         * @memberof module:jaaJSU~$time
          * @readonly
          * @static
          */

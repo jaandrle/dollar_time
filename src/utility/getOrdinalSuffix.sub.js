@@ -1,9 +1,9 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* init *//* global ordinal_numbers */
 /**
- * See {@link $time.ordinal_numbers}.
+ * See {@link module:jaaJSU~$time.ordinal_numbers}.
  * @method getOrdinalSuffix
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
  * @param {Number} n
  * @return {String} `n`+English suffix

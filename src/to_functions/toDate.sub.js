@@ -4,9 +4,9 @@
 /**
  * Function initializes `Date` from `DateArray`.
  * @method toDate
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
- * @param {$time.types.DateArray} date_array
+ * @param {module:jaaJSU~$time.DateArray} date_array
  * @returns {Date}
  */
 function toDate([ date, time, zone ]= []){

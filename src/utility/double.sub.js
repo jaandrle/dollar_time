@@ -2,7 +2,7 @@
 /**
 * Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
 * @method double
-* @memberof $time
+* @memberof module:jaaJSU~$time
 * @public
 * @param {Number|String} time
 * @return {String}

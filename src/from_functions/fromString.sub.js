@@ -4,11 +4,11 @@
 /**
  * Function generates `DateArray` from passed string.
  * @method fromString
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
- * @param {String} [timestamp_string] If `undefined` returns result of {@link $time.fromNow}, else it is used {@link $time.toDateArray} for parsing.
+ * @param {String} [timestamp_string] If `undefined` returns result of {@link module:jaaJSU~$time.fromNow}, else it is used {@link module:jaaJSU~$time.toDateArray} for parsing.
  * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
- * @returns {$time.types.DateArray}
+ * @returns {module:jaaJSU~$time.DateArray}
  */
 function fromString(timestamp_string, timezone= internal_zone){
     if(!timestamp_string) return fromNow();

@@ -4,15 +4,16 @@
 /* modify/Date *//* global addDays, addMonths */
 /**
  * @function function_DateArray2DateArray
- * @memberof $time.types
- * @param {$time.types.DateArray} date_array
- * @returns {$time.types.DateArray}
+ * @memberof module:jaaJSU~$time
+ * @category virtual
+ * @param {module:jaaJSU~$time.DateArray} date_array
+ * @returns {module:jaaJSU~$time.DateArray}
  */
 
 /**
  * Curried method, first invocation sets operations (i. e. `{ addDay: 1 }`) and returns `function_DateArray2DateArray`.
  * @method modify
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @public
  * @param {Object} mod_obj &nbsp;
  * <br/>- object literal representing requested operations
@@ -23,7 +24,7 @@
  * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "setDate" there is alias "setDay"
  * <br/>&nbsp;&nbsp;&nbsp;&nbsp;- for "addDate" there is alias "addDays"
  * <br/>- Some operations: **"\*Date"** (or **"setDay"**, **"addDays"**), **"\*Month"**, **"\*FullYear"**, **"\*Hours"**, **"\*Minutes"**, **"\*Seconds"**
- * @returns {$time.types.function_DateArray2DateArray}
+ * @returns {module:jaaJSU~$time.function_DateArray2DateArray}
  */
 function modify(mod_obj){
     const operations= Object.keys(mod_obj);
@@ -44,7 +45,7 @@ function modify(mod_obj){
  * 
  * In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
  * @method modifyAdditions
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @private
  * @param {String} operation e.g. "addMonth"
  * @param {Number} value mainly argument (number) for 

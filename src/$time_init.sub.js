@@ -2,7 +2,7 @@
 const /* internal store */
     format_objects= (({ time, date, seconds })=>({
     /**
-     * Internal object holding predefined formating arguments for {@link $time.toLocaleString}.
+     * Internal object holding predefined formating arguments for {@link module:jaaJSU~$time.toLocaleString}.
      * @namespace format_objects
      * @private
      * @readonly
@@ -11,7 +11,7 @@ const /* internal store */
      * @property {Object} date shows combination of 2-digits day, month and full year
      * @property {Object} date_time shows combination of `time` and `date`
      * @property {Object} date_time_seconds shows combination of `date_time` and `seconds`
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      * @example
      * format_objects.time==={ hour: "2-digit", minute: "2-digit" }
      */
@@ -26,14 +26,14 @@ const /* internal store */
     }),
     format_arrays= (({ dash, colon, space, two_dig })=>({
     /**
-     * Internal object holding predefined formating arguments for {@link $time.getFormatObject}.
+     * Internal object holding predefined formating arguments for {@link module:jaaJSU~$time.getFormatObject}.
      * @namespace format_arrays
      * @private
      * @readonly
-     * @property {$time.types.ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
-     * @property {$time.types.ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
-     * @property {$time.types.ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
-     * @memberof $time
+     * @property {module:jaaJSU~$time.ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
+     * @property {module:jaaJSU~$time.ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
+     * @property {module:jaaJSU~$time.ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
+     * @memberof module:jaaJSU~$time
      * @example
      * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
      */
@@ -47,18 +47,18 @@ const /* internal store */
         two_dig: "2-digit"
     }),
     /**
-     * Internal helper array for {@link $time.getOrdinalSuffix}.
+     * Internal helper array for {@link module:jaaJSU~$time.getOrdinalSuffix}.
      * @property {Array} ordinal_numbers
      * @private
      * @readonly
-     * @memberof $time
+     * @memberof module:jaaJSU~$time
      */
     ordinal_numbers= [ "th", "st", "nd", "rd" ];
 const /* validation functions */
 /**
  * Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
  * @method isDateString
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @private
  * @param {String|...String} date_string
  * @returns {Boolean}
@@ -70,7 +70,7 @@ const /* validation functions */
 /**
  * Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
  * @method isTimeString
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  * @private
  * @param {String|...String} date_string
  * @returns {Boolean}
@@ -90,7 +90,7 @@ let /* internal variables*/
  * @property {Array} ary_ianna_time_zones
  * @private
  * @readonly
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  */
 const ary_ianna_time_zones= Object.freeze([
     'Africa/Abidjan',
@@ -450,7 +450,7 @@ const ary_ianna_time_zones= Object.freeze([
  * **IMPORTANT NOTE:** BST, EET, WET hasn't been validated! … idea is to behave the same way like CET
  * @property {Object} ary_ianna_time_offsets
  * @private
- * @memberof $time
+ * @memberof module:jaaJSU~$time
  */
 const ary_ianna_time_offsets= Object.freeze({
     '-01:00': 238,
