@@ -1,6 +1,11 @@
 /* jshint esversion: 6,-W097, -W040, node: true, expr: true, undef: true */
 module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
-    /* jshint -W061 */const gulp_place= require("./gulp_place.js")({gulp_replace: $g.replace, fs: $o.fs, variable_eval: (str)=> eval(str)});/* jshint +W061 */
+    /* jshint -W061 */const gulp_place= require("./gulp_place.js")({
+        gulp_replace: $g.replace,
+        fs: $o.fs,
+        variable_eval: (str)=> eval(str),
+        filesCleaner: require("./gulp_cleanJSHINT.js")
+    });/* jshint +W061 */
     const new_line= ()=>"\n";
     return function(cb){
         let cmd;
@@ -12,7 +17,8 @@ module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
             if(!code){
                 main_stream= gulp.src([app.src_folder+"*.js", '!'+app.src_folder+'*.sub.js'])
                     .pipe(gulp_place({folder: "src/", string_wrapper: '"'}))
-                    .pipe($g.replace(/\/\* gulp \*\/\/\* global gulp_place \*\/\r?\n/g,""));
+                    .pipe($g.replace(/[^\n]*\/\/gulp\.remove\.line\r?\n?/g, ""))
+                    .pipe($g.replace(/\/\* gulp \*\/\/\* global gulp_place \*\/\r?\n/g, ""));
     
                 main_stream
                     .on('error', error.handler)

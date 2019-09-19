@@ -6,9 +6,11 @@
 /**
  * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
  * @namespace $time
+ * @version gulp_place("app.version", "eval_out")
+ * @see {@link gulp_place("app.homepage", "eval_out")}
  * @category namespaces
  */
-const $time= (function init(){/* version: gulp_place("app.version", "variable") */
+const $time= (function init(){
     gulp_place("$time_init.sub.js");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true, format_arrays */
 
     gulp_place("from_functions/*.sub.js", "glob");/* global fromNow, fromString, fromDate, fromDateArguments */

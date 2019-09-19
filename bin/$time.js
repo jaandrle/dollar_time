@@ -6,9 +6,11 @@
 /**
  * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
  * @namespace $time
+ * @version 0.6.0
+ * @see {@link https://github.com/jaandrle/dollar_time}
  * @category namespaces
  */
-const $time= (function init(){/* version: "0.6.0" */
+const $time= (function init(){
     const /* internal store */
         format_objects= (({ time, date, seconds })=>({
         /**
@@ -917,7 +919,6 @@ const $time= (function init(){/* version: "0.6.0" */
     function toString(format, params_obj){
         return toStringFromObject(Array.isArray(format) ? format : format ? getFormatObject(format) : undefined, params_obj);
     }
-    /* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
     
     function getCETOffset([ date, time ]= []){
         if(!date||!time){
