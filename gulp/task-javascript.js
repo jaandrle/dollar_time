@@ -6,7 +6,6 @@ module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
         variable_eval: (str)=> eval(str),
         filesCleaner: require("./gulp_cleanJSHINT.js")
     });/* jshint +W061 */
-    const new_line= ()=>"\n";
     return function(cb){
         let cmd;
         cmd= $o.spawn("node", ['node_modules/jshint/bin/jshint', app.src_folder], {});
