@@ -1,9 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* global gulp_place */
 /**
- * @module jaaJSU
- */
-/**
  * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
  * @namespace $time
  * @version gulp_place("app.version", "eval_out")
