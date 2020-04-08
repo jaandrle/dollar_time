@@ -43,7 +43,7 @@ function toDateArray(timestamp_string){
             } else {
                 timestamp_string= timestamp_string.substr(1);
             }
-        } else if(/[ ,\._]/.test(letter)||/T\d/.test(letter)){
+        } else if(/[ ,\._]/.test(letter)||!timestamp_string.substring(0, 2).search(/T\d/)){
             timestamp_string= timestamp_string.substr(1);
         } else if(!timestamp_string.search(/[\+\-]\d\d:\d\d/)){
             acc= timestamp_string.substr(0, 6);
