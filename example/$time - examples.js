@@ -7,7 +7,8 @@ function test(text, schould){
     const el= document.createElement("P");
     text= (text.toString && text.toString()) || text;
     const ok= text===schould;
-    el.textContent= ok ? "OK: "+text : "Failed: "+text+" (schould be: '"+schould+"')";
+    if(ok) Object.assign(el, { textContent: "OK: "+text, style: "color: green" });
+    else Object.assign(el, { textContent: "Failed: "+text+" (schould be: '"+schould+"')", style: "color: red" });
     main_el.append(el);
 }
 function log(text){
@@ -54,9 +55,9 @@ test(res, "Mo");
 
 $time._toRelativeFromStrings= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) );
 
-log(`moment("2019-07-10 12:35:14").from("2019-07-10 12:35:15")`);
+log(`moment("2019-07-10 12:35:14").from("2019-07-10 12:35:15") → setted as 'now'`);
 res= $time._toRelativeFromStrings("2019-07-10 12:35:14");
-test(res, "a few seconds ago");
+test(res, "now");
 
 
 log(`moment("2019-07-10 12:35:10").from("2019-07-10 12:35:15")`);
