@@ -6,13 +6,16 @@
  * @method toDate
  * @memberof module:jaaJSU~$time
  * @public
- * @param {module:jaaJSU~$time~DateArray} date_array
+ * @param {module:jaaJSU~$time~DateArray} [date_array] Defaults to 'now' (or use current `date`/`time`/`zone` if not filled).
  * @returns {Date}
  */
-function toDate([ date, time, zone ]= []){
+function toDate(date_array){
+    if(!date_array||!Array.isArray(date_array)) return new Date();
+    
+    let [ date, time, zone ]= date_array;
     if(!date) date= fromNow()[0];
     if(!time) time= "T00:00:00";
     if(!zone) zone= getTimeZoneOffsetString(date);
-    if(zone==="CET") zone= getCETOffset([ date, time ]);
+    if(zone==="CET"||zone==="CEST") zone= getCETOffset([ date, time ]);
     return new Date(date+time+zone);
 }
