@@ -2,7 +2,7 @@
 /**
  * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
  * @namespace $time
- * @version 0.6.0
+ * @version 0.7.0
  * @see {@link https://github.com/jaandrle/dollar_time}
  * @category namespaces
  */
@@ -604,7 +604,7 @@ const $time= (function init(){
                 } else {
                     timestamp_string= timestamp_string.substr(1);
                 }
-            } else if(/[ ,\._]/.test(letter)||/T\d/.test(letter)){
+            } else if(/[ ,\._]/.test(letter)||!timestamp_string.substring(0, 2).search(/T\d/)){
                 timestamp_string= timestamp_string.substr(1);
             } else if(!timestamp_string.search(/[\+\-]\d\d:\d\d/)){
                 acc= timestamp_string.substr(0, 6);
@@ -833,14 +833,17 @@ const $time= (function init(){
      * @method toDate
      * @memberof module:jaaJSU~$time
      * @public
-     * @param {module:jaaJSU~$time~DateArray} date_array
+     * @param {module:jaaJSU~$time~DateArray} [date_array] Defaults to 'now' (or use current `date`/`time`/`zone` if not filled).
      * @returns {Date}
      */
-    function toDate([ date, time, zone ]= []){
+    function toDate(date_array){
+        if(!date_array||!Array.isArray(date_array)) return new Date();
+        
+        let [ date, time, zone ]= date_array;
         if(!date) date= fromNow()[0];
         if(!time) time= "T00:00:00";
         if(!zone) zone= getTimeZoneOffsetString(date);
-        if(zone==="CET") zone= getCETOffset([ date, time ]);
+        if(zone==="CET"||zone==="CEST") zone= getCETOffset([ date, time ]);
         return new Date(date+time+zone);
     }
     /**
