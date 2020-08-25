@@ -59,7 +59,7 @@
 **Kind**: inner namespace of [<code>jaaJSU</code>](#module_jaaJSU) <a name="module_jaaJSU..$time" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L6" title="$time.js:6"><small>(defined@6)</small></a>  
 **Category**: namespaces  
 **See**: [https://github.com/jaandrle/dollar_time](https://github.com/jaandrle/dollar_time)  
-**Version**: 0.7.0  
+**Version**: 1.0.0  
 
 * [~$time](#module_jaaJSU..$time) : <code>object</code>
     * _static_

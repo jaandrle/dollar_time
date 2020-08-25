@@ -5,7 +5,7 @@ const $time= (function $time_iief(){
     /**
      * This NAMESPACE provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
      * @namespace $time
-     * @version 0.7.0
+     * @version 1.0.0
      * @see {@link https://github.com/jaandrle/dollar_time}
      * @category namespaces
      */
