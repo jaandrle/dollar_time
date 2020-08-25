@@ -3,4 +3,4 @@ gulp_place("all", "clean");
 /**
  * @module jaaJSU
  */
-gulp_place('{ "file": "$time_main.sub.js", "type": "module_native" }', "combine");
+gulp_place('{ "file": "$time_main.sub.js", "type": "module", "name": "$time" }', "combine");
