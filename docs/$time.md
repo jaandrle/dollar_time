@@ -240,7 +240,7 @@ format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-d
 #### $time.formats : <code>object</code>
 >Public name of [format_arrays](#module_jaaJSU..$time.format_arrays).
 
-**Kind**: static namespace of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.formats" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1240" title="$time.js:1240"><small>(defined@1240)</small></a>  
+**Kind**: static namespace of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.formats" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1243" title="$time.js:1243"><small>(defined@1243)</small></a>  
 **Read only**: true  
 
 * * *
@@ -308,7 +308,7 @@ Next example is `ary_ianna_time_offsets["-01:00"]` is equal to **238** which is 
 #### $time.exports.\_
 >Alias for `undefined` which can be used to trigger default value of argument.
 
-**Kind**: static constant of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.exports._" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1239" title="$time.js:1239"><small>(defined@1239)</small></a>  
+**Kind**: static constant of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.exports._" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1242" title="$time.js:1242"><small>(defined@1242)</small></a>  
 **Access**: public  
 **Properties**
 
@@ -596,7 +596,8 @@ In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 <a name="module_jaaJSU..$time.double"></a>
 
 #### $time.double(time) ⇒ <code>String</code>
->Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
+>*Backward compatibility* 
+Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart).
 
 **Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.double" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1155" title="$time.js:1155"><small>(defined@1155)</small></a>  
 **Returns**: <code>String</code> - * 00, 01, 02, ..., 09, 10, ..., 100, ...  
@@ -614,7 +615,7 @@ In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 #### $time.daysInMonth(month, [year]) ⇒ <code>Number</code>
 >Returns number of days in given month (and year)
 
-**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.daysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1168" title="$time.js:1168"><small>(defined@1168)</small></a>  
+**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.daysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1169" title="$time.js:1169"><small>(defined@1169)</small></a>  
 **Returns**: <code>Number</code> - total of days  
 **Access**: public  
 
@@ -631,7 +632,7 @@ In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 #### $time.getDaysInMonth([date_array]) ⇒ <code>Number</code>
 >Returns number of days in given month
 
-**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getDaysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1180" title="$time.js:1180"><small>(defined@1180)</small></a>  
+**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getDaysInMonth" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1181" title="$time.js:1181"><small>(defined@1181)</small></a>  
 **Returns**: <code>Number</code> - total of days  
 **Access**: public  
 
@@ -645,7 +646,9 @@ In general `d.set...(d.get...+${value})` (where `d` is instance of `Date`).
 <a name="module_jaaJSU..$time.getMonthName"></a>
 
 #### $time.getMonthName(n, [l]) ⇒ <code>String</code>
-**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getMonthName" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1192" title="$time.js:1192"><small>(defined@1192)</small></a>  
+>*Backward compatibility*
+
+**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getMonthName" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1193" title="$time.js:1193"><small>(defined@1193)</small></a>  
 **Returns**: <code>String</code> - English month name  
 **Access**: public  
 
@@ -665,9 +668,10 @@ console.log($time.getMonthName(24, 4));//"Dece"
 <a name="module_jaaJSU..$time.getOrdinalSuffix"></a>
 
 #### $time.getOrdinalSuffix(n) ⇒ <code>String</code>
->See [ordinal_numbers](#module_jaaJSU..$time.ordinal_numbers).
+>*Backward compatibility* 
+See [ordinal_numbers](#module_jaaJSU..$time.ordinal_numbers).
 
-**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getOrdinalSuffix" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1214" title="$time.js:1214"><small>(defined@1214)</small></a>  
+**Kind**: static method of [<code>$time</code>](#module_jaaJSU..$time) <a name="module_jaaJSU..$time.getOrdinalSuffix" href="https://github.com/jaandrle/dollar_time/blob/master/bin/$time.js#L1216" title="$time.js:1216"><small>(defined@1216)</small></a>  
 **Returns**: <code>String</code> - `n`+English suffix  
 **Access**: public  
 

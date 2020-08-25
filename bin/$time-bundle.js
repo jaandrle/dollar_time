@@ -1174,7 +1174,8 @@
     const Date_utils= { getWeekDay, getWeekNumber, addDays, addMonths };
     
     /**
-    * Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
+    * *Backward compatibility* 
+    * Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart).
     * @method double
     * @memberof module:jaaJSU~$time
     * @public
@@ -1211,6 +1212,7 @@
         return daysInMonth(month, year);
     }
     /**
+    * *Backward compatibility* 
     * @method getMonthName
     * @memberof module:jaaJSU~$time
     * @public
@@ -1233,6 +1235,7 @@
         return v;
     }
     /**
+     * *Backward compatibility* 
      * See {@link module:jaaJSU~$time.ordinal_numbers}.
      * @method getOrdinalSuffix
      * @memberof module:jaaJSU~$time
