@@ -1,7 +1,7 @@
 {
   "__SECTION_GULP": "",
   "fullName": "$time",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "build": "0001",
   "src_folder": "src/",
   "bin_folder": "bin/",
@@ -56,6 +56,13 @@
   "jshintConfig": {
     "esversion": 6,
     "browser": "true",
-    "undef": "true"
+    "undef": "true",
+    "latedef": "true",
+    "maxparams": 4,
+    "maxdepth": 3,
+    "maxcomplexity": 17,
+    "globals": {
+      "gulp_place": false
+    }
   }
 }

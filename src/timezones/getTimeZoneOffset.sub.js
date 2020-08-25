@@ -1,7 +1,7 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* init *//* global internal_zone */
 /* timezones/helpers *//* global getDateArrayFromMixed */
-function getTimeZoneOffset(date, timeZone= internal_zone){
+export function getTimeZoneOffset(date, timeZone= internal_zone){
     const date_instance= new Date(getDateArrayFromMixed(date).join(""));
     if(timeZone) return getTimeZoneDiffOffset(date_instance, timeZone);
     return date_instance.getTimezoneOffset();

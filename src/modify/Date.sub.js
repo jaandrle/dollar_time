@@ -19,7 +19,7 @@
 /**
  * This modify given **Date** instance (add days).
  * @method addDays
- * @memberof module:jaaJSU~$time.Date
+ * @memberof module:jaaJSU~$time.Date_utils
  * @public
  * @param {Number} days_num How many days to add to `date_instance`
  * @returns {module:jaaJSU~$time~function_Date2Date}
@@ -30,7 +30,7 @@ function addDays(days_num){
 /**
  * This modify given **Date** instance (add months).
  * @method addMonths
- * @memberof module:jaaJSU~$time.Date
+ * @memberof module:jaaJSU~$time.Date_utils
  * @public
  * @param {Number} months_num How many months to add to `date_instance`
  * @returns {module:jaaJSU~$time~function_Date2Date}
@@ -40,7 +40,7 @@ function addMonths(months_num){
 }
 /**
  * @method getWeekDay
- * @memberof module:jaaJSU~$time.Date
+ * @memberof module:jaaJSU~$time.Date_utils
  * @public
  * @param {String} [type="numeric"] Show week numebr by default or se `weekday` in **MDN** see {@link module:jaaJSU~$time~toLocaleStringOptions}
  * @param {module:jaaJSU~$time~toLocaleStringOptions} [toLocaleStringOptions] Key `declension` is redutant for this function
@@ -52,7 +52,7 @@ function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= intern
 /**
  * This return ISO number of week.
  * @method getWeekNumber
- * @memberof module:jaaJSU~$time.Date
+ * @memberof module:jaaJSU~$time.Date_utils
  * @public
  * @param {Date} date_instance
  * @return {Number} In fact, it calculates no. of thursdays from this week to the first one (January 4 is always in week 1.)

@@ -14,7 +14,7 @@
  * @param {String} [parameters.offset=false] show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
  * @returns {String} Timezone name/identificator (with offset)
  */
-function getTimeZone(date, { locale= internal_locale, description= "long", offset= false }= {}){
+export function getTimeZone(date, { locale= internal_locale, description= "long", offset= false }= {}){
     description= description.toLocaleLowerCase();
     const [ date_part, time_part, offset_part ]= getDateArrayFromMixed(date), date_instance= new Date([ date_part, time_part, offset_part ].join(""));
     const locale_param= Object.keys(ary_ianna_time_offsets).indexOf(offset_part)!==-1 ? { timeZone: ary_ianna_time_zones[ary_ianna_time_offsets[offset_part]] } : {};
@@ -36,7 +36,7 @@ function getTimeZone(date, { locale= internal_locale, description= "long", offse
  * @param {String} [parameters.offset=false] show offset part: `"UTC+01:00 (…)"` or `"UTC+01:00"` (if `description="none"`)
  * @returns {String} Timezone name/identificator (with offset) for current timezone
  */
-function getCurrentTimeZone({ locale= internal_locale, description= "long", offset= false }= {}){
+export function getCurrentTimeZone({ locale= internal_locale, description= "long", offset= false }= {}){
     description= description.toLocaleLowerCase();
     if(description!=="ianna") return getTimeZone(undefined, { locale, description, offset });
     let out_description= "", dtf, dtf_ro;

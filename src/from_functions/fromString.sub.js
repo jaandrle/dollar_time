@@ -10,7 +10,7 @@
  * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
  * @returns {module:jaaJSU~$time~DateArray}
  */
-function fromString(timestamp_string, timezone= internal_zone){
+export function fromString(timestamp_string, timezone= internal_zone){
     if(!timestamp_string) return fromNow();
     let date_array= toDateArray(timestamp_string);
     if(date_array.length!==3){
