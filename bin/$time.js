@@ -506,7 +506,6 @@ const $time= (function init(){
         WEST: 274
     });
 
-    
     /**
      * Function generates `DateArray` from instance of `Date`.
      * @method fromDate
@@ -637,7 +636,6 @@ const $time= (function init(){
         }
         return [ date, time, zone ];
     }
-    
     /**
      * It is in fact argument for `options` in [`Date.prototype.toLocaleString` Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Parameters).
      * @typedef {Object} toLocaleStringOptions
@@ -926,7 +924,6 @@ const $time= (function init(){
     function toString(format, params_obj){
         return toStringFromObject(Array.isArray(format) ? format : format ? getFormatObject(format) : undefined, params_obj);
     }
-    
     function getCETOffset([ date, time ]= []){
         if(!date||!time){
             let curr= fromNow();
@@ -1020,7 +1017,6 @@ const $time= (function init(){
         out+= double(floor(offset/60))+":"+double(offset%60);
         return out;
     }
-    
     /**
      * @function function_Date2Date
      * @memberof module:jaaJSU~$time
@@ -1147,7 +1143,6 @@ const $time= (function init(){
     function redefineTimeZone(zone= internal_zone){
         return ([ date= "", time= "" ]= [])=> [ date, time, zone ];
     }
-    
     /**
     * Function adds leading zero to the `time`. [It can be replaced in future: see `padStart`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
     * @method double
