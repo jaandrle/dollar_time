@@ -1,11 +1,11 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* from_functions *//* global fromNow */
 /* to_functions *//* global toDate */
-function toRelative(reference_date_array){
+export function toRelative(reference_date_array){
     return date_array=> getRelative(getDiffMs(reference_date_array)(date_array));
 }
 
-function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){
+export function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){
     const c_measure= { seconds: 1000, minutes: 60000 /* 60*sec */, hours: 3600000 /* 60*mins */, days: 86400000 /* 24*days */, weeks: 604800000 /* 7*days */, months: 2419200000 /* 4*weeks */, years: 29030400000 /* 12*months */ };
     const diffFun= getDiffMs(reference_time, -c_measure[output_measure_string]);
     return function diff(target_time){
@@ -17,7 +17,7 @@ function getDiffMs(reference_time, output_measure= 1){
     const reference_time_ms= reference_time ? toDate(reference_time).getTime() : false;
     return function diff(target_time){ return (toDate(target_time).getTime()-(reference_time_ms ? reference_time_ms : toDate(fromNow()).getTime()))/output_measure; };
 }
-function getRelative(ms_diff){
+export function getRelative(ms_diff){
     const { abs, floor, round }= Math;
     const out_text= ms_diff < 0 ? "%s ago" : "in %s";
     ms_diff= abs(ms_diff);

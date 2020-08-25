@@ -10,7 +10,7 @@
 * console.log($time.getMonthName(5));//"May"
 * console.log($time.getMonthName(24, 4));//"Dece"
 */
-function getMonthName(n,l) {
+export function getMonthName(n,l) {
     if(typeof n!=="number") n= parseInt(n);
     if(isNaN(n)) return false;
     let s= ["December","January","February","March","April","May","June", "July","August","September","October","November"];

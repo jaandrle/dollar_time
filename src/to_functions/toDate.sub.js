@@ -9,7 +9,7 @@
  * @param {module:jaaJSU~$time~DateArray} [date_array] Defaults to 'now' (or use current `date`/`time`/`zone` if not filled).
  * @returns {Date}
  */
-function toDate(date_array){
+export function toDate(date_array){
     if(!date_array||!Array.isArray(date_array)) return new Date();
     
     let [ date, time, zone ]= date_array;

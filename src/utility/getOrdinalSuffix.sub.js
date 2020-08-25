@@ -10,7 +10,7 @@
  * @example
  * console.log($time.getOrdinalSuffix(1));//"1st"
  */
-function getOrdinalSuffix(n_orig) {
+export function getOrdinalSuffix(n_orig) {
     const n= typeof n_orig==="number" ? n_orig : parseInt(n_orig);
     if(isNaN(n)) return n_orig;
     let v= n%100;

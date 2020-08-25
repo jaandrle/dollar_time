@@ -8,6 +8,6 @@
  * @param {Date} date_instance instance of `Date` class
  * @returns {module:jaaJSU~$time~DateArray}
  */
-function fromDate(date_instance){
+export function fromDate(date_instance){
     return toDateArray(date_instance.toISOString());
 }

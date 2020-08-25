@@ -1,6 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* from_functions *//* global fromNow */
-function getCETOffset([ date, time ]= []){
+export function getCETOffset([ date, time ]= []){
     if(!date||!time){
         let curr= fromNow();
         if(!date) date= curr[0];

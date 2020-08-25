@@ -9,6 +9,6 @@
  * @public
  * @returns {module:jaaJSU~$time~DateArray}
  */
-function fromNow(){
+export function fromNow(){
     return toDateArray((new Date()).toISOString());
 }

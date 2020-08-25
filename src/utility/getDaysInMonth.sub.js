@@ -9,7 +9,7 @@
  * @param {String|Number} [year=">>current year<<"]  ISO nimber of year (eg. 2019)
  * @returns {Number} total of days
  */
-function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing from 0 */
+export function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing from 0 */
     return new Date(+year, +month, 0 /* last in prev month */).getDate();
 }
 /**
@@ -20,7 +20,7 @@ function daysInMonth(month, year= (new Date()).getFullYear()){/* months indexing
  * @param {module:jaaJSU~$time.types~DateArray} [date_array=">>current year<<"]
  * @returns {Number} total of days
  */
-function getDaysInMonth([ date= fromNow()[0] ]= []){
+export function getDaysInMonth([ date= fromNow()[0] ]= []){
     const [ _, month, year ]= date.split("-").map(Number);
     return daysInMonth(month, year);
 }

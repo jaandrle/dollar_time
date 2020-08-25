@@ -8,7 +8,7 @@
 * @return {String}
 *  * 00, 01, 02, ..., 09, 10, ..., 100, ...
 */
-function double(n){
+export function double(n){
     n= String(n);
     return n.length===1 ? "0"+n : n;
 }
