@@ -41,7 +41,7 @@ res= $function.sequention( $time.fromString, $time.toString("dddd[, ]Do MMMM YYY
 test(res, "Saturday, 1st January 2000");
 
 log(`moment("2019-07-07").weekday() … 0(Sun)-6(Sat)`);
-res= $function.sequention( $time.fromString, $time.toDate, $time.Date.getWeekDay() )("2019-07-07");
+res= $function.sequention( $time.fromString, $time.toDate, $time.Date_utils.getWeekDay() )("2019-07-07");
 test(res, "0");
 res= $function.sequention( $time.fromString, $time.toString("d") )("2019-01-07");
 test(res, "1");
