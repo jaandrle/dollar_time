@@ -7,12 +7,10 @@
  */
 gulp_place("$time_init.sub.js", "file_once");/* global ary_ianna_time_zones, internal_zone: true, internal_locale: true, format_arrays */
 
-gulp_place("from_functions/*.sub.js", "glob_once");/* global fromNow, fromString, fromDate, fromDateArguments */
-gulp_place("to_functions/*.sub.js", "glob_once");/* global toDate, toString, toLocaleString, toRelative */
-/* to_functions/toRelative *//* global getDiff, getRelative *///gulp.remove.line
-gulp_place("timezones/*.sub.js", "glob_once");/* global getCETOffset, getTimeZoneOffset, getTimeZoneOffsetString, getTimeZone, getCurrentTimeZone */
-
-gulp_place("modify/*.sub.js", "glob_once");/* global getWeekDay, addDays, addMonths, getWeekNumber, redefineTimeZone, modify */
+gulp_place("from_functions/*.sub.js", "glob_once");
+gulp_place("to_functions/*.sub.js", "glob_once");
+gulp_place("timezones/*.sub.js", "glob_once");
+gulp_place("modify/*.sub.js", "glob_once");/* global getWeekDay, addDays, addMonths, getWeekNumber */
 /**
  * Utility workings with native Date
  * @namespace Date_utils

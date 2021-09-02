@@ -1038,7 +1038,6 @@
         out+= double(floor(offset/60))+":"+double(offset%60);
         return out;
     }
-    
     /**
      * @function function_Date2Date
      * @memberof module:jaaJSU~$time
