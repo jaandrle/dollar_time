@@ -1,14 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* from_functions *//* global fromNow */
 /* timezones *//* global getTimeZoneOffsetString, getCETOffset */
-/**
- * Function initializes `Date` from `DateArray`.
- * @method toDate
- * @memberof module:jaaJSU~$time
- * @public
- * @param {module:jaaJSU~$time~DateArray} [date_array] Defaults to 'now' (or use current `date`/`time`/`zone` if not filled).
- * @returns {Date}
- */
 export function toDate(date_array){
     if(!date_array||!Array.isArray(date_array)) return new Date();
     

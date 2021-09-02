@@ -37,20 +37,21 @@
     "url": "https://github.com/jaandrle/dollar_time/issues"
   },
   "homepage": "https://github.com/jaandrle/dollar_time",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "gulp": ">3.9.1",
     "gulp-concat": "2.6.1",
     "gulp-javascript-obfuscator": "1.1.5",
     "gulp-minify": "3.1.0",
-    "gulp-place": "^1.8.0",
+    "gulp-place": "^1.8.2",
     "gulp-rename": "1.4.0",
     "gulp-replace": "1.0.0",
     "gulp-sourcemaps": "2.6.4",
+    "gulp-typedoc": "^3.0.1",
     "gulp-util": "3.0.8",
-    "jshint": "~2.9.6"
-  },
-  "devDependencies": {
-    "jsdoc-to-markdown": "^5.0.1"
+    "jshint": "~2.9.6",
+    "typedoc": "^0.21.9",
+    "typedoc-plugin-markdown": "^3.10.4"
   },
   "__SECTION__JSHINT": "",
   "jshintConfig": {

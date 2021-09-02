@@ -1,0 +1,1 @@
+gulp_place("main.sub.d.ts", "file");
