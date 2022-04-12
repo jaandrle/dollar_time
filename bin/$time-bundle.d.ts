@@ -1,6 +1,6 @@
 /**
  * This namespace provides features for date/time. Mainly, there are utilities using **Date** class and feature [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString).
- * @version 1.0.0
+ * @version 1.5.0
  * @see {@link https://github.com/jaandrle/dollar_time}
  */
 declare namespace $time{
@@ -181,13 +181,17 @@ declare namespace $time{
      */
     function fromNow(): DateArray;
     /**
-     * In fact, internally uses {@link DateConstructor}.
+     * In fact, internally uses {@link DateConstructor}. See [Date() constructor - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date).
      * @category Public
      */
     function fromDateArguments(): DateArray;
     function fromDateArguments(value: number | string): DateArray;
     function fromDateArguments(year: number, month: number, date?: number, hours?: number, minutes?: number, seconds?: number, ms?: number): DateArray;
     
+    /**
+     * See {@link Intl.UnicodeBCP47LocaleIdentifier} or [Intl - Locale identification and negotiation | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_identification_and_negotiation).
+     */
+    type Intl_UnicodeBCP47LocaleIdentifier= string;
     /**
      * Defaults to `new Date()`, or if filled partialy defaults to current date/00:00:00/current zone.
      * @category Public
@@ -201,7 +205,7 @@ declare namespace $time{
         /**
          * ISO language identificator such as **"en-GB"** (default value)
          */
-        locale?: string,
+        locales?: Intl_UnicodeBCP47LocaleIdentifier,
         timeZone?: ary_ianna_time_zones,
         /**
          * Needed for some languages — for example in Czech: "10. července" (`declension=true`), or "10. červenec" (`declension=false`)
@@ -209,6 +213,43 @@ declare namespace $time{
          * **Defaults to `true`**
          */
         declension?: boolean
+    }
+    /**
+     * The locale matching algorithm to use.
+     *
+     * [MDN](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation).
+     * @private
+     */
+    type RelativeTimeFormatLocaleMatcher = "lookup" | "best fit";
+    /**
+     * The format of output message.
+     *
+     * [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat/RelativeTimeFormat#Parameters).
+     * @private
+     */
+    type RelativeTimeFormatNumeric = "always" | "auto";
+    /**
+     * The length of the internationalized message.
+     *
+     * [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat/RelativeTimeFormat#Parameters).
+     * @private
+     */
+    type RelativeTimeFormatStyle = "long" | "short" | "narrow";
+    /**
+     * Corresponds to {@link Intl.RelativeTimeFormatOptions} (see [Intl.RelativeTimeFormat - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat)).
+     * @private
+     */
+    interface toRelativeOptions{
+        /**
+         * ISO language identificator such as **"en-GB"** (default value)
+         */
+        locales?: Intl_UnicodeBCP47LocaleIdentifier,
+        /** The locale matching algorithm to use. For information about this option, see [Intl page](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl#Locale_negotiation). */
+        localeMatcher?: RelativeTimeFormatLocaleMatcher;
+        /** The format of output message. Defaults to `auto` */
+        numeric?: RelativeTimeFormatNumeric;
+        /** The length of the internationalized message. Defaults to `long` */
+        style?: RelativeTimeFormatStyle;
     }
     /**
      * Generates multidimensional array for formatting (eg. "YYYY"=> `[ [ "year", "numeric" ] ]`). Supports:
@@ -248,15 +289,15 @@ declare namespace $time{
      */
     function getDiff(reference_date_array: DateArray, output_measure_string: keyof Measures, full_precision: boolean): (target_date_array: DateArray)=> number;
     /**
-     * Returns string representation of time difference (**only English**): "a few seccond".
+     * Returns string representation of time difference (fallbacks into simplfy english version – see internal function `getRelativeBackup`).
      * @category Public
      */
-    function getRelative(ms_diff: number): string
+    function getRelative(ms_diff: number, options?: toRelativeOptions): string
     /**
      * Curried function of {@link getRelative}.
      * @category Public
      */
-    function toRelative(reference_date_array: DateArray): (target_date_array: DateArray)=> string;
+    function toRelative(reference_date_array: DateArray, options?: toRelativeOptions): (target_date_array: DateArray)=> string;
     /**
      * @private
      */
@@ -304,7 +345,7 @@ declare namespace $time{
         /**
          * **Defaults to "en-GB"**
          */
-        locale?: string,
+        locale?: Intl_UnicodeBCP47LocaleIdentifier,
         /**
          * **Defaults to "long"**
          * 
@@ -323,11 +364,11 @@ declare namespace $time{
      * Timezone name/identificator (with offset) for current timezone
      * @category Public
      */
-    function getCurrentTimeZone(date_array: DateArray, options?: {
+    function getCurrentTimeZone(options?: {
         /**
          * **Defaults to "en-GB"**
          */
-        locale: string,
+        locale?: Intl_UnicodeBCP47LocaleIdentifier,
         /**
          * **Defaults to "long"**
          * 
@@ -364,7 +405,8 @@ declare namespace $time{
      */
     function setInternalZone(zone: string): string;
     /**
+     * If setted into `undefined` tries to follow user device configuration.
      * @category Public
      */
-    function setInternalLocale(locale: string): string;
+    function setInternalLocale<L extends Intl_UnicodeBCP47LocaleIdentifier>(locale: L): L;
 }

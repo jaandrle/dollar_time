@@ -51,25 +51,25 @@ function getFormatObject(format_string= ""){
                 out_last_index= out.length-1;
                 if(out_last_index>-1&&out[out_last_index][0]==="text") out[out_last_index][1]+= letter;
                 else out.push(["text", letter]);
-                format_string= format_string.substring(1);
+                format_string= format_string.slice(1);
         }
     }
     function handleM(){
         let type= "numeric";
         if(!format_string.search(/MMMM/)){
             type= "long";
-            format_string= format_string.substring(4);
+            format_string= format_string.slice(4);
         } else if(!format_string.search(/MMM/)){
             type= "short";
-            format_string= format_string.substring(3);
+            format_string= format_string.slice(3);
         } else if(!format_string.search(/MM/)){
             type= "2-digit";
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
         } else if(!format_string.search(/Mo/)){
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
             return out.push(["month", type, "ordinal_number"]);
         } else {
-            format_string= format_string.substring(1);
+            format_string= format_string.slice(1);
         }
         out.push(["month", type]);
     }
@@ -77,16 +77,16 @@ function getFormatObject(format_string= ""){
         let type= "numeric";
         if(!format_string.search(/dddd/)){
             type= "long";
-            format_string= format_string.substring(4);
+            format_string= format_string.slice(4);
         } else if(!format_string.search(/ddd/)){
             type= "short";
-            format_string= format_string.substring(3);
+            format_string= format_string.slice(3);
         } else if(!format_string.search(/dd/)){
             type= "short";
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
             return out.push(["weekday", type, "two_letters"]);
         } else {
-            format_string= format_string.substring(1);
+            format_string= format_string.slice(1);
         }
         out.push(["weekday", type]);
     }
@@ -94,22 +94,22 @@ function getFormatObject(format_string= ""){
         let type= "2-digit";
         if(!format_string.search(/YYYY/)){
             type= "numeric";
-            format_string= format_string.substring(4);
+            format_string= format_string.slice(4);
         } else {
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
         }
         out.push(["year", type]);
     }
     function handleWD(out_key, letter){
         let type= "numeric";
         if(!format_string.search(new RegExp(letter+"o"))){
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
             return out.push([out_key, type, "ordinal_number"]);
         } else if(!format_string.search(new RegExp(letter+letter))){
             type= "2-digit";
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
         } else {
-            format_string= format_string.substring(1);
+            format_string= format_string.slice(1);
         }
         out.push([out_key, type]);
     }
@@ -117,34 +117,32 @@ function getFormatObject(format_string= ""){
         let type= "numeric";
         if(!format_string.search(new RegExp(letter+letter))){
             type= "2-digit";
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
         } else {
-            format_string= format_string.substring(1);
+            format_string= format_string.slice(1);
         }
         out.push([out_key, type, hourCycle]);
     }
     function handleAa(modify){
-        format_string= format_string.substring(1);
+        format_string= format_string.slice(1);
         out.push(["hour", "numeric", modify]);
     }
     function handle(out_key, letter){
         let type= "numeric";
         if(!format_string.search(new RegExp(letter+letter))){
             type= "2-digit";
-            format_string= format_string.substring(2);
+            format_string= format_string.slice(2);
         } else {
-            format_string= format_string.substring(1);
+            format_string= format_string.slice(1);
         }
         out.push([out_key, type]);
     }
     function handleText(){
-        const text_end= format_string.indexOf("]");
-        if(text_end===-1){
-            format_string= format_string.substring(1);
-            return false;
-        }
-        out.push(["text", format_string.substr(1,text_end-1)]);
-        format_string= format_string.substr(text_end+1);
+        let text_end= format_string.indexOf("]");
+        if(text_end===-1) text_end= format_string.length;
+
+        out.push(["text", format_string.slice(1, text_end)]);
+        format_string= format_string.slice(text_end+1);
     }
     return out;
 }

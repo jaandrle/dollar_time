@@ -5,7 +5,8 @@
         "node_modules/gulp-place/jsdoc/gulp_place.js"
     ],
     "compilerOptions": {
-        "target": "ES6"
+        "target":"ES2020",
+        "strictBindCallApply": true
     },
     "exclude": [
         "bin"

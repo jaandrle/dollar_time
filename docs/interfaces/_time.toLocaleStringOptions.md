@@ -11,7 +11,7 @@ It is in fact argument for `options` in [`Date.prototype.toLocaleString` Paramet
 ### Properties
 
 - [declension](_time.toLocaleStringOptions.md#declension)
-- [locale](_time.toLocaleStringOptions.md#locale)
+- [locales](_time.toLocaleStringOptions.md#locales)
 - [timeZone](_time.toLocaleStringOptions.md#timezone)
 
 ## Properties
@@ -26,9 +26,9 @@ Needed for some languages — for example in Czech: "10. července" (`declension
 
 ___
 
-### locale
+### locales
 
-• `Optional` **locale**: `string`
+• `Optional` **locales**: `string`
 
 ISO language identificator such as **"en-GB"** (default value)
 

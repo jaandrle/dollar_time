@@ -577,25 +577,25 @@
                     out_last_index= out.length-1;
                     if(out_last_index>-1&&out[out_last_index][0]==="text") out[out_last_index][1]+= letter;
                     else out.push(["text", letter]);
-                    format_string= format_string.substring(1);
+                    format_string= format_string.slice(1);
             }
         }
         function handleM(){
             let type= "numeric";
             if(!format_string.search(/MMMM/)){
                 type= "long";
-                format_string= format_string.substring(4);
+                format_string= format_string.slice(4);
             } else if(!format_string.search(/MMM/)){
                 type= "short";
-                format_string= format_string.substring(3);
+                format_string= format_string.slice(3);
             } else if(!format_string.search(/MM/)){
                 type= "2-digit";
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
             } else if(!format_string.search(/Mo/)){
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
                 return out.push(["month", type, "ordinal_number"]);
             } else {
-                format_string= format_string.substring(1);
+                format_string= format_string.slice(1);
             }
             out.push(["month", type]);
         }
@@ -603,16 +603,16 @@
             let type= "numeric";
             if(!format_string.search(/dddd/)){
                 type= "long";
-                format_string= format_string.substring(4);
+                format_string= format_string.slice(4);
             } else if(!format_string.search(/ddd/)){
                 type= "short";
-                format_string= format_string.substring(3);
+                format_string= format_string.slice(3);
             } else if(!format_string.search(/dd/)){
                 type= "short";
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
                 return out.push(["weekday", type, "two_letters"]);
             } else {
-                format_string= format_string.substring(1);
+                format_string= format_string.slice(1);
             }
             out.push(["weekday", type]);
         }
@@ -620,22 +620,22 @@
             let type= "2-digit";
             if(!format_string.search(/YYYY/)){
                 type= "numeric";
-                format_string= format_string.substring(4);
+                format_string= format_string.slice(4);
             } else {
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
             }
             out.push(["year", type]);
         }
         function handleWD(out_key, letter){
             let type= "numeric";
             if(!format_string.search(new RegExp(letter+"o"))){
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
                 return out.push([out_key, type, "ordinal_number"]);
             } else if(!format_string.search(new RegExp(letter+letter))){
                 type= "2-digit";
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
             } else {
-                format_string= format_string.substring(1);
+                format_string= format_string.slice(1);
             }
             out.push([out_key, type]);
         }
@@ -643,37 +643,36 @@
             let type= "numeric";
             if(!format_string.search(new RegExp(letter+letter))){
                 type= "2-digit";
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
             } else {
-                format_string= format_string.substring(1);
+                format_string= format_string.slice(1);
             }
             out.push([out_key, type, hourCycle]);
         }
         function handleAa(modify){
-            format_string= format_string.substring(1);
+            format_string= format_string.slice(1);
             out.push(["hour", "numeric", modify]);
         }
         function handle(out_key, letter){
             let type= "numeric";
             if(!format_string.search(new RegExp(letter+letter))){
                 type= "2-digit";
-                format_string= format_string.substring(2);
+                format_string= format_string.slice(2);
             } else {
-                format_string= format_string.substring(1);
+                format_string= format_string.slice(1);
             }
             out.push([out_key, type]);
         }
         function handleText(){
-            const text_end= format_string.indexOf("]");
-            if(text_end===-1){
-                format_string= format_string.substring(1);
-                return false;
-            }
-            out.push(["text", format_string.substr(1,text_end-1)]);
-            format_string= format_string.substr(text_end+1);
+            let text_end= format_string.indexOf("]");
+            if(text_end===-1) text_end= format_string.length;
+    
+            out.push(["text", format_string.slice(1, text_end)]);
+            format_string= format_string.slice(text_end+1);
         }
         return out;
     }
+    
     function toDate(date_array){
         if(!date_array||!Array.isArray(date_array)) return new Date();
         
@@ -687,8 +686,8 @@
     function toLocaleString(format_object_name= "date_time", { locale= internal_locale, timeZone= internal_zone }= {}){
         return date_array=> toDate(date_array).toLocaleString(locale, generateTimeZoneFormatObject(timeZone, format_objects[format_object_name]));
     }
-    function toRelative(reference_date_array){
-        return date_array=> getRelative(getDiffMs(reference_date_array)(date_array));
+    function toRelative(reference_date_array, options){
+        return date_array=> getRelative(getDiffMs(reference_date_array)(date_array), options);
     }
     function getDiff(reference_time, output_measure_string= "seconds", full_precision= false){
         const c_measure= { seconds: 1000, minutes: 60000 /* 60*sec */, hours: 3600000 /* 60*mins */, days: 86400000 /* 24*days */, weeks: 604800000 /* 7*days */, months: 2419200000 /* 4*weeks */, years: 29030400000 /* 12*months */ };
@@ -702,33 +701,38 @@
         const reference_time_ms= reference_time ? toDate(reference_time).getTime() : false;
         return function diff(target_time){ return (toDate(target_time).getTime()-(reference_time_ms ? reference_time_ms : toDate(fromNow()).getTime()))/output_measure; };
     }
-    function getRelative(ms_diff){
-        const { abs, floor, round }= Math;
-        const out_text= ms_diff < 0 ? "%s ago" : "in %s";
-        ms_diff= abs(ms_diff);
-        if(ms_diff<1500) return "now";
-        ms_diff= floor(ms_diff/1000);
-        if(ms_diff<10) return out_text.replace("%s", "a few seconds");
-        if(ms_diff<60) return out_text.replace("%s", ms_diff+" seconds");
-        ms_diff= floor(ms_diff/60);
-        if(ms_diff===1) return out_text.replace("%s", "a minute");
-        if(ms_diff<60) return out_text.replace("%s", ms_diff+" minutes");
-        ms_diff= round(ms_diff/60);
-        if(ms_diff===1) return out_text.replace("%s", "an hour");
-        if(ms_diff<24) return out_text.replace("%s", ms_diff+" hours");
-        ms_diff= ms_diff/24;
-        if(round(ms_diff)===1) return out_text.replace("%s", "a day");
-        if(ms_diff<29.5) return out_text.replace("%s", round(ms_diff)+" days");
-        ms_diff= ms_diff/30.41666; //avg per month
-        if(round(ms_diff)===1) return out_text.replace("%s", "a month");
-        if(ms_diff<12) return out_text.replace("%s", round(ms_diff)+" months");
-        ms_diff= round(ms_diff/12);
-        if(ms_diff===1) return out_text.replace("%s", "a year");
-        return out_text.replace("%s", ms_diff+" years");
+    function getRelativeIntl(is_positive, diff, measurement, { locales= internal_locale, localeMatcher, numeric= "auto", style }= {}){
+        const i= new Intl.RelativeTimeFormat(locales, { localeMatcher, numeric, style });
+        if(!is_positive) diff= -diff;
+        return i.format(diff, measurement);
     }
+    function getRelativeBackup(is_positive, diff, measurement){
+        const out_text= !is_positive ? "%s ago" : "in %s";
+        return out_text.replace("%s", diff+" "+measurement);
+    }
+    function getRelative(diff, options){
+        const { abs, floor, round }= Math;
+        const out= typeof Intl.RelativeTimeFormat !== "function" ? getRelativeBackup : getRelativeIntl;
+        const is_positive= diff < 0 ? false : true;
+        
+        diff= floor(abs(diff)/1000);
+        if(diff<60) return out(is_positive, diff, "seconds", options);
+        diff= floor(diff/60);
+        if(diff<60) return out(is_positive, diff, "minutes", options);
+        diff= round(diff/60);
+        if(diff<24) return out(is_positive, diff, "hours", options);
+        diff= diff/24;
+        if(diff<29.5) return out(is_positive, round(diff), "days", options);
+        diff= diff/30.41666; //avg per month
+        if(diff<12) return out(is_positive, round(diff), "months", options);
+        diff= round(diff/12);
+        return out(is_positive, diff, "years", options);
+    }
+    
     function toString(format, params_obj){
         return toStringFromObject(Array.isArray(format) ? format : format ? getFormatObject(format) : undefined, params_obj);
     }
+    
     function getCETOffset([ date, time ]= []){
         if(!date||!time){
             let curr= fromNow();

@@ -1,7 +1,7 @@
 {
   "__SECTION_GULP": "",
   "fullName": "$time",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "build": "0001",
   "src_folder": "src/",
   "bin_folder": "bin/",
@@ -37,7 +37,6 @@
     "url": "https://github.com/jaandrle/dollar_time/issues"
   },
   "homepage": "https://github.com/jaandrle/dollar_time",
-  "dependencies": {},
   "devDependencies": {
     "gulp": ">3.9.1",
     "gulp-concat": "2.6.1",
@@ -51,7 +50,8 @@
     "gulp-util": "3.0.8",
     "jshint": "~2.9.6",
     "typedoc": "^0.21.9",
-    "typedoc-plugin-markdown": "^3.10.4"
+    "typedoc-plugin-markdown": "^3.10.4",
+    "typescript": "^4.4.4"
   },
   "__SECTION__JSHINT": "",
   "jshintConfig": {

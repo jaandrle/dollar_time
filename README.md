@@ -1,7 +1,7 @@
 # jaaJSU > $time ( jaandrle > JavaScript Utils > $time namespace )
 Subrepository for https://github.com/jaandrle/jaaJSU ($time namespace)
 
-Namespace `$time` contains utilites for working with JavaScript dates in *functional way*. There are *$time.from\** functions which create array in form of `[ date, time, zone ]` (e.g. `[ "2019-02-06", "T12:00:00", "Z" ]`) … so *.join("")* is valid argument for **Date** class. When it is combined with `$function.sequention` (from **jaaJSU**, or similar *pipe* function for exmple [Ramda `R.pipe`](https://ramdajs.com/docs/#pipe)) it is possible to write:
+Namespace `$time` contains utilites for working with JavaScript dates in *functional way*. There are *$time.from*★ functions which create array in form of `[ date, time, zone ]` (e.g. `[ "2019-02-06", "T12:00:00", "Z" ]`) … so *.join("")* is valid argument for **Date** class. When it is combined with `$function.sequention` (from **jaaJSU**, or similar *pipe* function for exmple [Ramda `R.pipe`](https://ramdajs.com/docs/#pipe)) it is possible to write:
 ```JavaScript
     /* manipulations */
     $function.sequention( $time.fromString, $time.modify({ addDays: -6 }), $time.toString("YYYY-MM-DD") )("2019-07-01");
@@ -16,11 +16,13 @@ Library also supports localization - internaly uses [`Date.prototype.toLocaleStr
 
 **IMPORTANT NOTE 3: Supports all modern browsers — main limitations are new patterns (e.g. arrow functions) and [`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString) see [compatibility table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString#Browser_compatibility) (iOS webkit in Cordova works - based on my tests, but I haven't found any official report about it)**
 ## Links
-- **WIP !!!** [Documentation](docs/$time.md)
+- **WIP !!!** [Documentation](docs/modules/\_time.md)
+
 ## Contribute
 - Installation: use `node install`
 - Build: use `gulp`
 - Build parameters can be changed in: `package.json`
+
 ## Quick examples
 ```JavaScript
     /* just helper */const $function= { sequention: function(...functions){return function(input){let current= input; for(let i=0, i_length= functions.length; i<i_length; i++){ current= functions[i](current); } return current; }; } };
@@ -39,9 +41,9 @@ Library also supports localization - internaly uses [`Date.prototype.toLocaleStr
     /* relative times */
     const toRelativeFromStrings= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) );
     toRelativeFromStrings("2019-07-10 12:35:14");
-    //= "a few seconds ago"
+    //= "1 second ago"
     toRelativeFromStrings("2019-07-10 12:34:30");
     //= "45 seconds ago"
     toRelativeFromStrings("2018-07-01 09:32:15");
-    //= "a year ago"
+    //= "last year"
 ```

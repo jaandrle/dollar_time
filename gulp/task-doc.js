@@ -1,5 +1,5 @@
 /* jshint esversion: 6,-W097, -W040, node: true, expr: true, undef: true */
-module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
+module.exports= function({app, $gulp_folder, gulp, error, $g, $o}){
     /* jshint -W061 */const gulp_place= $g.place({ variable_eval: (str)=> eval(str) });/* jshint +W061 */
     const folder= "src/";
     return function(done){
@@ -13,12 +13,12 @@ module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
 
         return gulp.src([ "bin/$time-bundle.d.ts" ])
             .pipe($g.typedoc({
-                out: "docs/md",
+                out: "docs",
                 readme: "none",
                 name: app.name,
                 version: true,
                 plugin: [ "typedoc-plugin-markdown" ],
-                categorizeByGroup: false,
+                categorizeByGroup: true,
                 defaultCategory: "Private",
                 categoryOrder: [ "Public", "Private", "*" ],
                 disableSources: true
