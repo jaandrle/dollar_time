@@ -6,8 +6,10 @@ function addDays(days_num){
 function addMonths(months_num){
     return date_instance=> (date_instance.setMonth(date_instance.getMonth()+months_num), date_instance);
 }
-function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone }= {}){
-    return type==="numeric" ? date_instance=> date_instance.getDay() : date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });
+function getWeekDay(type= "numeric", { locale= internal_locale, timeZone= internal_zone, sunday_shift= 0 }= {}){
+    return type==="numeric" ?
+        date_instance=> { const d=date_instance.getDay()+sunday_shift; return d<0 ? d+7 : d; } :
+        date_instance=> date_instance.toLocaleString(locale, timeZone ? { timeZone, weekday: type } : { timeZone, weekday: type });
 }
 function getWeekNumber(date_instance){
     const tdt= new Date(date_instance.valueOf());

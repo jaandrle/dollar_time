@@ -212,7 +212,23 @@ declare namespace $time{
          * 
          * **Defaults to `true`**
          */
-        declension?: boolean
+        declension?: boolean,
+        /**
+         * This provide handy way to change the default indexing for
+         * - {@link toString} with `"d"` part and/or,
+         * - {@link Date_utils.getWeekDay} – see also {@link Date.getDay}
+         *
+         * …primary for using in range [-1,infinity), for negative indices the final result is **increases by 7**
+         * 
+         * **Defaults to `0`**
+         * 
+         * *Examples:*
+         * - `sunday_shift=-1` ⇒ `Mo=0,Tu=1,We=2,Th=3,Fr=4,Sa=5,Su=6`
+         * - `sunday_shift=0` ⇒ `Mo=1,Tu=2,We=3,Th=4,Fr=5,Sa=6,Su=0`
+         * - `sunday_shift=3` ⇒ `Mo=4,Tu=5,We=6,Th=7,Fr=8,Sa=9,Su=3`
+         * - …also works: `sunday_shift=-8` ⇒ `Mo=0,Tu=1,We=2,Th=3,Fr=4,Sa=5,Su=-1``
+         */
+        sunday_shift?: number
     }
     /**
      * The locale matching algorithm to use.

@@ -4,24 +4,24 @@
 /* to_functions *//* global toDate */
 /* modify/Date *//* global getWeekNumber, getWeekDay */
 /* utility *//* global getOrdinalSuffix, double */
-function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone }= {}){
-    return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension)).join("");
+function toStringFromObject(format= format_arrays.SQL, { locale= internal_locale, declension= true, timeZone= internal_zone, sunday_shift }= {}){
+    return date_array=> format.map(evaluateFormatObject(toDate(date_array), locale, timeZone, declension, sunday_shift)).join("");
 }
-function evaluateFormatObject(date, locale, timeZone, declension){
+function evaluateFormatObject(date, locale, timeZone, declension, sunday_shift){
     const localeObj= generateTimeZoneFormatObject.bind(null, timeZone);
     return function([type, value, modify]){
-        let out= evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj);
+        let out= evaluateNthFromObject(date, [ type, value, modify ], declension, sunday_shift, locale, timeZone, localeObj);
         if(value==="2-digit"&&String(out).length===1) out= "0"+out; //fix
         if(modify==="two_letters") out= out.substr(0,2);
         else if(modify==="ordinal_number"&&locale.indexOf("en")!==-1) out= getOrdinalSuffix(out);
         return out;
     };
 }
-function evaluateNthFromObject(date, type, value, modify, declension, locale, timeZone, localeObj){
+function evaluateNthFromObject(date, [ type, value, modify ], declension, sunday_shift, locale, timeZone, localeObj){
     switch (true){
         case type==="text":                                     return value;
         case type==="week":                                     return getWeekNumber(!timeZone ? date: new Date(( (l, timeZone, two)=> l({ timeZone, year: "numeric" })+"-"+double(l({ timeZone, month: two }))+"-"+double(l({ timeZone, day: two }))+"T"+double(l({ timeZone, hour: two }))+":"+double(l({ timeZone, minute: two }))+":"+double(l({ timeZone, second: two })) )( Date.prototype.toLocaleString.bind(date, "en-GB"), timeZone, "2-digit" )));
-        case type==="weekday"&&value==="numeric":               return getWeekDay()(date);
+        case type==="weekday"&&value==="numeric":               return getWeekDay("numeric", { sunday_shift })(date);
         case type==="month"&&value==="long"&&declension:        return date.toLocaleString(locale,localeObj({ [type]: value, day: "numeric" })).replace(/[\d \.\/\\]/g, "");
         case type==="hour"&&modify.toLowerCase()==="a":         return date.toLocaleString(modify==="A" ? "en-US" : "en-GB",localeObj({ [type]: value, hourCycle: "h12" })).replace(/[\d \.\/\\]/g, "");
         case type==="hour":                                     return date.toLocaleString(locale,localeObj({ [type]: value, hourCycle: modify })).replace(/[ \.\/\\pam]/ig, "");
