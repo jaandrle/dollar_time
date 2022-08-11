@@ -1,16 +1,14 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true */
-module.exports= function({app, $gulp_folder, $o, $run, gulp}){
+module.exports= function({app, $gulp_folder, $o, gulp}){
     return function(cb){
         $o.fs.writeFileSync($gulp_folder+'build.log', "");
         $o.fs.readFile($gulp_folder+'gulpfile.log', function(err,data){
             if(err){
                 $o.fs.writeFile($gulp_folder+'gulpfile.log', JSON.stringify(app), ()=>{});
-                if($run.github) $o.spawn($run.github, [], {});
             } else {
                 data= JSON.parse(data.toString());
                 if(data.build!==app.build){
                     $o.fs.writeFile($gulp_folder+'gulpfile.log', JSON.stringify(app), ()=>{});
-                    if($run.github) $o.spawn($run.github, [], {});
                 }
             }
             let sequence= [];

@@ -3,11 +3,12 @@ const $function= { sequention: function(...functions){return function(input){let
 /* global $time */
 const main_el= document.getElementById("main");
 
-function test(text, schould){
+function test(text, schould, originally){
     const el= document.createElement("P");
     text= (text.toString && text.toString()) || text;
     const ok= text===schould;
-    if(ok) Object.assign(el, { textContent: "OK: "+text, style: "color: green" });
+    const originally_text= !originally ? "" : (" (originally: "+originally+")");
+    if(ok) Object.assign(el, { textContent: "OK: "+text+originally_text, style: "color: green" });
     else Object.assign(el, { textContent: "Failed: "+text+" (schould be: '"+schould+"')", style: "color: red" });
     main_el.append(el);
 }
@@ -55,14 +56,14 @@ test(res, "Mo");
 
 $time._toRelativeFromStrings= $function.sequention( $time.fromString, $time.toRelative($time.fromString("2019-07-10 12:35:15")) );
 
-log(`moment("2019-07-10 12:35:14").from("2019-07-10 12:35:15") → setted as 'now'`);
+log(`moment("2019-07-10 12:35:14").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-07-10 12:35:14");
-test(res, "now");
+test(res, "1 second ago", "now");
 
 
 log(`moment("2019-07-10 12:35:10").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-07-10 12:35:10");
-test(res, "a few seconds ago");
+test(res, "5 seconds ago", "a few seconds ago");
 
 
 log(`moment("2019-07-10 12:34:30").from("2019-07-10 12:35:15")`);
@@ -72,7 +73,7 @@ test(res, "45 seconds ago");
 
 log(`moment("2019-07-10 12:34:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-07-10 12:34:15");
-test(res, "a minute ago");
+test(res, "1 minute ago", "a minute ago");
 
 
 log(`moment("2019-07-10 12:32:15").from("2019-07-10 12:35:15")`);
@@ -82,7 +83,7 @@ test(res, "3 minutes ago");
 
 log(`moment("2019-07-10 11:32:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-07-10 11:32:15");
-test(res, "an hour ago");
+test(res, "1 hour ago", "an hour ago");
 
 
 log(`moment("2019-07-10 09:32:15").from("2019-07-10 12:35:15")`);
@@ -91,7 +92,7 @@ test(res, "3 hours ago");
 
 log(`moment("2019-07-09 09:32:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-07-09 09:32:15");
-test(res, "a day ago");
+test(res, "yesterday", "a day ago");
 
 log(`moment("2019-07-01 09:32:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-07-01 09:32:15");
@@ -99,7 +100,7 @@ test(res, "9 days ago");
 
 log(`moment("2019-06-01 09:32:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2019-06-01 09:32:15");
-test(res, "a month ago");
+test(res, "last month", "a month ago");
 
 
 log(`moment("2018-10-01 09:32:15").from("2019-07-10 12:35:15")`);
@@ -108,7 +109,7 @@ test(res, "9 months ago");
 
 log(`moment("2018-07-01 09:32:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2018-07-01 09:32:15");
-test(res, "a year ago");
+test(res, "last year", "a year ago");
 
 log(`moment("2017-10-01 09:32:15").from("2019-07-10 12:35:15")`);
 res= $time._toRelativeFromStrings("2017-10-01 09:32:15");

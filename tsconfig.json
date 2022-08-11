@@ -1,0 +1,5 @@
+{
+    "include": [
+        "bin/$time-bundle.d.ts"
+    ]
+}

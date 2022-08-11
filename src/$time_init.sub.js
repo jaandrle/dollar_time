@@ -1,20 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 const /* internal store */
     format_objects= (({ time, date, seconds })=>({
-    /**
-     * Internal object holding predefined formating arguments for {@link module:jaaJSU~$time.toLocaleString}.
-     * @namespace format_objects
-     * @private
-     * @readonly
-     * @property {Object} time shows combination of 2-digits hour and minutes
-     * @property {Object} time_seconds shows combination of `time` and seconds
-     * @property {Object} date shows combination of 2-digits day, month and full year
-     * @property {Object} date_time shows combination of `time` and `date`
-     * @property {Object} date_time_seconds shows combination of `date_time` and `seconds`
-     * @memberof module:jaaJSU~$time
-     * @example
-     * format_objects.time==={ hour: "2-digit", minute: "2-digit" }
-     */
         time, date,
         time_seconds: Object.assign(seconds, time),
         date_time: Object.assign({}, time, date),
@@ -25,18 +11,6 @@ const /* internal store */
         seconds: { second: "2-digit" }
     }),
     format_arrays= (({ dash, colon, space, two_dig })=>({
-    /**
-     * Internal object holding predefined formating arguments for {@link module:jaaJSU~$time.getFormatObject}.
-     * @namespace format_arrays
-     * @private
-     * @readonly
-     * @property {module:jaaJSU~$time~ArrayOfOperation[]} SQL_DATE Generate format of **"YYYY-MM-DD"**
-     * @property {module:jaaJSU~$time~ArrayOfOperation[]} SQL Generate format of **"YYYY-MM-DD HH:mm:ss"**
-     * @property {module:jaaJSU~$time~ArrayOfOperation[]} SQL_TIME Generate format of **"HH:mm:ss"**
-     * @memberof module:jaaJSU~$time
-     * @example
-     * format_arrays.YYYYMMDD=== [ ["year", "numeric"], [ "text", "-" ], ["month", "2-digit"], [ "text", "-" ], ["day", "2-digit"] ]
-     */
         SQL_DATE: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig] ],
         SQL_TIME: [ ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ],
         SQL: [ ["year", "numeric"], dash, ["month", two_dig], dash, ["day", two_dig], space, ["hour", two_dig, "h23"], colon, ["minute", two_dig], colon, ["second", two_dig] ]
@@ -46,52 +20,13 @@ const /* internal store */
         space: [ "text", " " ],
         two_dig: "2-digit"
     }),
-    /**
-     * Internal helper array for {@link module:jaaJSU~$time.getOrdinalSuffix}.
-     * @property {Array} ordinal_numbers
-     * @private
-     * @readonly
-     * @memberof module:jaaJSU~$time
-     */
     ordinal_numbers= [ "th", "st", "nd", "rd" ];
 const /* validation functions */
-/**
- * Very simple test for 'YYYY-MM-DD' pattern. Returns `true` if `date_string` includes **`-`**.
- * @method isDateString
- * @memberof module:jaaJSU~$time
- * @private
- * @param {String|...String} date_string
- * @returns {Boolean}
- * @example
- * isDateString("2019-05-06");//= true
- * isDateString("06/05/2019");//= false !!!!
- */
     isDateString= date_string=> date_string.indexOf("-")!==-1,
-/**
- * Very simple test for 'T...' pattern. Returns `true` if `date_string` includes **`T`**.
- * @method isTimeString
- * @memberof module:jaaJSU~$time
- * @private
- * @param {String|...String} date_string
- * @returns {Boolean}
- * @example
- * isTimeString("T12:00:00");//= true
- * isTimeString("12:00:00");//= false !!!
- * isTimeString("Twrong");//= true !!!!
- */
     isTimeString= date_string=> date_string.indexOf("T")!==-1;
 let /* internal variables*/
     internal_locale= "en-GB",
     internal_zone= "";
-/**
- * This array stores all time zones names (eg. 'Europe/Andorra') supported by `{ timeZone: ... }` in second argument of `Date.prototype.toLocaleString`.
- * 
- * Original from [stackoverflow.com/a/54500197](https://stackoverflow.com/a/54500197).
- * @property {Array} ary_ianna_time_zones
- * @private
- * @readonly
- * @memberof module:jaaJSU~$time
- */
 const ary_ianna_time_zones= Object.freeze([
     'Africa/Abidjan',
     'Africa/Accra',

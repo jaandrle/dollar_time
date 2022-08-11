@@ -1,15 +1,6 @@
 /* jshint esversion: 6,-W097, -W040, browser: true, expr: true, undef: true */
 /* init *//* global isDateString, isTimeString, internal_zone */
 /* from_functions *//* global toDateArray, fromNow */
-/**
- * Function generates `DateArray` from passed string.
- * @method fromString
- * @memberof module:jaaJSU~$time
- * @public
- * @param {String} [timestamp_string] If `undefined` returns result of {@link module:jaaJSU~$time.fromNow}, else it is used {@link module:jaaJSU~$time.toDateArray} for parsing.
- * @param {String} [timezone= internal_zone] Default timezone — uses if is not setted in `timestamp_string`
- * @returns {module:jaaJSU~$time~DateArray}
- */
 export function fromString(timestamp_string, timezone= internal_zone){
     if(!timestamp_string) return fromNow();
     let date_array= toDateArray(timestamp_string);
