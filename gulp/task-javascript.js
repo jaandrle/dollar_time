@@ -22,7 +22,6 @@ module.exports= function({app, $gulp_folder, gulp, error, $g, $o}){
                     .pipe(gulp.dest(app.bin_folder))
                     .on('end', function minify(){
                         gulp.src([app.bin_folder+"*js", "!"+app.bin_folder+"*-min.js"])
-                            //.pipe($g.js_obfuscator())
                             .pipe($g.minify_js({noSource : true}))
                             .on('error', error.handler)
                             //.pipe($g.rename({suffix: ".min"}))
