@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>$time</title>
+	<script src="../bin/$time-bundle.js"></script>
+	<link rel="stylesheet" href="https://htest.dev/htest.css" crossorigin />
+	<script src="https://htest.dev/htest.js" crossorigin></script>
+	<script>
+		function _out(cb){ return $out(()=> JSON.stringify(cb())); }
+		function _printOut(el){ return el.insertAdjacentHTML("afterend", "<pre>"+Prism.highlight(el.textContent, Prism.languages.javascript)+"</pre>"); }
+		document.addEventListener("DOMContentLoaded", ()=> document.querySelectorAll("script.language-javascript").forEach(el=> el.insertAdjacentHTML("afterend", `<pre><code class="language-javascript">${el.textContent.trim()}</code></pre>`)));
+	</script>
+</head>
+<body>
+	<h1>Typical operations</h1>
+	<p>Comparison with `moment` library. Used following helper:</p>
+	<script class="language-javascript">
+		const $function= { sequention: function(...functions){return function(input){let current= input; for(let i=0, i_length= functions.length; i<i_length; i++){ current= functions[i](current); } return current; }; } };
+	</script>
+	<table class="reftest">
+		<tr title="parse date string">
+			<td><script>_out(()=> $time.fromString("2019-07-01"))</script></td>
+			<td>["2019-07-01","",""]</td>
+		</tr>
+		<tr title='moment("2019-07-01").add({ day: -6 }).format("YYYY-MM-DD")'>
+			<td><script>_out(()=>
+				$function.sequention(
+					$time.fromString,
+					$time.modify({ addDays: -6 }),
+					$time.toString("YYYY-MM-DD")
+				)("2019-07-01")
+			)</script></td>
+			<td>"2019-06-25"</td>
+		</tr>
+	</table>
+	<script></script>
+</body>
+</html>

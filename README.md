@@ -22,9 +22,7 @@ library.
 **IMPORTANT NOTE 2:** There isn't strict development cycle for now + WIP!!!
 
 **IMPORTANT NOTE 3:** Supports all modern browsers — main limitations are new patterns (e.g. arrow functions) and
-[`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Date/toLocaleString)
-see [compatibility table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Date/toLocaleString#Browser\_compatibility)
-(iOS webkit in Cordova works - based on my tests, but I haven't found any official report about it)
+[`Date.prototype.toLocaleString`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Date/toLocaleString) see [compatibility table](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global\_Objects/Date/toLocaleString#Browser\_compatibility) (iOS webkit in Cordova works - based on my tests, but I haven't found any official report about it)
 
 ## Links
 
